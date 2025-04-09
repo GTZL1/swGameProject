@@ -1,7 +1,19 @@
-h1 {
-    text-align: center;
+header {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: fit-content;
 }
 
-select {
+header h1 {
+    white-space: nowrap;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+}
+
+#flagList {
+    margin-left: auto;
     text-align: right;
 }

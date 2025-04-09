@@ -7,10 +7,10 @@ const TitleBar = ({nameP}) => {
         return <h1>{name}</h1>;
     }
         
-      return (<>
+      return (<header>
         <TitleText name={nameP} />
         <LanguageSwitch />
-        </>);
+        </header>);
 }
 
 export default TitleBar;

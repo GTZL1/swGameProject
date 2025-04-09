@@ -6,6 +6,7 @@ import TitleBar from '../utils/title/title.js';
 
 const HomePage = () => {
   return (<>
+  <title>{SENTENCES.TITLES.MAIN_TITLE}</title>
   <TitleBar nameP={SENTENCES.TITLES.MAIN_TITLE} />
   <ButtonLink route = {ENDPOINTS.IDENTITY_ENDPOINT}>To identity mode</ButtonLink>
   <ButtonLink route = {ENDPOINTS.QUESTION_ENDPOINT}>To questions mode</ButtonLink>
