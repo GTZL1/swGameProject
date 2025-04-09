@@ -6,14 +6,14 @@ import TitleBar from '../utils/title/title.js';
 import { useTranslation } from "react-i18next";
 
 const HomePage = () => {
-   const {t} = useTranslation();
+    const {t} = useTranslation();
 
-  return (<>
-  <title>{SENTENCES.TITLES.MAIN_TITLE}</title>
-  <TitleBar nameP={t('titles.main_title')} />
-  <ButtonLink route = {ENDPOINTS.IDENTITY_ENDPOINT}>To identity mode</ButtonLink>
-  <ButtonLink route = {ENDPOINTS.QUESTION_ENDPOINT}>To questions mode</ButtonLink>
-  </>)
+    return (<>
+    <title>{SENTENCES.TITLES.MAIN_TITLE}</title>
+    <TitleBar nameP={t('titles.main_title')} />
+    <ButtonLink route = {ENDPOINTS.IDENTITY_ENDPOINT}>To identity mode</ButtonLink>
+    <ButtonLink route = {ENDPOINTS.QUESTION_ENDPOINT}>To questions mode</ButtonLink>
+    </>)
 }
 
 export default HomePage

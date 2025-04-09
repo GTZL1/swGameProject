@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import Title from '../../utils/title/title.js';
-import SENTENCES from '../../constants/sentences.js';
+import { useTranslation } from 'react-i18next';
 
-const IdentityPage = (props) => {
+const IdentityPage = () => {
+    const {t} = useTranslation();
+
     function IdentityPage() {
-        return <Title nameP={SENTENCES.TITLES.IDENTITY_TITLE}/>
-      }
-        
-      return <IdentityPage/>;
+      return <Title nameP={t('titles.identity_title')}/>
+    }
+     
+    return <IdentityPage/>;
 }
 
 export default IdentityPage;
