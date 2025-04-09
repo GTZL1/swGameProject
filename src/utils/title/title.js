@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import './title.css';
+import LanguageSwitch from '../buttons/languageSwitch.js';
 
-const Title = ({nameP}) => {
-    function Greeting({ name }) {
+const TitleBar = ({nameP}) => {
+    function TitleText({ name }) {
         return <h1>{name}</h1>;
-      }
+    }
         
-      return <Greeting name={nameP} />;
+      return (<>
+        <TitleText name={nameP} />
+        <LanguageSwitch />
+        </>);
 }
 
-export default Title;
+export default TitleBar;
