@@ -10,16 +10,16 @@ const LanguageSwitch = () => {
     setIsClicked(!isClicked)
   };
 
-  return (<>
+  return (<div id="flagList">
     <button onClick={handleLanguageChange}><img src={EngIcon}
     className="langFlag"
     alt="UK flag icon" />
     </button>
-    {isClicked &&<div id="flagList">
-    <img src={FrIcon} alt="France flag icon" className="langFlag"/>
-    <img src={EngIcon} className="langFlag"/>
-    </div>}
-    </>
+    {isClicked &&<>
+    <button><img src={FrIcon} alt="France flag icon" className="langFlag"/></button>
+    <button><img src={EngIcon} className="langFlag"/></button>
+    </>}
+    </div>
   );
 };
 
