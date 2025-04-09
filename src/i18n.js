@@ -12,6 +12,8 @@ const resources = {
   }
 };
 
+export const ALL_LANGUAGES = Object.keys(resources);
+
 i18n.use(initReactI18next).init({
   resources,
   lng: "en",

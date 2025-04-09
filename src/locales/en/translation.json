@@ -2,6 +2,7 @@
     "titles": {
         "main_title" : "A SIMPLE GAME IN THE GALAXY...",
         "question_title" : "Questions mode",
-        "identity_title" : "Identity mode"
+        "identity_title" : "Identity mode",
+        "icon" : "eng-icon.png"
     }
 }
