@@ -5,13 +5,23 @@
 #flagList {
     display: flex;
     flex-direction: column;
-    width: fit-content;
-    justify-content: center;
     align-items: center;
-    width: 50px;
+    gap: 4px;
+}
+
+#flagList button {
+    display: flex; /* Use Flexbox for the button */
+    justify-content: center; /* Center icon horizontally */
+    align-items: center; /* Center icon vertically */
+    width: 44px; /* Set equal width and height */
+    height: 44px; /* Make the button square */
+    border: none; /* Remove default border */
+    padding: 0; /* Remove default padding */
+    background-color: transparent; /* Optional: Set background color */
+    cursor: pointer; /* Add pointer cursor for better UX */
 }
 
 #flagList img {
-    vertical-align: center;
+    max-height: 100%;
     max-width: 100%;
 }

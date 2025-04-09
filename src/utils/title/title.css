@@ -1,8 +1,12 @@
 header {
     display: flex;
-    position: relative;
+    position: sticky;
+    top: 0;
     width: 100%;
     height: fit-content;
+    align-items: center;
+    overflow: visible;
+    height: 60px;
 }
 
 header h1 {
@@ -14,6 +18,11 @@ header h1 {
 }
 
 #flagList {
-    margin-left: auto;
+    position: absolute; 
+    right: 0;
     text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
 }
