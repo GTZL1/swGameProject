@@ -5,7 +5,7 @@ import QuestionFetcher from "./questionFetcher.js";
 const QuestionBox = () => {
     const [isCorrect, setIsCorrect] = useState(null);
     const [userInput, setUserInput] = useState("");
-    const { i18n,t } = useTranslation();
+    const { t } = useTranslation();
 
     const question = QuestionFetcher.findQuestion();
 
@@ -33,14 +33,14 @@ const QuestionBox = () => {
     function CorrectAnswer() {
         return <>
             <span className="rightA">
-                {userInput.charAt(0).toUpperCase() + userInput.slice(1)}... that is correct ! Well done !</span>
+                {userInput.charAt(0).toUpperCase() + userInput.slice(1)}{t('questions.correct_answer')}</span>
         </>
     }
 
     function WrongAnswer() {
         return <>
-            <p className="wrongA">Too bad, you're wrong this time...</p>
-            <span>Correct answer was {question.getAnswer()}</span>
+            <p className="wrongA">{t('questions.wrong_answer_prompt')}</p>
+            <span>{t('questions.wrong_answer_correction')}{question.getAnswer()}</span>
         </>
     }
 
@@ -52,9 +52,9 @@ const QuestionBox = () => {
             <button onClick={() => {
                 setIsCorrect(null);
                 setUserInput("");
-            }}
-            >New question</button>
-            </>
+            }}>
+                {t('questions.new_question')}
+            </button></>
         )}
     </>);
 }

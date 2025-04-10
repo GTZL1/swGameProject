@@ -6,5 +6,11 @@
         "daily_title" : "Today's challenges",
         "question_button" : "Chain the questions",
         "identity_button" : "Fill some identity cards"
+    },
+    "questions" : {
+        "correct_answer" : "... that is correct ! Well done !",
+        "wrong_answer_prompt" : "Too bad, you're wrong this time...",
+        "wrong_answer_correction" : "Correct answer was ",
+        "new_question" : "New question"
     }
 }
