@@ -1,20 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import Question from "./question.js";
 
 const QuestionBox = () => {
+    const [isCorrect, setIsCorrect] = useState(null);
+    const [userInput, setUserInput] = useState("");
     const { i18n,t } = useTranslation();
 
-    function Question() {
-        return <div>Q: question</div>
+    const question = new Question("Question", "bi");
+
+    function checkAnswer(event) {
+        event.preventDefault();
+        const userAnswer = event.currentTarget.elements.answerInput.value;
+        setIsCorrect(question.checkAnswer(userAnswer));
+        setUserInput(userAnswer);
+    }
+
+    function QuestionComponent() {
+        return <div>Q: {question.getText()}</div>
     }
 
     function Answer() {
-        return <input name="answerInput"/>
+        return(<>
+        <form onSubmit={checkAnswer}>
+            <input id="answerInput"
+                disabled={isCorrect !== null}/>
+            <button type="submit">V</button>
+        </form>
+        </>);
+    }
+
+    function CorrectAnswer() {
+        return <>
+            <span className="rightA">
+                {userInput.charAt(0).toUpperCase() + userInput.slice(1)}... that is correct ! Well done !</span>
+        </>
+    }
+
+    function WrongAnswer() {
+        return <>
+            <p className="wrongA">Too bad, you're wrong this time...</p>
+            <span>Correct answer was {answerRef}</span>
+        </>
     }
 
     return(<>
-        <Question />
+        <QuestionComponent />
         <Answer />
+        {isCorrect !== null && ( <>
+            {isCorrect ? <CorrectAnswer /> : <WrongAnswer />}
+            <button onClick={() => {
+                setIsCorrect(null);
+                setUserInput("");
+            }}
+            >New question</button>
+            </>
+        )}
     </>);
 }
 
