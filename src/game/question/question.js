@@ -1,14 +1,16 @@
 class Question {
-    #text; 
+    #documentId;
+    #questionTitle; 
     #answer;
 
-    constructor(text, answer) {
-        this.#text = text;
+    constructor(documentId, text, answer) {
+        this.#documentId = documentId;
+        this.#questionTitle = text;
         this.#answer = answer;
     }
 
-    getText() {
-        return this.#text;
+    getQuestionTitle() {
+        return this.#questionTitle;
     }
 
     getAnswer() {

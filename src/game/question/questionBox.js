@@ -17,7 +17,7 @@ const QuestionBox = () => {
     }
 
     function QuestionComponent() {
-        return <div>Q: {question.getText()}</div>
+        return <div>Q: {question.getQuestionTitle()}</div>
     }
 
     function Answer() {

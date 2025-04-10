@@ -1,7 +1,9 @@
 const ENDPOINTS = {
-    'HOME_ENDPOINT' : '/',
-    'QUESTION_ENDPOINT' : '/question',
-    'IDENTITY_ENDPOINT' : '/identity'
+    'HOME' : '/',
+    'QUESTION_PAGE' : '/question',
+    'IDENTITY_PAGE' : '/identity',
+    'GET_ALL_QUESTION_DOCIDS' : 'http://localhost:1337/api/question-api/all',
+    'GET_QUESTION_PER_DOCID' : 'http://localhost:1337/api/question-api/docId'
 }
 
 Object.freeze(ENDPOINTS);

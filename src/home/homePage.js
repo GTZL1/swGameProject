@@ -11,8 +11,8 @@ const HomePage = () => {
     return (<>
     <title>{SENTENCES.TITLES.MAIN_TITLE}</title>
     <TitleBar nameP={t('titles.main_title')} />
-    <ButtonLink route = {ENDPOINTS.QUESTION_ENDPOINT}>{t('titles.question_button')}</ButtonLink>
-    <ButtonLink route = {ENDPOINTS.IDENTITY_ENDPOINT}>{t('titles.identity_button')}</ButtonLink>
+    <ButtonLink route = {ENDPOINTS.QUESTION_PAGE}>{t('titles.question_button')}</ButtonLink>
+    <ButtonLink route = {ENDPOINTS.IDENTITY_PAGE}>{t('titles.identity_button')}</ButtonLink>
     </>)
 }
 
