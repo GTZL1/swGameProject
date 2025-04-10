@@ -1,15 +1,22 @@
 class Question {
+    #text; 
+    #answer;
+
     constructor(text, answer) {
-        this.text = text;
-        this.answer = answer;
+        this.#text = text;
+        this.#answer = answer;
     }
 
     getText() {
-        return this.text;
+        return this.#text;
+    }
+
+    getAnswer() {
+        return this.#answer;
     }
 
     checkAnswer(userInput) {
-        return userInput.toLowerCase() === this.answer.toLowerCase();
+        return userInput.toLowerCase() === this.#answer.toLowerCase();
     }
 }
 

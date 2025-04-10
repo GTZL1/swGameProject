@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import Question from "./question.js";
+import QuestionFetcher from "./questionFetcher.js";
 
 const QuestionBox = () => {
     const [isCorrect, setIsCorrect] = useState(null);
     const [userInput, setUserInput] = useState("");
     const { i18n,t } = useTranslation();
 
-    const question = new Question("Question", "bi");
+    const question = QuestionFetcher.findQuestion();
 
     function checkAnswer(event) {
         event.preventDefault();
@@ -40,7 +40,7 @@ const QuestionBox = () => {
     function WrongAnswer() {
         return <>
             <p className="wrongA">Too bad, you're wrong this time...</p>
-            <span>Correct answer was {answerRef}</span>
+            <span>Correct answer was {question.getAnswer()}</span>
         </>
     }
 
