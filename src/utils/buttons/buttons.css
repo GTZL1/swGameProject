@@ -2,6 +2,7 @@
     color: red;
 }
 
+/*appearance only, position is in button.css*/
 #flagList {
     display: flex;
     flex-direction: column;

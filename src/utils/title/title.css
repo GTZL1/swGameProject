@@ -17,6 +17,7 @@ header h1 {
     margin: 0;
 }
 
+/*position only, appearance is in button.css*/
 #flagList {
     position: absolute; 
     right: 0;
