@@ -1,0 +1,10 @@
+{
+    "titles": {
+        "main_title" : "A SIMPLE GAME IN THE GALAXY...",
+        "question_title" : "Questions mode",
+        "identity_title" : "Identity mode",
+        "daily_title" : "Today's challenges",
+        "question_button" : "Chain the questions",
+        "identity_button" : "Fill some identity cards"
+    }
+}
