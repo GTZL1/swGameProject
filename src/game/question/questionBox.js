@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { useTranslation } from "react-i18next";
 import Question from "./question.js";
+import "./question.css";
 import ENDPOINTS from "../../constants/endpoints.js";
 
 const QuestionBox = () => {
@@ -46,10 +47,11 @@ const QuestionBox = () => {
                 setQuestion(new Question(
                     response.data.documentId,
                     response.data.questionTitle,
-                    response.data.answer));
+                    response.data.answer,
+                    response.data.image));
             })
             .catch((error) => {
-            console.log(error);
+                console.log(error);
             });
     }
 
@@ -90,6 +92,8 @@ const QuestionBox = () => {
     }
 
     return(<>
+        { (question !== null && question.getImageUrl().length > 0) &&
+        <img src={'http://localhost:1337' + question.getImageUrl()} />}    
         <QuestionComponent />
         <Answer />
         {isCorrect !== null && ( <>

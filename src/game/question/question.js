@@ -2,11 +2,13 @@ class Question {
     #documentId;
     #questionTitle; 
     #answer;
+    #imageUrl;
 
-    constructor(documentId, text, answer) {
+    constructor(documentId, text, answer, image) {
         this.#documentId = documentId;
         this.#questionTitle = text;
         this.#answer = answer;
+        this.#imageUrl = (image === null ? "" : image.url)
     }
 
     getDocumentId() {
@@ -19,6 +21,10 @@ class Question {
 
     getAnswer() {
         return this.#answer;
+    }
+
+    getImageUrl() {
+        return this.#imageUrl;
     }
 
     checkAnswer(userInput) {
