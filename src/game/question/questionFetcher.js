@@ -1,9 +1,17 @@
 import Question from "./question.js";
 
 class QuestionFetcher {
+    static #nbQuestions = 11;
+
+
     static findQuestion() {
-        return new Question("ror7x",
-            "Question" + Math.floor(Math.random() * 10), "bi");
+        const nb = Math.floor(Math.random() * 11);
+        return new Question(nb.toString(),
+            "Question" +nb, "bi");
+    }
+
+    static getNbQuestions() {
+        return this.#nbQuestions;
     }
 }
 

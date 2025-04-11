@@ -9,6 +9,10 @@ class Question {
         this.#answer = answer;
     }
 
+    getDocumentId() {
+        return this.#documentId;
+    }
+
     getQuestionTitle() {
         return this.#questionTitle;
     }
