@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { useTranslation } from "react-i18next";
-import QuestionFetcher from "./questionFetcher.js";
 import Question from "./question.js";
+import ENDPOINTS from "../../constants/endpoints.js";
 
 const QuestionBox = () => {
     const [allQuestionDocIds, setAllQuestionDocIds] = useState([]);
@@ -11,11 +11,11 @@ const QuestionBox = () => {
     const [alreadyUsedIds, setAlreadyUsedIds] = useState([])
     const [question, setQuestion] = useState(null);
     const [nbQuestions, setNbQuestions] = useState(1);
-    const { t } = useTranslation();
+    const { i18n,t } = useTranslation();
 
     useEffect(() => {
         axios
-         .get('http://localhost:1337/api/question-api/all')
+         .get(`${ENDPOINTS.GET_ALL_QUESTION_DOCIDS}`)
          .then((response) => {
             setAllQuestionDocIds(response.data);
             fetchQuestion(response.data);
@@ -25,21 +25,28 @@ const QuestionBox = () => {
          });
     }, []);
 
-    function fetchQuestion(allDocIds) {
-        let docId = null;
-        console.log(allDocIds);
+    useEffect(() => {
+        if (allQuestionDocIds.length > 0) {
+            fetchQuestion(allQuestionDocIds, question.getDocumentId());
+        }
+    }, [i18n.language]);
 
-        do {
-            docId = allDocIds[Math.floor(Math.random() * allDocIds.length)];
-        } while (alreadyUsedIds.includes(docId));
-
+    function fetchQuestion(allDocIds, docId = null) {
+        if (docId === null) {
+            do {
+                docId = allDocIds[Math.floor(Math.random() * allDocIds.length)];
+            } while (alreadyUsedIds.includes(docId));
+        }
+        
         setAlreadyUsedIds([...alreadyUsedIds, docId]);
         
         axios
-            .get('http://localhost:1337/api/question-api/docId?documentId=' + docId)
+            .get(`${ENDPOINTS.GET_QUESTION_PER_DOCID}${docId}&locale=${i18n.language}`)
             .then((response) => {
-                setQuestion(new Question(response.data.documentId,
-                    response.data.questionTitle, response.data.answer));
+                setQuestion(new Question(
+                    response.data.documentId,
+                    response.data.questionTitle,
+                    response.data.answer));
             })
             .catch((error) => {
             console.log(error);
@@ -70,7 +77,7 @@ const QuestionBox = () => {
 
     function CorrectAnswer() {
         return <>
-            <span className="rightA">
+            <span className="rightA"><br/>
                 {userInput.charAt(0).toUpperCase() + userInput.slice(1)}{t('questions.correct_answer')}</span>
         </>
     }
