@@ -1,23 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from 'axios';
 import { useTranslation } from "react-i18next";
 import QuestionFetcher from "./questionFetcher.js";
+import Question from "./question.js";
 
 const QuestionBox = () => {
+    const [allQuestionDocIds, setAllQuestionDocIds] = useState([]);
     const [isCorrect, setIsCorrect] = useState(null);
     const [userInput, setUserInput] = useState("");
     const [alreadyUsedIds, setAlreadyUsedIds] = useState([])
-    const [question, setQuestion] = useState(() => fetchQuestion());
+    const [question, setQuestion] = useState(null);
     const [nbQuestions, setNbQuestions] = useState(1);
     const { t } = useTranslation();
 
-    function fetchQuestion() {
-        let questionTemp = QuestionFetcher.findQuestion();
-        if (alreadyUsedIds.includes(questionTemp.getDocumentId())) {
-            questionTemp = fetchQuestion();
-        } else {
-            setAlreadyUsedIds([...alreadyUsedIds, questionTemp.getDocumentId()]);
-        }
-        return questionTemp;
+    useEffect(() => {
+        axios
+         .get('http://localhost:1337/api/question-api/all')
+         .then((response) => {
+            setAllQuestionDocIds(response.data);
+            fetchQuestion(response.data);
+         })
+         .catch((error) => {
+            console.log(error);
+         });
+    }, []);
+
+    function fetchQuestion(allDocIds) {
+        let docId = null;
+        console.log(allDocIds);
+
+        do {
+            docId = allDocIds[Math.floor(Math.random() * allDocIds.length)];
+        } while (alreadyUsedIds.includes(docId));
+
+        setAlreadyUsedIds([...alreadyUsedIds, docId]);
+        
+        axios
+            .get('http://localhost:1337/api/question-api/docId?documentId=' + docId)
+            .then((response) => {
+                setQuestion(new Question(response.data.documentId,
+                    response.data.questionTitle, response.data.answer));
+            })
+            .catch((error) => {
+            console.log(error);
+            });
     }
 
     function checkAnswer(event) {
@@ -28,7 +54,7 @@ const QuestionBox = () => {
     }
 
     function QuestionComponent() {
-        return <div>Q: {question.getQuestionTitle()}</div>
+        return <div>Q: {question?.getQuestionTitle()}</div>
     }
 
     function Answer() {
@@ -64,9 +90,9 @@ const QuestionBox = () => {
             <button onClick={() => {
                 setIsCorrect(null);
                 setUserInput("");
-                setQuestion(fetchQuestion());
+                fetchQuestion(allQuestionDocIds);
                 setNbQuestions(nbQuestions + 1);
-            }} disabled={nbQuestions == QuestionFetcher.getNbQuestions()}>
+            }} disabled={nbQuestions == allQuestionDocIds.length}>
                 {t('questions.new_question')}
             </button></>
         )}
