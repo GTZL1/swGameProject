@@ -1,0 +1,12 @@
+#master {
+    display: flex;
+    flex-direction: row;
+}
+
+.formDiv {
+    width: 50%;
+}
+
+img {
+    max-height: 250 px;
+}

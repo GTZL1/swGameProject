@@ -3,6 +3,7 @@ import ENDPOINTS from '../../constants/endpoints.js';
 import { useState, useEffect } from 'react';
 import { useTranslation } from "react-i18next";
 import axios from 'axios';
+import './identity.css';
 
 const IdentityBox = () => {
     const [allCharIds, setAllCharIds] = useState([]);
@@ -68,19 +69,20 @@ const IdentityBox = () => {
     }
 
     function Category () {
-        const [selectedCategory, setSelectedCategory] = useState(null);
+        const [selectedCategory, setSelectedCategory] = useState("none");
         const [showPlaceholder, setShowPlaceholder] = useState(true);
 
         return <div id="category"> 
-            <select value={selectedCategory}
+            <select
+                value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
                 onFocus={() => setShowPlaceholder(false)}
-                onClose={(e) => setShowPlaceholder(e.target.value === undefined)}
+                //onClose={(e) => setShowPlaceholder(e.target.value === undefined)}
                 style={{color : showPlaceholder ? "grey" : "black"}}>
                     <option key={-1} disabled value="none"
                         style={{display : showPlaceholder ? "inline" : "none"}}>
                             Select category...
-                        </option>
+                    </option>
                     {allCategories.map((c, index) => <option key={index} value={c}>{c}</option>)}
             </select>
         </div>
@@ -94,12 +96,28 @@ const IdentityBox = () => {
         </div>
     }
 
-    return <>
-        <form>
-            <Category />
-            <Names />
-        </form>
-    </>
+    function Image() {
+        return <div>
+            <img src={(`${ENDPOINTS.BACKEND_URL}${character?.imageUrl}`)} />
+        </div>
+    }
+
+    function datePlanet({year, planet, event }) {
+        return <>
+            <input id={`${event}Year`} type="number" label={`${event}Year`} />
+            <input id={`${event}Planet`} placeholder = {`${event} planet`} />
+        </>
+    }
+
+    return <div id = "master">
+        <div className="formDiv">
+            <form>
+                <Category />
+                <Names />
+            </form>
+        </div>
+        <Image />
+    </div>
 }
 
 export default IdentityBox;
