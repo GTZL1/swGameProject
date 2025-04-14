@@ -97,7 +97,7 @@ const QuestionBox = () => {
 
     return(<>
         { (question !== null && question.getImageUrl().length > 0) &&
-        <img src={'http://localhost:1337' + question.getImageUrl()} />}    
+        <img src={(`${ENDPOINTS.BACKEND_URL}${question.getImageUrl()}`)} />}    
         <QuestionComponent />
         <Answer />
         {isCorrect !== null && ( <>
