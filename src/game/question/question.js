@@ -2,12 +2,14 @@ class Question {
     #documentId;
     #questionTitle; 
     #answer;
+    #answerIndication;
     #imageUrl;
 
-    constructor(documentId, text, answer, image) {
+    constructor(documentId, text, answer, answerIndication, image) {
         this.#documentId = documentId;
         this.#questionTitle = text;
         this.#answer = answer;
+        this.#answerIndication = answerIndication;
         this.#imageUrl = (image === null ? "" : image.url)
     }
 
@@ -21,6 +23,10 @@ class Question {
 
     getAnswer() {
         return this.#answer;
+    }
+
+    getAnswerIndication() {
+        return this.#answerIndication;
     }
 
     getImageUrl() {

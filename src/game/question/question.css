@@ -1,3 +1,8 @@
 img {
     width: 300px;
 }
+
+#indication {
+    font-size: smaller;
+    color : grey;
+}

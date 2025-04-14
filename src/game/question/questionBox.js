@@ -48,6 +48,7 @@ const QuestionBox = () => {
                     response.data.documentId,
                     response.data.questionTitle,
                     response.data.answer,
+                    response.data.indication,
                     response.data.image));
             })
             .catch((error) => {
@@ -63,7 +64,10 @@ const QuestionBox = () => {
     }
 
     function QuestionComponent() {
-        return <div>Q: {question?.getQuestionTitle()}</div>
+        return <>
+            <div>Q: {question?.getQuestionTitle()}</div>
+            {question?.getAnswerIndication() !== null && <div id="indication">{question?.getAnswerIndication()}</div>}
+        </> 
     }
 
     function Answer() {
