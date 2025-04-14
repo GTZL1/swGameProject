@@ -8,9 +8,9 @@ export default function App() {
   return (
   <>
     <Routes>
-      <Route path={ENDPOINTS.HOME_ENDPOINT} element={<HomePage />} />
-      <Route path={ENDPOINTS.QUESTION_ENDPOINT} element={<QuestionPage />} />
-      <Route path={ENDPOINTS.IDENTITY_ENDPOINT} element={<IdentityPage />} />
+      <Route path={ENDPOINTS.HOME} element={<HomePage />} />
+      <Route path={ENDPOINTS.QUESTION_PAGE} element={<QuestionPage />} />
+      <Route path={ENDPOINTS.IDENTITY_PAGE} element={<IdentityPage />} />
     </Routes>
   </>
   );
