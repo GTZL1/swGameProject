@@ -34,3 +34,10 @@
 img {
     max-height: 250 px;
 }
+
+#button {
+    width: 100%;
+    display: flex;
+    justify-content: center !important;
+    margin-top: 10px;
+}

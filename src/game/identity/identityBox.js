@@ -16,6 +16,10 @@ const IdentityBox = () => {
     const [allAllegiances, setAllAllegiances] = useState([]);
     const { i18n,t } = useTranslation();
 
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedAllegiances, setSelectedAllegiances] = useState([]);
+    const [selectFirstName, setSelectedFirstName] = useState("none");
+
     useEffect(() => {
         axios
             .get(`${ENDPOINTS.GET_ALL_CHARACTER_DOCIDS}`)
@@ -80,15 +84,15 @@ const IdentityBox = () => {
     }
 
     function Category () {
-        const [selectedCategory, setSelectedCategory] = useState("none");
+        const [tempCategory, setTempCategory] = useState("none");
         const [showPlaceholder, setShowPlaceholder] = useState(true);
 
-        return <div id="category"> 
-            <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
+        return <div > 
+            <select id="category"
+                value={tempCategory}
+                onChange={(e) => setTempCategory(e.target.value)}
                 onFocus={() => setShowPlaceholder(false)}
-                //onClose={(e) => setShowPlaceholder(e.target.value === undefined)}
+                onClose={() => setSelectedCategory(tempCategory)}
                 style={{color : showPlaceholder ? "grey" : "black"}}>
                     <option key={-1} disabled value="none"
                         style={{display : showPlaceholder ? "inline" : "none"}}>
@@ -101,7 +105,9 @@ const IdentityBox = () => {
 
     function Names() {
         return <div id="names">
-            <TextField id="firstName" label = "First name" variant='outlined' />
+            <TextField id="firstName" label = "First name" variant='outlined'
+            value={selectFirstName}
+            onChange={((event) => setSelectedFirstName(() => event.target.value))} />
             <TextField id="lastName" label = "Last name" variant='outlined' />
         </div>
     }
@@ -127,10 +133,8 @@ const IdentityBox = () => {
                     </label>
                 </NumberField.ScrubArea>
                 <NumberField.Group className="numberField">
-                    <NumberField.Decrement />
                     <NumberField.Input 
                         placeholder={`${event} year`}/>
-                    <NumberField.Increment />
                 </NumberField.Group>
             </NumberField.Root>
             <TextField id={`${event}Planet`} label = {`${event} planet`} variant = "outlined"
@@ -139,46 +143,77 @@ const IdentityBox = () => {
     }
 
     function Allegiances() {
-        const [allegiances, setAllegiances] = useState([]);
+        const [tempAllegiances, setTempAllegiances] = useState([]);
 
         const handleChange = (event) => {
-            console.log(event);
-            const {
-                target: {value},
-            } = event;
-            setAllegiances([...allegiances, value]);
+            setTempAllegiances([...tempAllegiances, event.target.value]);
         };
 
         return <>
             <InputLabel id="allegiancesSelect-label">Allegiances</InputLabel>
-            <Select labelId='allegiancesSelect-label' id="allegiancesSelect"
-                value={allegiances}
+            <Select labelId='allegiancesSelect-label' 
+                value={tempAllegiances}
                 multiple
-                //onChange={handleChange}
+                id="allegiancesSelect"
+                onClose={() => setSelectedAllegiances(tempAllegiances)}
                 >
-                    <div id="labels">
-                    {allAllegiances.map((a, index) =>(
-                        <FormControlLabel control={<Checkbox
-                            checked={allegiances.includes(a)}
-                            onChange={handleChange}
-                             />} value={a} 
-                        label={a} labelPlacement='end'/>))}
+                    <div id="labels" key={-1}>
+                        {allAllegiances.map((a, index) =>(
+                            <FormControlLabel key={index} control={<Checkbox
+                                checked={tempAllegiances.includes(a)}
+                                onChange={handleChange}
+                                value={a}
+                                />}
+                            label={a} labelPlacement='end'/>
+                            ))}
                     </div> 
             </Select>
-        </>
+
+<details>
+<summary>Your favourite cars list</summary>
+  <fieldset>
+    <legend>Cars</legend>
+    <ul>
+      <li>
+        <label>BMW<input type="checkbox" id="bmw" name="bmw" value="bmw" /></label>
+      </li>
+      <li>
+        <label>Citroen
+        <input type="checkbox" id="citroen" name="citroen" value="citroen" /></label>
+      </li>
+      <li>
+        <label>Skoda
+        <input type="checkbox" id="skoda" name="skoda" value="skoda" /></label>
+      </li>
+      <li>
+        <label>Volvo
+        <input type="checkbox" id="volvo" name="volvo" value="volvo" /></label>
+      </li>
+    </ul>
+  </fieldset>
+
+</details></>
+    }
+
+    function onSubmit2(event) {
+        event.preventDefault();
+        console.log(event.currentTarget.elements.lastName.value);
     }
 
     return <div id = "master" className='row'>
         <div className="formDiv">
-            <form>
+            <form onSubmit={onSubmit2}>
                 <Category />
-                <Names />
+                {Names()}
                 <Specie />
                 <div className='row dates'>
                     <DatePlanet year={character?.birthDate} planet={character?.birthPlanet} event={"Birth "}/>
                     <DatePlanet year={character?.deathDate} planet={character?.deathPlanet} event={"Death"} />
                 </div>
                 <Allegiances />
+                <div id="button"><button disabled={false} type="submit"
+                    >Submit</button>
+                </div>
             </form>
         </div>
         <Image />
