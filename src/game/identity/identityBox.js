@@ -2,7 +2,7 @@ import Character from './character.js';
 import ENDPOINTS from '../../constants/endpoints.js';
 import { useState, useEffect } from 'react';
 import { useTranslation } from "react-i18next";
-import { InputLabel, MenuItem, Select, TextField, OutlinedInput } from '@mui/material';
+import { InputLabel, MenuItem, Select, TextField, OutlinedInput, Checkbox, FormControlLabel } from '@mui/material';
 import { NumberField } from '@base-ui-components/react/number-field';
 import axios from 'axios';
 import './identity.css';
@@ -142,10 +142,11 @@ const IdentityBox = () => {
         const [allegiances, setAllegiances] = useState([]);
 
         const handleChange = (event) => {
+            console.log(event);
             const {
                 target: {value},
             } = event;
-            setAllegiances(value);
+            setAllegiances([...allegiances, value]);
         };
 
         return <>
@@ -153,11 +154,16 @@ const IdentityBox = () => {
             <Select labelId='allegiancesSelect-label' id="allegiancesSelect"
                 value={allegiances}
                 multiple
-                onChange={handleChange}
-                input={<OutlinedInput label="Allegiances" />}>
+                //onChange={handleChange}
+                >
+                    <div id="labels">
                     {allAllegiances.map((a, index) =>(
-                        <MenuItem key={index} value={a}>{a}</MenuItem>
-                    ))}
+                        <FormControlLabel control={<Checkbox
+                            checked={allegiances.includes(a)}
+                            onChange={handleChange}
+                             />} value={a} 
+                        label={a} labelPlacement='end'/>))}
+                    </div> 
             </Select>
         </>
     }
