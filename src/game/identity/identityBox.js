@@ -2,7 +2,7 @@ import Character from './character.js';
 import ENDPOINTS from '../../constants/endpoints.js';
 import { useState, useEffect } from 'react';
 import { useTranslation } from "react-i18next";
-import { TextField } from '@mui/material';
+import { InputLabel, MenuItem, Select, TextField, OutlinedInput } from '@mui/material';
 import { NumberField } from '@base-ui-components/react/number-field';
 import axios from 'axios';
 import './identity.css';
@@ -12,7 +12,8 @@ const IdentityBox = () => {
     const [character, setCharacter] = useState(null);
     const [alreadyUsedIds, setAlreadyUsedIds] = useState([]);
     const [nbChars, setNbChars] = useState(1);
-    const [allCategories, setAllCategories] = useState([])
+    const [allCategories, setAllCategories] = useState([]);
+    const [allAllegiances, setAllAllegiances] = useState([]);
     const { i18n,t } = useTranslation();
 
     useEffect(() => {
@@ -33,11 +34,19 @@ const IdentityBox = () => {
             .catch((error) => {
             console.log(error);
             });
+        axios
+            .get(`${ENDPOINTS.GET_ALL_ALLEGIANCES}`)
+            .then((response) => {
+                setAllAllegiances(response.data.data.map((c) => c.name));
+            })
+            .catch((error) => {
+            console.log(error);
+            });
     }, []);
 
     useEffect(() => {
             if (allCharIds.length > 0) {
-                fetchCharacter(allCharIds, question.getDocumentId());
+                fetchCharacter(allCharIds, character.getDocumentId());
             }
     }, [i18n.language]);
 
@@ -92,8 +101,14 @@ const IdentityBox = () => {
 
     function Names() {
         return <div id="names">
-            <TextField id="firstName" label = "First name" variant='outlined'/>
-            <TextField id="lastName" label = "Last name" variant='outlined'/>
+            <TextField id="firstName" label = "First name" variant='outlined' />
+            <TextField id="lastName" label = "Last name" variant='outlined' />
+        </div>
+    }
+
+    function Specie() {
+        return <div id="specie">
+            <TextField id="specie" label = "Specie" variant='outlined'/>
         </div>
     }
 
@@ -123,15 +138,41 @@ const IdentityBox = () => {
         </div>
     }
 
+    function Allegiances() {
+        const [allegiances, setAllegiances] = useState([]);
+
+        const handleChange = (event) => {
+            const {
+                target: {value},
+            } = event;
+            setAllegiances(value);
+        };
+
+        return <>
+            <InputLabel id="allegiancesSelect-label">Allegiances</InputLabel>
+            <Select labelId='allegiancesSelect-label' id="allegiancesSelect"
+                value={allegiances}
+                multiple
+                onChange={handleChange}
+                input={<OutlinedInput label="Allegiances" />}>
+                    {allAllegiances.map((a, index) =>(
+                        <MenuItem key={index} value={a}>{a}</MenuItem>
+                    ))}
+            </Select>
+        </>
+    }
+
     return <div id = "master" className='row'>
         <div className="formDiv">
             <form>
                 <Category />
                 <Names />
+                <Specie />
                 <div className='row dates'>
                     <DatePlanet year={character?.birthDate} planet={character?.birthPlanet} event={"Birth "}/>
                     <DatePlanet year={character?.deathDate} planet={character?.deathPlanet} event={"Death"} />
                 </div>
+                <Allegiances />
             </form>
         </div>
         <Image />

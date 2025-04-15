@@ -12,7 +12,11 @@
 }
 
 .dates {
-    padding-top: 50px;
+    padding-top: 30px;
+}
+
+#allegiancesSelect {
+    width: 150px;
 }
 
 .event {
@@ -21,9 +25,6 @@
     max-width: 30%;
 }
 
-#birthPlanet {
-    max-height: 30px;
-}
 
 img {
     max-height: 250 px;
