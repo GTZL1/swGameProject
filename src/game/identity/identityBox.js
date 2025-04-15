@@ -2,6 +2,8 @@ import Character from './character.js';
 import ENDPOINTS from '../../constants/endpoints.js';
 import { useState, useEffect } from 'react';
 import { useTranslation } from "react-i18next";
+import { TextField } from '@mui/material';
+import { NumberField } from '@base-ui-components/react/number-field';
 import axios from 'axios';
 import './identity.css';
 
@@ -90,9 +92,8 @@ const IdentityBox = () => {
 
     function Names() {
         return <div id="names">
-            <input id="firstName" placeholder = "First name" />
-            <input id="lastName" placeholder = "Last name" />
-            <p>{character?.name}</p>
+            <TextField id="firstName" label = "First name" variant='outlined'/>
+            <TextField id="lastName" label = "Last name" variant='outlined'/>
         </div>
     }
 
@@ -102,18 +103,35 @@ const IdentityBox = () => {
         </div>
     }
 
-    function datePlanet({year, planet, event }) {
-        return <>
-            <input id={`${event}Year`} type="number" label={`${event}Year`} />
-            <input id={`${event}Planet`} placeholder = {`${event} planet`} />
-        </>
+    function DatePlanet({year, planet, event }) {
+        return <div className='event'>
+            <NumberField.Root id = {`${event}Year`} disabled = {year === null} className="numberRoot">
+                <NumberField.ScrubArea>
+                    <label htmlFor={`${event}Year`}>
+                        {`${event} year`}
+                    </label>
+                </NumberField.ScrubArea>
+                <NumberField.Group className="numberField">
+                    <NumberField.Decrement />
+                    <NumberField.Input 
+                        placeholder={`${event} year`}/>
+                    <NumberField.Increment />
+                </NumberField.Group>
+            </NumberField.Root>
+            <TextField id={`${event}Planet`} label = {`${event} planet`} variant = "outlined"
+              disabled = {planet === undefined}/>
+        </div>
     }
 
-    return <div id = "master">
+    return <div id = "master" className='row'>
         <div className="formDiv">
             <form>
                 <Category />
                 <Names />
+                <div className='row dates'>
+                    <DatePlanet year={character?.birthDate} planet={character?.birthPlanet} event={"Birth "}/>
+                    <DatePlanet year={character?.deathDate} planet={character?.deathPlanet} event={"Death"} />
+                </div>
             </form>
         </div>
         <Image />

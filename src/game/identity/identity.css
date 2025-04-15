@@ -1,10 +1,28 @@
-#master {
+.row {
     display: flex;
     flex-direction: row;
 }
 
+.numberField {
+    max-width: 100%;
+}
+
 .formDiv {
     width: 50%;
+}
+
+.dates {
+    padding-top: 50px;
+}
+
+.event {
+    display: flex;
+    flex-direction: column;
+    max-width: 30%;
+}
+
+#birthPlanet {
+    max-height: 30px;
 }
 
 img {
