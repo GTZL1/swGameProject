@@ -17,6 +17,8 @@ const IdentityBox = () => {
     const [allAllegiances, setAllAllegiances] = useState([]);
     const { i18n,t } = useTranslation();
 
+    const [firstName, setFirstName] = useState(null);
+
     useEffect(() => {
         axios
             .get(`${ENDPOINTS.GET_ALL_CHARACTER_DOCIDS}`)
@@ -111,9 +113,9 @@ const IdentityBox = () => {
     }
 
     function Names({reqLast}) {
-        console.log(reqLast);
         return <div id="names">
-            <TextField id="firstName" label = "First name" variant='outlined' required={true}/>
+            <TextField id="firstName" label = "First name" variant='outlined' required={true}
+            {...(firstName !== null ? { value: firstName } : {})}/>
             <TextField id="lastName" label = "Last name" variant='outlined' required= {reqLast} disabled={!reqLast}/>
         </div>
     }
@@ -194,12 +196,12 @@ const IdentityBox = () => {
                 <Names reqLast={character?.lastName !== null} />
                 <Specie />
                 <div className='row dates'>
-                    <DatePlanet year={character?.birthDate} planet={character?.birthPlanet} event={"Birth"}/>
+                    <DatePlanet year={character?.birthDate} planet={character?.birthPlanet} event={"Birth"} />
                     <DatePlanet year={character?.deathDate} planet={character?.deathPlanet} event={"Death"} />
                 </div>
                 <Allegiances />
-                <div id="button"><button disabled={false} type="submit"
-                    >Submit</button>
+                <div id="button">
+                    <button disabled={false} type="submit">Submit</button>
                 </div>
             </form>
         </div>
