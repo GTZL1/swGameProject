@@ -1,4 +1,5 @@
 class Character {
+    #documentId;
     #firstName;
     #lastName;
     #specie;
@@ -10,8 +11,9 @@ class Character {
     #deathDate;
     #imageUrl;
 
-    constructor(firstName, lastName, specie, category, allegiances,
+    constructor(documentId, firstName, lastName, specie, category, allegiances,
         birthPlanet, birthDate, deathPlanet, deathDate, imageUrl) {
+        this.#documentId = documentId;
         this.#firstName = firstName;
         this.#lastName = lastName;
         this.#specie = specie;
@@ -22,6 +24,10 @@ class Character {
         this.#deathPlanet = deathPlanet;
         this.#deathDate = deathDate;
         this.#imageUrl = imageUrl;
+    }
+
+    get documentId() {
+        return this.#documentId;
     }
 
     get name() {

@@ -2,7 +2,8 @@ import Character from './character.js';
 import ENDPOINTS from '../../constants/endpoints.js';
 import { useState, useEffect } from 'react';
 import { useTranslation } from "react-i18next";
-import { InputLabel, MenuItem, Select, TextField, OutlinedInput, Checkbox, FormControlLabel } from '@mui/material';
+import { InputLabel, MenuItem, TextField, OutlinedInput, Checkbox, FormControlLabel, Switch } from '@mui/material';
+import Select from 'react-select';
 import { NumberField } from '@base-ui-components/react/number-field';
 import axios from 'axios';
 import './identity.css';
@@ -15,10 +16,6 @@ const IdentityBox = () => {
     const [allCategories, setAllCategories] = useState([]);
     const [allAllegiances, setAllAllegiances] = useState([]);
     const { i18n,t } = useTranslation();
-
-    const [selectedCategory, setSelectedCategory] = useState(null);
-    const [selectedAllegiances, setSelectedAllegiances] = useState([]);
-    const [selectFirstName, setSelectedFirstName] = useState("none");
 
     useEffect(() => {
         axios
@@ -50,7 +47,7 @@ const IdentityBox = () => {
 
     useEffect(() => {
             if (allCharIds.length > 0) {
-                fetchCharacter(allCharIds, character.getDocumentId());
+                fetchCharacter(allCharIds, character.documentId);
             }
     }, [i18n.language]);
 
@@ -67,6 +64,7 @@ const IdentityBox = () => {
             .get(`${ENDPOINTS.GET_CHARACTER_PER_DOCID}${docId}&locale=${i18n.language}`)
             .then((response) => {
                 setCharacter(new Character(
+                    response.data.documentId,
                     response.data.firstName,
                     response.data.lastName,
                     response.data.specie.name,
@@ -84,11 +82,10 @@ const IdentityBox = () => {
     }
 
     function Category () {
+        /*
         const [tempCategory, setTempCategory] = useState("none");
         const [showPlaceholder, setShowPlaceholder] = useState(true);
-
-        return <div > 
-            <select id="category"
+        <select id="category"
                 value={tempCategory}
                 onChange={(e) => setTempCategory(e.target.value)}
                 onFocus={() => setShowPlaceholder(false)}
@@ -100,21 +97,30 @@ const IdentityBox = () => {
                     </option>
                     {allCategories.map((c, index) => <option key={index} value={c}>{c}</option>)}
             </select>
+        */
+
+        return <div > 
+            <Select
+                name="categories"
+                options={allCategories.map((a) =>
+                    ({value: a, label: a}))}
+                required="true"
+                className="basic-select"
+                classNamePrefix="select"/>
         </div>
     }
 
-    function Names() {
+    function Names({reqLast}) {
+        console.log(reqLast);
         return <div id="names">
-            <TextField id="firstName" label = "First name" variant='outlined'
-            value={selectFirstName}
-            onChange={((event) => setSelectedFirstName(() => event.target.value))} />
-            <TextField id="lastName" label = "Last name" variant='outlined' />
+            <TextField id="firstName" label = "First name" variant='outlined' required={true}/>
+            <TextField id="lastName" label = "Last name" variant='outlined' required= {reqLast} disabled={!reqLast}/>
         </div>
     }
 
-    function Specie() {
+    function Specie(required) {
         return <div id="specie">
-            <TextField id="specie" label = "Specie" variant='outlined'/>
+            <TextField id="specie" label = "Specie" variant='outlined' required={required}/>
         </div>
     }
 
@@ -124,9 +130,17 @@ const IdentityBox = () => {
         </div>
     }
 
-    function DatePlanet({year, planet, event }) {
+    function DatePlanet({year, planet, event}) {
+        const [era, setEra] = useState("BBY");
+        const reqYear = year !== null;
+        const reqPlanet = planet !== undefined;
+
+        const handleToggle = () => {
+            setEra((prevEra) => (prevEra === "BBY" ? "ABY" : "BBY"));
+        };
+
         return <div className='event'>
-            <NumberField.Root id = {`${event}Year`} disabled = {year === null} className="numberRoot">
+            <NumberField.Root id = {`${event}Year`} disabled = {!reqYear} required={reqYear} className="numberRoot">
                 <NumberField.ScrubArea>
                     <label htmlFor={`${event}Year`}>
                         {`${event} year`}
@@ -137,77 +151,50 @@ const IdentityBox = () => {
                         placeholder={`${event} year`}/>
                 </NumberField.Group>
             </NumberField.Root>
+            <FormControlLabel
+                control={
+                    <Switch
+                        checked={era === "ABY"}
+                        disabled = {year === null}
+                        onChange={handleToggle}
+                        color="primary"
+                    />
+                }
+                label={era}
+                labelPlacement="end"
+            />
+            <input type="hidden" name ={`${event}Era`} value={era}/>
             <TextField id={`${event}Planet`} label = {`${event} planet`} variant = "outlined"
-              disabled = {planet === undefined}/>
+                disabled = {!reqPlanet} required={reqPlanet}/>
         </div>
     }
 
     function Allegiances() {
-        const [tempAllegiances, setTempAllegiances] = useState([]);
-
-        const handleChange = (event) => {
-            setTempAllegiances([...tempAllegiances, event.target.value]);
-        };
-
         return <>
-            <InputLabel id="allegiancesSelect-label">Allegiances</InputLabel>
-            <Select labelId='allegiancesSelect-label' 
-                value={tempAllegiances}
-                multiple
-                id="allegiancesSelect"
-                onClose={() => setSelectedAllegiances(tempAllegiances)}
-                >
-                    <div id="labels" key={-1}>
-                        {allAllegiances.map((a, index) =>(
-                            <FormControlLabel key={index} control={<Checkbox
-                                checked={tempAllegiances.includes(a)}
-                                onChange={handleChange}
-                                value={a}
-                                />}
-                            label={a} labelPlacement='end'/>
-                            ))}
-                    </div> 
-            </Select>
-
-<details>
-<summary>Your favourite cars list</summary>
-  <fieldset>
-    <legend>Cars</legend>
-    <ul>
-      <li>
-        <label>BMW<input type="checkbox" id="bmw" name="bmw" value="bmw" /></label>
-      </li>
-      <li>
-        <label>Citroen
-        <input type="checkbox" id="citroen" name="citroen" value="citroen" /></label>
-      </li>
-      <li>
-        <label>Skoda
-        <input type="checkbox" id="skoda" name="skoda" value="skoda" /></label>
-      </li>
-      <li>
-        <label>Volvo
-        <input type="checkbox" id="volvo" name="volvo" value="volvo" /></label>
-      </li>
-    </ul>
-  </fieldset>
-
-</details></>
+                <Select
+                    isMulti
+                    name="allegiances"
+                    required={true}
+                    options={allAllegiances.map((a) =>
+                        ({value: a, label: a}))}
+                    className="basic-multi-select"
+                    classNamePrefix="select"/>
+            </>
     }
 
     function onSubmit2(event) {
         event.preventDefault();
-        console.log(event.currentTarget.elements.lastName.value);
+        console.log([...(new FormData(event.target)).entries()]);
     }
-
+    
     return <div id = "master" className='row'>
         <div className="formDiv">
             <form onSubmit={onSubmit2}>
                 <Category />
-                {Names()}
+                <Names reqLast={character?.lastName !== null} />
                 <Specie />
                 <div className='row dates'>
-                    <DatePlanet year={character?.birthDate} planet={character?.birthPlanet} event={"Birth "}/>
+                    <DatePlanet year={character?.birthDate} planet={character?.birthPlanet} event={"Birth"}/>
                     <DatePlanet year={character?.deathDate} planet={character?.deathPlanet} event={"Death"} />
                 </div>
                 <Allegiances />

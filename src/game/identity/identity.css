@@ -15,10 +15,6 @@
     padding-top: 30px;
 }
 
-#allegiancesSelect {
-    width: 150px;
-}
-
 #labels {
     display: flex;
     flex-direction: column;
@@ -29,7 +25,6 @@
     flex-direction: column;
     max-width: 30%;
 }
-
 
 img {
     max-height: 250 px;
