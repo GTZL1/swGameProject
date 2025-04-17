@@ -193,7 +193,7 @@ const IdentityBox = () => {
         event.preventDefault();
         const botheringFields = [...(new FormData(event.target)).entries()];
         const elements = event.target.elements;
-        
+        console.log(botheringFields);
         Utils.checkTextAnswer(botheringFields[0][1], character.category,
             character.category, setSelectedCategory);
         Utils.checkTextAnswer(elements.firstName.value.toLowerCase(),
@@ -204,12 +204,11 @@ const IdentityBox = () => {
         }
         Utils.checkTextAnswer(elements.specie.value.toLowerCase(),
             character.specie.toLowerCase(), character.specie, setSpecie);
-
         if(character.birthDate !== null) {
             Utils.checkYearAnswer(elements.birthYear.value, character.birthDate,
                 elements.BirthEra.value, setBirthDate, setBirthEra);
         }
-        if(character.birthPlanet !== null) {
+        if(character.birthPlanet !== undefined) {
             Utils.checkTextAnswer(elements.birthPlanet.value.toLowerCase(),
             character.birthPlanet.toLowerCase(), character.birthPlanet, setBirthPlanet);
         }
@@ -221,6 +220,7 @@ const IdentityBox = () => {
             Utils.checkTextAnswer(elements.deathPlanet.value.toLowerCase(),
             character.deathPlanet.toLowerCase(), character.deathPlanet, setDeathPlanet);
         }
+        Utils.checkAllegiances(botheringFields[3], character.allegiances, setSelectedAllegiances);
     }
 
     return <div id = "master" className='row'>

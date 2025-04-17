@@ -17,6 +17,10 @@ class Utils {
         }
         return result
     }
+
+    static checkAllegiances (inputs, answers, setState) {
+        console.log(inputs);
+    }
 }
 
 export default Utils;
