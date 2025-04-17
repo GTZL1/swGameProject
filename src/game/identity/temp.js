@@ -42,3 +42,20 @@
   </fieldset>
 
 </details>*/
+
+/*
+        const [tempCategory, setTempCategory] = useState("none");
+        const [showPlaceholder, setShowPlaceholder] = useState(true);
+        <select id="category"
+                value={tempCategory}
+                onChange={(e) => setTempCategory(e.target.value)}
+                onFocus={() => setShowPlaceholder(false)}
+                onClose={() => setSelectedCategory(tempCategory)}
+                style={{color : showPlaceholder ? "grey" : "black"}}>
+                    <option key={-1} disabled value="none"
+                        style={{display : showPlaceholder ? "inline" : "none"}}>
+                            Select category...
+                    </option>
+                    {allCategories.map((c, index) => <option key={index} value={c}>{c}</option>)}
+            </select>
+        */
