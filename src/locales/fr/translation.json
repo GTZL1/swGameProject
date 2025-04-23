@@ -1,8 +1,8 @@
 {
     "titles": {
         "main_title" : "UN SIMPLE JEU DANS LA GALAXIE...",
-        "question_title" : "Questions",
-        "identity_title" : "Identité",
+        "question_title" : "Questions-réponses",
+        "identity_title" : "Cartes d'identité",
         "daily_title" : "Les défis du jour",
         "question_button" : "Enchaîner les questions",
         "identity_button" : "Remplir des cartes d'identité"
@@ -12,5 +12,18 @@
         "wrong_answer_prompt" : "Dommage, cette fois c'est faux...",
         "wrong_answer_correction" : "La bonne réponse était ",
         "new_question" : "Nouvelle question"
+    },
+    "identity" : {
+        "first_name": "Prénom",
+        "last_name": "Nom",
+        "specie": "Espèce",
+        "birth_year": "Année de naissance",
+        "death_year": "Année de mort",
+        "birth_planet": "Planète d'origine",
+        "death_planet": "Planète de sa mort",
+        "BBY": "av.BY",
+        "ABY": "ap.BY",
+        "submit": "Vérifier",
+        "new_character": "Bien joué... Tu repars pour un tour ?"
     }
 }

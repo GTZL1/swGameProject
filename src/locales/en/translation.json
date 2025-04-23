@@ -12,5 +12,18 @@
         "wrong_answer_prompt" : "Too bad, you're wrong this time...",
         "wrong_answer_correction" : "Correct answer was ",
         "new_question" : "New question"
+    },
+    "identity" : {
+        "first_name": "First name",
+        "last_name": "Last name",
+        "specie": "Specie",
+        "birth_year": "Birth year",
+        "death_year": "Death year",
+        "birth_planet": "Birth planet",
+        "death_planet": "Death planet",
+        "BBY": "BBY",
+        "ABY": "ABY",
+        "submit": "Check",
+        "new_character": "Well done... You try a new one ?"
     }
 }

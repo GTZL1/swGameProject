@@ -46,14 +46,7 @@ const IdentityBox = () => {
             .catch((error) => {
                 console.log(error);
             });
-        axios
-            .get(`${ENDPOINTS.GET_ALL_CATEGORIES}`)
-            .then((response) => {
-                setAllCategories(response.data.data.map((c) => c.name));
-            })
-            .catch((error) => {
-            console.log(error);
-            });
+        
         axios
             .get(`${ENDPOINTS.GET_ALL_ALLEGIANCES}`)
             .then((response) => {
@@ -68,6 +61,14 @@ const IdentityBox = () => {
             if (allCharIds.length > 0) {
                 fetchCharacter(allCharIds, character.documentId);
             }
+            axios
+                .get(`${ENDPOINTS.GET_ALL_CATEGORIES}?locale=${i18n.language}`)
+                .then((response) => {
+                    setAllCategories(response.data.data.map((c) => c.name));
+                })
+                .catch((error) => {
+                console.log(error);
+                });
     }, [i18n.language]);
 
     function fetchCharacter(allDocIds, docId = null) {
@@ -116,16 +117,16 @@ const IdentityBox = () => {
 
     function Names({reqLast}) {
         return <div id="names">
-            <TextField id="firstName" label = "First name" variant='outlined' required={true}
+            <TextField id="firstName" label = {t('identity.first_name')} variant='outlined' required={true}
             {...(firstName !== null ? { value: firstName } : {})}/>
-            <TextField id="lastName" label = "Last name" variant='outlined' required= {reqLast} disabled={!reqLast}
+            <TextField id="lastName" label = {t('identity.last_name')} variant='outlined' required= {reqLast} disabled={!reqLast}
             {...(lastName !== null ? { value: lastName } : {})}/>
         </div>
     }
 
     function Specie(required) {
         return <div >
-            <TextField id="specie" label = "Specie" variant='outlined' required={required}
+            <TextField id="specie" label = {t('identity.specie')} variant='outlined' required={required}
                 {...(specie !== null ? { value: specie } : {})}/>
         </div>
     }
@@ -140,21 +141,18 @@ const IdentityBox = () => {
         const [era, setEra] = useState(BBY);
         const reqYear = year !== null;
         const reqPlanet = planet !== undefined;
-
+        const yearLabel = `identity.${event.toLowerCase()}_year`;
+        const planetLabel = `identity.${event.toLowerCase()}_planet`;
+        const eraLabel = `identity.${era}`;
         const handleToggle = () => {
             setEra((prevEra) => (prevEra === BBY ? ABY : BBY));
         };
 
         return <div className='event'>
             <NumberField.Root id = {`${event.toLowerCase()}Year`} disabled = {!reqYear} required={reqYear} className="numberRoot">
-                <NumberField.ScrubArea>
-                    <label htmlFor={`${event.toLowerCase()}Year`}>
-                        {`${event} year`}
-                    </label>
-                </NumberField.ScrubArea>
                 <NumberField.Group className="numberField">
                     <NumberField.Input 
-                        placeholder={`${event} year`}
+                        placeholder={t(yearLabel)}
                         {...(stateDate !== null ? { value: stateDate } : {})}/>
                 </NumberField.Group>
             </NumberField.Root>
@@ -167,10 +165,10 @@ const IdentityBox = () => {
                         color="primary"
                         {...(stateEra !== null ? { value: stateEra } : {})}/>
                 }
-                label={era}
+                label={t(eraLabel)}
                 labelPlacement="end"/>
             <input type="hidden" name ={`${event}Era`} value={era}/>
-            <TextField id={`${event.toLowerCase()}Planet`} label = {`${event} planet`} variant = "outlined"
+            <TextField id={`${event.toLowerCase()}Planet`} label = {t(planetLabel)} variant = "outlined"
                 disabled = {!reqPlanet} required={reqPlanet}
                 {...(statePlanet !== null ? { value: statePlanet } : {})}/>
         </div>
@@ -196,9 +194,7 @@ const IdentityBox = () => {
     }
 
     function RightAnswer() {
-        return <div>
-            Well done... You go for a new one ?
-        </div>
+        return <div>{t('identity.new_character')}</div>
     }
 
     function checkAnswers(event) {
@@ -275,7 +271,7 @@ const IdentityBox = () => {
                 </div>
                 <Allegiances />
                 <div id="button">
-                    <button disabled={allCorrect} type="submit">Submit</button>
+                    <button disabled={allCorrect} type="submit">{t('identity.submit')}</button>
                 </div>
             </form>
             <div>
