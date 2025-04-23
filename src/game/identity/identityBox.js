@@ -202,40 +202,60 @@ const IdentityBox = () => {
         const botheringFields = [...(new FormData(event.target)).entries()];
         const allegiancesIndex = 3;
         const elements = event.target.elements;
-        let result = allCorrect;
+        let result = true;
 
-        result &&= Utils.checkTextAnswer(botheringFields[0][1], character.category,
-            character.category, setSelectedCategory);
-        result &&= Utils.checkTextAnswer(elements.firstName.value.toLowerCase(),
-            character.firstName.toLowerCase(), character.firstName, setFirstName);
+        result = Utils.checkTextAnswer(botheringFields[0][1], character.category,
+            character.category, setSelectedCategory) && result;
+        result = Utils.checkTextAnswer(elements.firstName.value.toLowerCase(),
+            character.firstName.toLowerCase(), character.firstName, setFirstName) && result;
         if(character.lastName !== null) {
-            result &&= Utils.checkTextAnswer(elements.lastName.value.toLowerCase(),
-                character.lastName.toLowerCase(), character.lastName, setLastName);
+            result = Utils.checkTextAnswer(elements.lastName.value.toLowerCase(),
+                character.lastName.toLowerCase(), character.lastName, setLastName) && result;
         }
-        result &&= Utils.checkTextAnswer(elements.specie.value.toLowerCase(),
-            character.specie.toLowerCase(), character.specie, setSpecie);
+        result = Utils.checkTextAnswer(elements.specie.value.toLowerCase(),
+            character.specie.toLowerCase(), character.specie, setSpecie) && result;
         if(character.birthDate !== null) {
-            result &&= Utils.checkYearAnswer(elements.birthYear.value, character.birthDate,
-                elements.BirthEra.value, setBirthDate, setBirthEra);
+            result = Utils.checkYearAnswer(elements.birthYear.value, character.birthDate,
+                elements.BirthEra.value, setBirthDate, setBirthEra) && result;
         }
         if(character.birthPlanet !== undefined) {
-            result &&= Utils.checkTextAnswer(elements.birthPlanet.value.toLowerCase(),
-            character.birthPlanet.toLowerCase(), character.birthPlanet, setBirthPlanet);
+            result = Utils.checkTextAnswer(elements.birthPlanet.value.toLowerCase(),
+            character.birthPlanet.toLowerCase(), character.birthPlanet, setBirthPlanet) && result;
         }
         if(character.deathDate !== null) {
-            result &&= Utils.checkYearAnswer(elements.deathYear.value, character.deathDate,
-                elements.DeathEra.value, setDeathDate, setDeathEra);
+            result = Utils.checkYearAnswer(elements.deathYear.value, character.deathDate,
+                elements.DeathEra.value, setDeathDate, setDeathEra) && result;
         }
         if(character.deathPlanet !== undefined) {
-            result &&= Utils.checkTextAnswer(elements.deathPlanet.value.toLowerCase(),
-            character.deathPlanet.toLowerCase(), character.deathPlanet, setDeathPlanet);
+            result = Utils.checkTextAnswer(elements.deathPlanet.value.toLowerCase(),
+            character.deathPlanet.toLowerCase(), character.deathPlanet, setDeathPlanet) && result;
         }
-        result &&= Utils.checkAllegiances(botheringFields.slice(allegiancesIndex).map((a) => a[1]),
-            character.allegiances, setSelectedAllegiances);
+        
+        const inputs = botheringFields.slice(allegiancesIndex).map((a) => a[1]); 
+        result = (inputs.every((a) => {
+            if (!selectedAllegiances.includes(a)) {
+                setSelectedAllegiances([...selectedAllegiances, a]);
+            }
+            return character.allegiances.includes(a);
+        })) && (inputs.length === character.allegiances.length);
 
         console.log(result);
-
         setAllCorrect(result);
+    }
+
+    function allReset() {
+        setFirstName(null);
+        setLastName(null);
+        setSpecie(null);
+        setBirthDate(null);
+        setBirthPlanet(null);
+        setDeathDate(null);
+        setDeathPlanet(null);
+        setBirthEra(null);
+        setDeathEra(null);
+        setSelectedCategory(null);
+        setSelectedAllegiances([]);
+        setAllCorrect(false);
     }
 
     return <div id = "master" className='row'>
@@ -252,13 +272,18 @@ const IdentityBox = () => {
                 </div>
                 <Allegiances />
                 <div id="button">
-                    <button disabled={false} type="submit">Submit</button>
+                    <button disabled={allCorrect} type="submit">Submit</button>
                 </div>
             </form>
             <div>
                 {allCorrect && (<>
                     <RightAnswer />
-                    <button>New character</button></>
+                    <button onClick={() => {
+                        allReset();
+                        fetchCharacter(allCharIds);
+                        setNbChars(nbChars + 1);
+                    }}
+                    disabled = { nbChars === allCharIds.length }>New character</button></>
                 )}
             </div>
         </div>
