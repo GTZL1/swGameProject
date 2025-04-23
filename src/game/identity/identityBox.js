@@ -35,6 +35,7 @@ const IdentityBox = () => {
     const [allegiancesAreCorrect, setAllegiancesAreCorrect] = useState(false);
 
     const [allCorrect, setAllCorrect] = useState(false);
+    const [isNoob, setIsNoob] = useState(false);
 
     useEffect(() => {
         axios
@@ -46,7 +47,6 @@ const IdentityBox = () => {
             .catch((error) => {
                 console.log(error);
             });
-        
         axios
             .get(`${ENDPOINTS.GET_ALL_ALLEGIANCES}`)
             .then((response) => {
@@ -65,6 +65,15 @@ const IdentityBox = () => {
                 .get(`${ENDPOINTS.GET_ALL_CATEGORIES}?locale=${i18n.language}`)
                 .then((response) => {
                     setAllCategories(response.data.data.map((c) => c.name));
+                })
+                .catch((error) => {
+                console.log(error);
+                });
+            axios
+                .get(`${ENDPOINTS.GET_ALL_ALLEGIANCES}`)
+                .then((response) => {
+                    setAllAllegiances(Utils.translateAllegiances(
+                        response.data.data.map((c) => c.name), i18n, t));
                 })
                 .catch((error) => {
                 console.log(error);
@@ -109,6 +118,7 @@ const IdentityBox = () => {
                 name="categories"
                 options={allCategories.map((a) =>
                     ({value: a, label: a}))}
+                placeholder = {t('identity.category')}
                 required="true"
                 className="basic-select"
                 classNamePrefix="select"/>
@@ -186,6 +196,7 @@ const IdentityBox = () => {
                             ({value : a, label : a})))} : {})}
                     name="allegiances"
                     required={true}
+                    placeholder={t('identity.allegiances')}
                     options={allAllegiances.map((a) =>
                         ({value: a, label: a}))}
                     className="basic-multi-select"
@@ -194,7 +205,40 @@ const IdentityBox = () => {
     }
 
     function RightAnswer() {
-        return <div>{t('identity.new_character')}</div>
+        return <div>{t('identity.new_character_message')}</div>
+    }
+
+    function WrongAnswer() {
+        return <div>{t('identity.noob')}</div>
+    }
+
+    function noobButton() {
+        setFirstName(character.firstName);
+        setSpecie(character.specie);
+        if (character.lastName !== null) {
+            setLastName(null);
+        }
+        
+        if (character.birthDate !== null) {
+            setBirthDate(character.birthDate);
+            character.birthDate < 1 ? setBirthEra(BBY) : setBirthEra(ABY);
+        }
+        if (character.birthPlanet !== undefined) {
+            setBirthPlanet(character.birthPlanet);
+        }
+        if (character.deathDate !== null) {
+            setDeathDate(character.deathDate);
+            character.deathDate < 1 ? setDeathEra(BBY) : setDeathEra(ABY);
+        }
+        if(character.deathPlanet !== undefined) {
+            setDeathPlanet(character.deathPlanet);
+        }
+        
+        setSelectedCategory(character.category);
+        setSelectedAllegiances(character.allegiances);
+        setAllegiancesAreCorrect(true);
+        setAllCorrect(true);
+        setIsNoob(true);
     }
 
     function checkAnswers(event) {
@@ -233,7 +277,8 @@ const IdentityBox = () => {
         
         const inputs = botheringFields.slice(allegiancesIndex).map((a) => a[1]); 
         setSelectedAllegiances(inputs);
-        const allCheck = (inputs.every((a) => character.allegiances.includes(a)))
+        const allCheck = (inputs.every((a) => 
+            Utils.translateAllegiances(character.allegiances, i18n, t).includes(a)))
             && (inputs.length === character.allegiances.length);
         setAllegiancesAreCorrect(allCheck);
         result = allCheck && result;
@@ -255,6 +300,7 @@ const IdentityBox = () => {
         setSelectedAllegiances([]);
         setAllegiancesAreCorrect(false);
         setAllCorrect(false);
+        setIsNoob(false);
     }
 
     return <div id = "master" className='row'>
@@ -274,15 +320,16 @@ const IdentityBox = () => {
                     <button disabled={allCorrect} type="submit">{t('identity.submit')}</button>
                 </div>
             </form>
+            <button disabled={allCorrect} onClick={noobButton}>{t('identity.noob_button')}</button>
             <div>
                 {allCorrect && (<>
-                    <RightAnswer />
+                    { isNoob ? <WrongAnswer /> : <RightAnswer />}
                     <button onClick={() => {
                         allReset();
                         fetchCharacter(allCharIds);
                         setNbChars(nbChars + 1);
                     }}
-                    disabled = { nbChars === allCharIds.length }>New character</button></>
+                    disabled = { nbChars === allCharIds.length }>{t('identity.new_character_button')}</button></>
                 )}
             </div>
         </div>

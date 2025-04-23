@@ -14,6 +14,7 @@
         "new_question" : "Nouvelle question"
     },
     "identity" : {
+        "category": "Catégorie",
         "first_name": "Prénom",
         "last_name": "Nom",
         "specie": "Espèce",
@@ -23,7 +24,21 @@
         "death_planet": "Planète de sa mort",
         "BBY": "av.BY",
         "ABY": "ap.BY",
+        "allegiances": "Affiliations",
         "submit": "Vérifier",
-        "new_character": "Bien joué... Tu repars pour un tour ?"
+        "new_character_message": "Bien joué... Tu repars pour un tour ?",
+        "new_character_button": "Nouveau personnage",
+        "noob_button": "Ma langue au tooka",
+        "noob": "Tu feras mieux la prochaine fois...",
+        "allegiances_fr" : {
+            "jedi_order": "Ordre Jedi",
+            "galactic_republic": "République Galactique",
+            "galactic_empire": "Empire Galactique",
+            "chiss_ascendancy": "Ascendance Chiss",
+            "early_rebel_networks": "Premiers réseaux rebelles",
+            "rebel_alliance": "Alliance Rebelle",
+            "new_republic": "Nouvelle République",
+            "imperial_remnants": "Vestiges de l'Empire"
+        }
     }
 }

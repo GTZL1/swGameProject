@@ -17,6 +17,15 @@ class Utils {
         }
         return result
     }
+
+    static translateAllegiances (allegiances, i18n, t) {
+        if (i18n.language !== "en") {
+            return allegiances.map((a) => 
+                t(`identity.allegiances_${i18n.language}.`
+                    + `${a.replaceAll(" ", "_").toLowerCase()}`));
+        }
+        return allegiances;
+    }
 }
 
 export default Utils;
