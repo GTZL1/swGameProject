@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import TitleBar from '../../utils/title/title.js';
 import { useTranslation } from 'react-i18next';
 import IdentityBox from './identityBox.js';
