@@ -32,6 +32,7 @@ const IdentityBox = () => {
     const [deathEra, setDeathEra] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedAllegiances, setSelectedAllegiances] = useState([]);
+    const [allegiancesAreCorrect, setAllegiancesAreCorrect] = useState(false);
 
     const [allCorrect, setAllCorrect] = useState(false);
 
@@ -179,8 +180,11 @@ const IdentityBox = () => {
         return <>
                 <Select
                     isMulti
-                    {...(selectedAllegiances.length > 0 ?
+                    {...(selectedAllegiances.length > 0 && !allegiancesAreCorrect ?
                         {defaultValue: (selectedAllegiances.map((a) =>
+                            ({value : a, label : a})))} : {})}
+                    {...(allegiancesAreCorrect ?
+                        {value: (selectedAllegiances.map((a) =>
                             ({value : a, label : a})))} : {})}
                     name="allegiances"
                     required={true}
@@ -232,14 +236,12 @@ const IdentityBox = () => {
         }
         
         const inputs = botheringFields.slice(allegiancesIndex).map((a) => a[1]); 
-        result = (inputs.every((a) => {
-            if (!selectedAllegiances.includes(a)) {
-                setSelectedAllegiances([...selectedAllegiances, a]);
-            }
-            return character.allegiances.includes(a);
-        })) && (inputs.length === character.allegiances.length);
+        setSelectedAllegiances(inputs);
+        const allCheck = (inputs.every((a) => character.allegiances.includes(a)))
+            && (inputs.length === character.allegiances.length);
+        setAllegiancesAreCorrect(allCheck);
+        result = allCheck && result;
 
-        console.log(result);
         setAllCorrect(result);
     }
 
@@ -255,6 +257,7 @@ const IdentityBox = () => {
         setDeathEra(null);
         setSelectedCategory(null);
         setSelectedAllegiances([]);
+        setAllegiancesAreCorrect(false);
         setAllCorrect(false);
     }
 
