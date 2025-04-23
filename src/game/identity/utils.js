@@ -19,7 +19,14 @@ class Utils {
     }
 
     static checkAllegiances (inputs, answers, setState) {
-        console.log(inputs);
+        const result = (inputs.length === answers.length) &&
+            inputs.every((a) => answers.includes(a));
+
+        if (result) {
+            setState(answers);
+        }
+
+        return result;
     }
 }
 

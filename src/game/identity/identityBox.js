@@ -33,6 +33,8 @@ const IdentityBox = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedAllegiances, setSelectedAllegiances] = useState([]);
 
+    const [allCorrect, setAllCorrect] = useState(false);
+
     useEffect(() => {
         axios
             .get(`${ENDPOINTS.GET_ALL_CHARACTER_DOCIDS}`)
@@ -189,38 +191,51 @@ const IdentityBox = () => {
             </>
     }
 
+    function RightAnswer() {
+        return <div>
+            Well done... You go for a new one ?
+        </div>
+    }
+
     function checkAnswers(event) {
         event.preventDefault();
         const botheringFields = [...(new FormData(event.target)).entries()];
+        const allegiancesIndex = 3;
         const elements = event.target.elements;
-        console.log(botheringFields);
-        Utils.checkTextAnswer(botheringFields[0][1], character.category,
+        let result = allCorrect;
+
+        result &&= Utils.checkTextAnswer(botheringFields[0][1], character.category,
             character.category, setSelectedCategory);
-        Utils.checkTextAnswer(elements.firstName.value.toLowerCase(),
+        result &&= Utils.checkTextAnswer(elements.firstName.value.toLowerCase(),
             character.firstName.toLowerCase(), character.firstName, setFirstName);
         if(character.lastName !== null) {
-            Utils.checkTextAnswer(elements.lastName.value.toLowerCase(),
+            result &&= Utils.checkTextAnswer(elements.lastName.value.toLowerCase(),
                 character.lastName.toLowerCase(), character.lastName, setLastName);
         }
-        Utils.checkTextAnswer(elements.specie.value.toLowerCase(),
+        result &&= Utils.checkTextAnswer(elements.specie.value.toLowerCase(),
             character.specie.toLowerCase(), character.specie, setSpecie);
         if(character.birthDate !== null) {
-            Utils.checkYearAnswer(elements.birthYear.value, character.birthDate,
+            result &&= Utils.checkYearAnswer(elements.birthYear.value, character.birthDate,
                 elements.BirthEra.value, setBirthDate, setBirthEra);
         }
         if(character.birthPlanet !== undefined) {
-            Utils.checkTextAnswer(elements.birthPlanet.value.toLowerCase(),
+            result &&= Utils.checkTextAnswer(elements.birthPlanet.value.toLowerCase(),
             character.birthPlanet.toLowerCase(), character.birthPlanet, setBirthPlanet);
         }
         if(character.deathDate !== null) {
-            Utils.checkYearAnswer(elements.deathYear.value, character.deathDate,
+            result &&= Utils.checkYearAnswer(elements.deathYear.value, character.deathDate,
                 elements.DeathEra.value, setDeathDate, setDeathEra);
         }
         if(character.deathPlanet !== undefined) {
-            Utils.checkTextAnswer(elements.deathPlanet.value.toLowerCase(),
+            result &&= Utils.checkTextAnswer(elements.deathPlanet.value.toLowerCase(),
             character.deathPlanet.toLowerCase(), character.deathPlanet, setDeathPlanet);
         }
-        Utils.checkAllegiances(botheringFields[3], character.allegiances, setSelectedAllegiances);
+        result &&= Utils.checkAllegiances(botheringFields.slice(allegiancesIndex).map((a) => a[1]),
+            character.allegiances, setSelectedAllegiances);
+
+        console.log(result);
+
+        setAllCorrect(result);
     }
 
     return <div id = "master" className='row'>
@@ -240,6 +255,12 @@ const IdentityBox = () => {
                     <button disabled={false} type="submit">Submit</button>
                 </div>
             </form>
+            <div>
+                {allCorrect && (<>
+                    <RightAnswer />
+                    <button>New character</button></>
+                )}
+            </div>
         </div>
         <Image />
     </div>
