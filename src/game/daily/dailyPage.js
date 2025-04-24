@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import SENTENCES from '../../constants/sentences.js';
 import axios from 'axios';
 import ENDPOINTS from '../../constants/endpoints.js';
+import IdentityForm from '../identity/identityForm.js';
 
 export const NUMBER_DAILY_QUESTIONS = 4;
 export const NUMBER_DAILY_CHARACTERS = 2;
@@ -13,6 +14,9 @@ const DailyPage = () => {
     const [charDocIds, setCharDocIds] = useState([]);
     const { i18n, t } = useTranslation();
     const effectRan = useRef(false);
+    const [currentId, setCurrentId] = useState(0);
+    const [allCorrect, setAllCorrect] = useState(false);
+    const [isNoob, setIsNoob] = useState(false);
     
     useEffect(() => {
         if (effectRan.current) return;
@@ -25,7 +29,7 @@ const DailyPage = () => {
                 if (response.data.data.length < 1 ||
                     date > response.data.data[0].date) {
                         chooseSomeIds(`${ENDPOINTS.GET_ALL_CHARACTER_DOCIDS}`, `${ENDPOINTS.DAILY_CHARACTERS}`,
-                            NUMBER_DAILY_CHARACTERS, date);
+                            NUMBER_DAILY_CHARACTERS, date, setCharDocIds);
                 } else {
                     setCharDocIds(response.data.data[0].docIds.split(","));
                 }
@@ -39,7 +43,7 @@ const DailyPage = () => {
                 if (response.data.data.length < 1 ||
                     date > response.data.data[0].date) {
                     chooseSomeIds(`${ENDPOINTS.GET_ALL_QUESTION_DOCIDS}`, `${ENDPOINTS.DAILY_QUESTIONS}`,
-                        NUMBER_DAILY_QUESTIONS, date);
+                        NUMBER_DAILY_QUESTIONS, date, setQuestionDocIds);
                 } else {
                     setQuestionDocIds(response.data.data[0].docIds.split(","));
                 }
@@ -49,15 +53,19 @@ const DailyPage = () => {
             });
     }, []);
 
-    function chooseSomeIds(getEndpoint, postEndpoint, numberDocIds, date) {
+    function chooseSomeIds(getEndpoint, postEndpoint, numberDocIds, date, setter) {
         axios
             .get(getEndpoint)
             .then((response) => {
                 const docIds = [];
-                for (let x = 0; x < numberDocIds; ++x) {
-                    docIds.push(response.data[Math.floor(Math.random() * response.data.length)]);
+                while (docIds.length < numberDocIds) {
+                    const newId = response.data[Math.floor(Math.random() * response.data.length)];
+                    if (!docIds.includes(newId)) {
+                        docIds.push(newId);
+                    }                  
                 }
                 pushDocIds(postEndpoint, date, docIds);
+                setter(docIds);
             })
             .catch((error) => {
                 console.log(error);
@@ -76,12 +84,23 @@ const DailyPage = () => {
                 console.log(error);
             });
     }
-
-    return (<>
-      <title>{SENTENCES.TITLES.MAIN_TITLE}</title>
-      <TitleBar nameP={t('titles.daily_title')}/>
-      
     
+    return (<>
+        <title>{SENTENCES.TITLES.MAIN_TITLE}</title>
+        <TitleBar nameP={t('titles.daily_title')}/>
+        
+        {(currentId <= NUMBER_DAILY_CHARACTERS) && (
+            <IdentityForm characterDocId={charDocIds[currentId]}
+            allCorrect={allCorrect}
+            setAllCorrect={setAllCorrect}
+            setIsNoob={setIsNoob} />
+        )}
+        {allCorrect && (<>
+            <button onClick={() => {
+                setCurrentId(currentId + 1);}
+            }>
+            {t('identity.new_character_button')}</button>
+        </>)}
     </>);
 }
 
