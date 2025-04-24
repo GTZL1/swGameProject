@@ -12,11 +12,12 @@ import Utils from './utils.js';
 export const BBY = "BBY";
 export const ABY = "ABY";
 
-const IdentityForm = ({character, allCorrect, setAllCorrect, setIsNoob}) => {
+const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) => {
     const [allCategories, setAllCategories] = useState([]);
     const [allAllegiances, setAllAllegiances] = useState([]);
     const { i18n,t } = useTranslation();
-
+    const [character, setCharacter] = useState([]);
+    
     const [firstName, setFirstName] = useState(null);
     const [lastName, setLastName] = useState(null);
     const [specie, setSpecie] = useState(null);
@@ -31,23 +32,33 @@ const IdentityForm = ({character, allCorrect, setAllCorrect, setIsNoob}) => {
     const [allegiancesAreCorrect, setAllegiancesAreCorrect] = useState(false);
 
     useEffect(() => {
-            axios
-                .get(`${ENDPOINTS.GET_ALL_CATEGORIES}?locale=${i18n.language}`)
-                .then((response) => {
-                    setAllCategories(response.data.data.map((c) => c.name));
-                })
-                .catch((error) => {
-                console.log(error);
-                });
-            axios
-                .get(`${ENDPOINTS.GET_ALL_ALLEGIANCES}`)
-                .then((response) => {
-                    setAllAllegiances(Utils.translateAllegiances(
-                        response.data.data.map((c) => c.name), i18n, t));
-                })
-                .catch((error) => {
-                console.log(error);
-                });
+        if (!characterDocId) return;
+
+        fetchCharacter();
+    }, [characterDocId]);
+
+    useEffect(() => {
+        axios
+            .get(`${ENDPOINTS.GET_ALL_CATEGORIES}?locale=${i18n.language}`)
+            .then((response) => {
+                setAllCategories(response.data.data.map((c) => c.name));
+            })
+            .catch((error) => {
+            console.log(error);
+            });
+        axios
+            .get(`${ENDPOINTS.GET_ALL_ALLEGIANCES}`)
+            .then((response) => {
+                setAllAllegiances(Utils.translateAllegiances(
+                    response.data.data.map((c) => c.name), i18n, t));
+            })
+            .catch((error) => {
+            console.log(error);
+            });
+        
+        if (characterDocId) {
+            fetchCharacter();
+        }
     }, [i18n.language]);
 
     useEffect(() => {
@@ -66,6 +77,28 @@ const IdentityForm = ({character, allCorrect, setAllCorrect, setIsNoob}) => {
         setAllCorrect(false);
         setIsNoob(false);
     }, [character]);
+
+    function fetchCharacter() {
+        axios
+            .get(`${ENDPOINTS.GET_CHARACTER_PER_DOCID}${characterDocId}&locale=${i18n.language}`)
+            .then((response) => {
+                setCharacter(new Character(
+                    response.data.documentId,
+                    response.data.firstName,
+                    response.data.lastName,
+                    response.data.specie.name,
+                    response.data.category.name,
+                    response.data.allegiances.map((a) => a.name),
+                    response.data.birthPlanet?.name,
+                    response.data.birthYear,
+                    response.data.deathPlanet?.name,
+                    response.data.deathYear,
+                    response.data.image.url));
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 
     function Category () {
         return <div > 

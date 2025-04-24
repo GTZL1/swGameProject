@@ -1,4 +1,3 @@
-import Character from './character.js';
 import ENDPOINTS from '../../constants/endpoints.js';
 import { useState, useEffect } from 'react';
 import { useTranslation } from "react-i18next";
@@ -8,7 +7,7 @@ import IdentityForm from './identityForm.js';
 
 const IdentityBox = () => {
     const [allCharIds, setAllCharIds] = useState([]);
-    const [character, setCharacter] = useState(null);
+    const [characterDocId, setCharacterDocId] = useState(null);
     const [alreadyUsedIds, setAlreadyUsedIds] = useState([]);
     const [nbChars, setNbChars] = useState(1);
     const { i18n, t } = useTranslation();
@@ -28,41 +27,14 @@ const IdentityBox = () => {
             });
     }, []);
 
-    useEffect(() => {
-            if (allCharIds.length > 0) {
-                fetchCharacter(allCharIds, character.documentId);
-            }
-
-    }, [i18n.language]);
-
     function fetchCharacter(allDocIds, docId = null) {
         if (docId === null) {
             do {
                 docId = allDocIds[Math.floor(Math.random() * allDocIds.length)];
             } while (alreadyUsedIds.includes(docId));
         }
-        
         setAlreadyUsedIds([...alreadyUsedIds, docId]);
-        
-        axios
-            .get(`${ENDPOINTS.GET_CHARACTER_PER_DOCID}${docId}&locale=${i18n.language}`)
-            .then((response) => {
-                setCharacter(new Character(
-                    response.data.documentId,
-                    response.data.firstName,
-                    response.data.lastName,
-                    response.data.specie.name,
-                    response.data.category.name,
-                    response.data.allegiances.map((a) => a.name),
-                    response.data.birthPlanet?.name,
-                    response.data.birthYear,
-                    response.data.deathPlanet?.name,
-                    response.data.deathYear,
-                    response.data.image.url));
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        setCharacterDocId(docId);
     }
 
     function RightAnswer() {
@@ -74,7 +46,7 @@ const IdentityBox = () => {
     }
 
     return <div id = "master" className='row'>
-        <IdentityForm character={character}
+        <IdentityForm characterDocId={characterDocId}
         allCorrect={allCorrect}
         setAllCorrect={setAllCorrect}
         setIsNoob={setIsNoob} />

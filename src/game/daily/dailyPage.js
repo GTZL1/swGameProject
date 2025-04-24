@@ -38,8 +38,8 @@ const DailyPage = () => {
             .then((response) => {
                 if (response.data.data.length < 1 ||
                     date > response.data.data[0].date) {
-                        chooseSomeIds(`${ENDPOINTS.GET_ALL_QUESTION_DOCIDS}`, `${ENDPOINTS.DAILY_QUESTIONS}`,
-                            NUMBER_DAILY_QUESTIONS, date);
+                    chooseSomeIds(`${ENDPOINTS.GET_ALL_QUESTION_DOCIDS}`, `${ENDPOINTS.DAILY_QUESTIONS}`,
+                        NUMBER_DAILY_QUESTIONS, date);
                 } else {
                     setQuestionDocIds(response.data.data[0].docIds.split(","));
                 }
