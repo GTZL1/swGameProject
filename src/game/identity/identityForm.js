@@ -51,7 +51,20 @@ const IdentityForm = ({character, allCorrect, setAllCorrect, setIsNoob}) => {
     }, [i18n.language]);
 
     useEffect(() => {
-        allReset();
+        setFirstName(null);
+        setLastName(null);
+        setSpecie(null);
+        setBirthDate(null);
+        setBirthPlanet(null);
+        setDeathDate(null);
+        setDeathPlanet(null);
+        setBirthEra(null);
+        setDeathEra(null);
+        setSelectedCategory(null);
+        setSelectedAllegiances([]);
+        setAllegiancesAreCorrect(false);
+        setAllCorrect(false);
+        setIsNoob(false);
     }, [character]);
 
     function Category () {
@@ -220,23 +233,6 @@ const IdentityForm = ({character, allCorrect, setAllCorrect, setIsNoob}) => {
         result = allCheck && result;
 
         setAllCorrect(result);
-    }
-
-    function allReset() {
-        setFirstName(null);
-        setLastName(null);
-        setSpecie(null);
-        setBirthDate(null);
-        setBirthPlanet(null);
-        setDeathDate(null);
-        setDeathPlanet(null);
-        setBirthEra(null);
-        setDeathEra(null);
-        setSelectedCategory(null);
-        setSelectedAllegiances([]);
-        setAllegiancesAreCorrect(false);
-        setAllCorrect(false);
-        setIsNoob(false);
     }
 
     return <>

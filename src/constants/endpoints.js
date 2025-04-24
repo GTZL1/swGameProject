@@ -2,6 +2,7 @@ const ENDPOINTS = {
     'HOME' : '/',
     'QUESTION_PAGE' : '/question',
     'IDENTITY_PAGE' : '/identity',
+    'DAILY_PAGE' : '/daily',
     'BACKEND_URL': 'http://localhost:1337'
 };
 
@@ -13,6 +14,8 @@ ENDPOINTS.GET_ALL_CATEGORIES = `${ENDPOINTS.BACKEND_URL}/api/character-categorie
 ENDPOINTS.GET_ALL_PLANETS = `${ENDPOINTS.BACKEND_URL}/api/planets`;
 ENDPOINTS.GET_ALL_SPECIES = `${ENDPOINTS.BACKEND_URL}/api/species`;
 ENDPOINTS.GET_ALL_ALLEGIANCES = `${ENDPOINTS.BACKEND_URL}/api/allegiances`;
+ENDPOINTS.DAILY_QUESTIONS = `${ENDPOINTS.BACKEND_URL}/api/daily-questions`;
+ENDPOINTS.DAILY_CHARACTERS = `${ENDPOINTS.BACKEND_URL}/api/daily-characters`;
 
 Object.freeze(ENDPOINTS);
 export default ENDPOINTS;
