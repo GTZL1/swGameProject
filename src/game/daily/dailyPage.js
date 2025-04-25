@@ -89,13 +89,13 @@ const DailyPage = () => {
         <title>{SENTENCES.TITLES.MAIN_TITLE}</title>
         <TitleBar nameP={t('titles.daily_title')}/>
         
-        {(currentId <= NUMBER_DAILY_CHARACTERS) && (
+        {(currentId < NUMBER_DAILY_CHARACTERS) && (
             <IdentityForm characterDocId={charDocIds[currentId]}
             allCorrect={allCorrect}
             setAllCorrect={setAllCorrect}
             setIsNoob={setIsNoob} />
         )}
-        {allCorrect && (<>
+        {allCorrect && (currentId < NUMBER_DAILY_CHARACTERS) && (<>
             <button onClick={() => {
                 setCurrentId(currentId + 1);}
             }>
