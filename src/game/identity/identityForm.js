@@ -74,7 +74,7 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
         setSelectedCategory(null);
         setSelectedAllegiances([]);
         setAllegiancesAreCorrect(false);
-        setAllCorrect(false);
+        setAllCorrect(null);
         setIsNoob(false);
     }, [character]);
 

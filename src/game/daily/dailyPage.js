@@ -5,6 +5,7 @@ import SENTENCES from '../../constants/sentences.js';
 import axios from 'axios';
 import ENDPOINTS from '../../constants/endpoints.js';
 import IdentityForm from '../identity/identityForm.js';
+import QuestionForm from '../question/questionForm.js';
 
 export const NUMBER_DAILY_QUESTIONS = 4;
 export const NUMBER_DAILY_CHARACTERS = 2;
@@ -21,8 +22,8 @@ const DailyPage = () => {
     useEffect(() => {
         if (effectRan.current) return;
         effectRan.current = true;
-        const date = new Date().toISOString().split('T')[0];
 
+        const date = new Date().toISOString().split('T')[0];
         axios
             .get(`${ENDPOINTS.DAILY_CHARACTERS}`)
             .then((response) => {
@@ -88,14 +89,18 @@ const DailyPage = () => {
     return (<>
         <title>{SENTENCES.TITLES.MAIN_TITLE}</title>
         <TitleBar nameP={t('titles.daily_title')}/>
-        
-        {(currentId < NUMBER_DAILY_CHARACTERS) && (
-            <IdentityForm characterDocId={charDocIds[currentId]}
+        {(currentId < NUMBER_DAILY_QUESTIONS) && (
+            <QuestionForm questionDocId={questionDocIds[currentId]}
+            isCorrect={allCorrect}
+            setIsCorrect={setAllCorrect} />
+        )}
+        {(currentId >= NUMBER_DAILY_QUESTIONS) && (
+            <IdentityForm characterDocId={charDocIds[currentId-NUMBER_DAILY_QUESTIONS]}
             allCorrect={allCorrect}
             setAllCorrect={setAllCorrect}
             setIsNoob={setIsNoob} />
         )}
-        {allCorrect && (currentId < NUMBER_DAILY_CHARACTERS) && (<>
+        {(allCorrect !== null) && (currentId < (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) && (<>
             <button onClick={() => {
                 setCurrentId(currentId + 1);}
             }>

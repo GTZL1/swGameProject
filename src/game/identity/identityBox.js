@@ -12,7 +12,7 @@ const IdentityBox = () => {
     const [nbChars, setNbChars] = useState(1);
     const { i18n, t } = useTranslation();
 
-    const [allCorrect, setAllCorrect] = useState(false);
+    const [allCorrect, setAllCorrect] = useState(null);
     const [isNoob, setIsNoob] = useState(false);
 
     useEffect(() => {
