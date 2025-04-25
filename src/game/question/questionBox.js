@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { useTranslation } from "react-i18next";
-import "./question.css";
 import ENDPOINTS from "../../constants/endpoints.js";
 import QuestionForm from "./questionForm.js";
 
 const QuestionBox = () => {
     const [allQuestionDocIds, setAllQuestionDocIds] = useState([]);
     const [isCorrect, setIsCorrect] = useState(null);
-    const [userInput, setUserInput] = useState("");
     const [alreadyUsedIds, setAlreadyUsedIds] = useState([])
     const [questionDocId, setQuestionDocId] = useState(null);
     const [nbQuestions, setNbQuestions] = useState(1);
@@ -32,7 +30,6 @@ const QuestionBox = () => {
                 docId = allDocIds[Math.floor(Math.random() * allDocIds.length)];
             } while (alreadyUsedIds.includes(docId));
         }
-        
         setAlreadyUsedIds([...alreadyUsedIds, docId]);
         setQuestionDocId(docId);
     }
@@ -40,28 +37,25 @@ const QuestionBox = () => {
     function CorrectAnswer() {
         return <>
             <span className="rightA"><br/>
-                {userInput.charAt(0).toUpperCase() + userInput.slice(1)}{t('questions.correct_answer')}</span>
+            {t('questions.correct_answer')}</span>
         </>
     }
 
     function WrongAnswer() {
         return <>
             <p className="wrongA">{t('questions.wrong_answer_prompt')}</p>
-            <span>{t('questions.wrong_answer_correction')}{question.getAnswer()}</span>
+            <span>{t('questions.wrong_answer_correction')}</span>
         </>
     }
 
     return(<>
         <QuestionForm questionDocId={questionDocId}
         isCorrect={isCorrect}
-        setIsCorrect={setIsCorrect}
-        setUserInput={setUserInput} />
+        setIsCorrect={setIsCorrect}/>
 
         {isCorrect !== null && ( <>
             {isCorrect ? <CorrectAnswer /> : <WrongAnswer />}
             <button onClick={() => {
-                setIsCorrect(null);
-                setUserInput("");
                 fetchQuestion(allQuestionDocIds);
                 setNbQuestions(nbQuestions + 1);
             }} disabled={nbQuestions == allQuestionDocIds.length}>

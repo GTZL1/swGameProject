@@ -5,14 +5,17 @@ import Question from "./question.js";
 import "./question.css";
 import ENDPOINTS from "../../constants/endpoints.js";
 
-const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, setUserInput}) => {
+const QuestionForm = ({questionDocId, isCorrect, setIsCorrect}) => {
     const [question, setQuestion] = useState(null);
+    const [userInput, setUserInput] = useState("");
     const { i18n, t } = useTranslation();
 
     useEffect(() => {
         if (!questionDocId) return;
         
         fetchQuestion();
+        setUserInput("");
+        setIsCorrect(null);
     }, [questionDocId]);
 
     useEffect(() => {
@@ -41,7 +44,7 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, setUserInput}) =>
         event.preventDefault();
         const userAnswer = event.currentTarget.elements.answerInput.value;
         setIsCorrect(question.checkAnswer(userAnswer));
-        setUserInput(userAnswer);
+        setUserInput(question.getAnswer());
     }
 
     function QuestionComponent() {
@@ -55,7 +58,8 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, setUserInput}) =>
         return(<>
         <form onSubmit={checkAnswer}>
             <input id="answerInput"
-                disabled={isCorrect !== null}/>
+                disabled={isCorrect !== null}
+                {...(userInput.length > 0 ? {value : userInput} : {})}/>
             <button type="submit"
             disabled={isCorrect !== null}>V</button>
         </form>
