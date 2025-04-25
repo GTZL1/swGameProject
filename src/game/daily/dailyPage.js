@@ -21,6 +21,10 @@ const DailyPage = () => {
 
     const [questionScore, setQuestionScore] = useState([]);
     const [characterScore, setCharacterScore] = useState([]);
+
+    const rightAnswerChar = 'V';
+    const wrongAnswerChar = 'X';
+    const noAnswerChar = '.';
     
     useEffect(() => {
         if (effectRan.current) return;
@@ -96,33 +100,73 @@ const DailyPage = () => {
 
     function updateScore(currentId, isCorrect, isNoob) {
         if (currentId < NUMBER_DAILY_QUESTIONS) {
-            setQuestionScore([...questionScore, (isCorrect ? 'V' : 'X')]);
+            setQuestionScore([...questionScore, (isCorrect ? rightAnswerChar : wrongAnswerChar)]);
         } else {
-            setCharacterScore([...characterScore, (isNoob ? 'X' : 'V')]);
+            setCharacterScore([...characterScore, (isNoob ? wrongAnswerChar : rightAnswerChar)]);
         }
     }
+
+    function scoreText(scores, title, range) {
+        return `${title} : [` + 
+        `${Array.from({ length : range }, (_, index) => {
+            return index < scores.length ? scores[index] : noAnswerChar;
+        }).join('')}]`;
+    }
     
+    function Score({scores, title, range}) {
+        return <div>
+            <p>{title} : &#91;
+                {
+                    Array.from({ length : range }, (_, index) => {
+                        return index < scores.length ? scores[index] : noAnswerChar;
+                    }).join('')
+                }
+                &#93;
+            </p>
+        </div>
+    }
+
     return (<>
         <title>{SENTENCES.TITLES.MAIN_TITLE}</title>
         <TitleBar nameP={t('titles.daily_title')}/>
 
         {(currentId < NUMBER_DAILY_QUESTIONS) && (
             <QuestionForm questionDocId={questionDocIds[currentId]}
-            isCorrect={allCorrect}
-            setIsCorrect={setAllCorrect} />
+                isCorrect={allCorrect}
+                setIsCorrect={setAllCorrect} />
         )}
-        {(currentId >= NUMBER_DAILY_QUESTIONS) && (
+        {(currentId >= NUMBER_DAILY_QUESTIONS && currentId < (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) && (
             <IdentityForm characterDocId={charDocIds[currentId-NUMBER_DAILY_QUESTIONS]}
-            allCorrect={allCorrect}
-            setAllCorrect={setAllCorrect}
-            setIsNoob={setIsNoob} />
+                allCorrect={allCorrect}
+                setAllCorrect={setAllCorrect}
+                setIsNoob={setIsNoob} />
         )}
+
+        {(currentId >= (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) && (<>
+            <Score scores = {questionScore}
+                title = {t('titles.question_title')}
+                range = {NUMBER_DAILY_QUESTIONS} />
+            <Score scores = {characterScore}
+                title = {t('titles.identity_title')}
+                range = {NUMBER_DAILY_CHARACTERS} />
+            <button onClick={() => {
+                navigator.clipboard.writeText(
+                    scoreText(questionScore, t('titles.question_title'), NUMBER_DAILY_QUESTIONS) + "\n"
+                    + scoreText(characterScore, t('titles.identity_title'), NUMBER_DAILY_CHARACTERS));
+            }}>
+                {t('daily.copy_score')}
+            </button>
+            </>
+        )} 
+       
         {(allCorrect !== null) && (currentId < (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) && (<>
             <button onClick={() => {
                 updateScore(currentId, allCorrect, isNoob);
                 setCurrentId(currentId + 1);}
             }>
-            {t('identity.new_character_button')}</button>
+                {(currentId === (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS -1))
+                    ? t('daily.see_score') : t('daily.next')}
+            </button>
         </>)}
     </>);
 }

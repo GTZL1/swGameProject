@@ -1,8 +1,8 @@
 {
     "titles": {
         "main_title" : "A SIMPLE GAME IN THE GALAXY...",
-        "question_title" : "Questions mode",
-        "identity_title" : "Identity mode",
+        "question_title" : "Questions",
+        "identity_title" : "Identity cards",
         "daily_title" : "Today's challenges",
         "question_button" : "Chain the questions",
         "identity_button" : "Fill some identity cards"
@@ -30,5 +30,10 @@
         "new_character_button": "New character",
         "noob_button": "Stop guessing",
         "noob": "You'll do better with the next one..."
+    },
+    "daily" : {
+        "next" : "Next",
+         "see_score" : "See my score",
+        "copy_score" : "Copy my score"
     }
 }
