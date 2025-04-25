@@ -18,6 +18,9 @@ const DailyPage = () => {
     const [currentId, setCurrentId] = useState(0);
     const [allCorrect, setAllCorrect] = useState(false);
     const [isNoob, setIsNoob] = useState(false);
+
+    const [questionScore, setQuestionScore] = useState([]);
+    const [characterScore, setCharacterScore] = useState([]);
     
     useEffect(() => {
         if (effectRan.current) return;
@@ -30,7 +33,7 @@ const DailyPage = () => {
                 if (response.data.data.length < 1 ||
                     date > response.data.data[0].date) {
                         chooseSomeIds(`${ENDPOINTS.GET_ALL_CHARACTER_DOCIDS}`, `${ENDPOINTS.DAILY_CHARACTERS}`,
-                            NUMBER_DAILY_CHARACTERS, date, setCharDocIds);
+                            NUMBER_DAILY_CHARACTERS, date, setCharDocIds, response.data.data[0].documentId);
                 } else {
                     setCharDocIds(response.data.data[0].docIds.split(","));
                 }
@@ -44,7 +47,7 @@ const DailyPage = () => {
                 if (response.data.data.length < 1 ||
                     date > response.data.data[0].date) {
                     chooseSomeIds(`${ENDPOINTS.GET_ALL_QUESTION_DOCIDS}`, `${ENDPOINTS.DAILY_QUESTIONS}`,
-                        NUMBER_DAILY_QUESTIONS, date, setQuestionDocIds);
+                        NUMBER_DAILY_QUESTIONS, date, setQuestionDocIds, response.data.data[0].documentId);
                 } else {
                     setQuestionDocIds(response.data.data[0].docIds.split(","));
                 }
@@ -54,7 +57,7 @@ const DailyPage = () => {
             });
     }, []);
 
-    function chooseSomeIds(getEndpoint, postEndpoint, numberDocIds, date, setter) {
+    function chooseSomeIds(getEndpoint, postEndpoint, numberDocIds, date, setter, oldDocId) {
         axios
             .get(getEndpoint)
             .then((response) => {
@@ -65,7 +68,7 @@ const DailyPage = () => {
                         docIds.push(newId);
                     }                  
                 }
-                pushDocIds(postEndpoint, date, docIds);
+                pushDocIds(postEndpoint, date, docIds, oldDocId);
                 setter(docIds);
             })
             .catch((error) => {
@@ -73,7 +76,7 @@ const DailyPage = () => {
             });
     }
 
-    function pushDocIds(endpoint, date, docIds) {
+    function pushDocIds(endpoint, date, docIds, oldDocId) {
         axios
             .post(endpoint, {
                 data : {
@@ -84,11 +87,25 @@ const DailyPage = () => {
             .catch((error) => {
                 console.log(error);
             });
+        axios
+            .delete(`${endpoint}/${oldDocId}`)
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    function updateScore(currentId, isCorrect, isNoob) {
+        if (currentId < NUMBER_DAILY_QUESTIONS) {
+            setQuestionScore([...questionScore, (isCorrect ? 'V' : 'X')]);
+        } else {
+            setCharacterScore([...characterScore, (isNoob ? 'X' : 'V')]);
+        }
     }
     
     return (<>
         <title>{SENTENCES.TITLES.MAIN_TITLE}</title>
         <TitleBar nameP={t('titles.daily_title')}/>
+
         {(currentId < NUMBER_DAILY_QUESTIONS) && (
             <QuestionForm questionDocId={questionDocIds[currentId]}
             isCorrect={allCorrect}
@@ -102,6 +119,7 @@ const DailyPage = () => {
         )}
         {(allCorrect !== null) && (currentId < (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) && (<>
             <button onClick={() => {
+                updateScore(currentId, allCorrect, isNoob);
                 setCurrentId(currentId + 1);}
             }>
             {t('identity.new_character_button')}</button>

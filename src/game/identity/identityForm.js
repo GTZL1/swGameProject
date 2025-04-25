@@ -198,7 +198,7 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
         setFirstName(character.firstName);
         setSpecie(character.specie);
         if (character.lastName !== null) {
-            setLastName(null);
+            setLastName(character.lastName);
         }
         
         if (character.birthDate !== null) {
