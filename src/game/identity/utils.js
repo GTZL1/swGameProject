@@ -1,4 +1,4 @@
-import { BBY } from "./identityBox.js";
+import { BBY } from "./identityForm.js";
 
 class Utils {
     static checkTextAnswer (field, answer, answerRef, setState) {

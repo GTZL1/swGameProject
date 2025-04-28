@@ -13,6 +13,9 @@ const HomePage = () => {
     <TitleBar nameP={t('titles.main_title')} />
     <ButtonLink route = {ENDPOINTS.QUESTION_PAGE}>{t('titles.question_button')}</ButtonLink>
     <ButtonLink route = {ENDPOINTS.IDENTITY_PAGE}>{t('titles.identity_button')}</ButtonLink>
+    
+    <div><p>4 questions and 2 characters random every day, the same for everyone !</p>
+    <ButtonLink route = {ENDPOINTS.DAILY_PAGE}>{t('titles.daily_title')}</ButtonLink></div>
     </>)
 }
 

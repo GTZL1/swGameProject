@@ -1,7 +1,7 @@
 {
     "titles": {
         "main_title" : "UN SIMPLE JEU DANS LA GALAXIE...",
-        "question_title" : "Questions-réponses",
+        "question_title" : "Questions",
         "identity_title" : "Cartes d'identité",
         "daily_title" : "Les défis du jour",
         "question_button" : "Enchaîner les questions",
@@ -40,5 +40,10 @@
             "new_republic": "Nouvelle République",
             "imperial_remnants": "Vestiges de l'Empire"
         }
+    },
+    "daily" : {
+        "next" : "Suivant",
+        "see_score" : "Voir mon score",
+        "copy_score" : "Copier mon score"
     }
 }
