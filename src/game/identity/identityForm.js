@@ -34,6 +34,7 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
     useEffect(() => {
         if (!characterDocId) return;
 
+        setAllCorrect(null);
         fetchCharacter();
     }, [characterDocId]);
 
@@ -219,7 +220,7 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
         setSelectedCategory(character.category);
         setSelectedAllegiances(Utils.translateAllegiances(character.allegiances, i18n, t));
         setAllegiancesAreCorrect(true);
-        setAllCorrect(true);
+        setAllCorrect(false);
         setIsNoob(true);
     }
 

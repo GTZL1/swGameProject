@@ -8,10 +8,10 @@
         "identity_button" : "Fill some identity cards"
     },
     "questions" : {
-        "correct_answer" : "... that is correct ! Well done !",
+        "correct_answer" : "Correct, well done !",
         "wrong_answer_prompt" : "Too bad, you're wrong this time...",
-        "wrong_answer_correction" : "Correct answer was ",
-        "new_question" : "New question"
+        "new_question" : "New question",
+        "button" : "Check"
     },
     "identity" : {
         "category": "Category",

@@ -51,7 +51,7 @@ const IdentityBox = () => {
         setAllCorrect={setAllCorrect}
         setIsNoob={setIsNoob} />
         <div>
-                {allCorrect && (<>
+                {(allCorrect || isNoob) && (<>
                     { isNoob ? <WrongAnswer /> : <RightAnswer />}
                     <button onClick={() => {
                         fetchCharacter(allCharIds);

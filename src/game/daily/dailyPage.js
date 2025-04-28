@@ -126,6 +126,13 @@ const DailyPage = () => {
         </div>
     }
 
+    function displayNextButton() {
+        if (currentId >= NUMBER_DAILY_QUESTIONS) {
+            return (allCorrect || isNoob);
+        }
+        return (allCorrect !== null);
+    }
+
     return (<>
         <title>{SENTENCES.TITLES.MAIN_TITLE}</title>
         <TitleBar nameP={t('titles.daily_title')}/>
@@ -159,7 +166,7 @@ const DailyPage = () => {
             </>
         )} 
        
-        {(allCorrect !== null) && (currentId < (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) && (<>
+        {displayNextButton() && (currentId < (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) && (<>
             <button onClick={() => {
                 updateScore(currentId, allCorrect, isNoob);
                 setCurrentId(currentId + 1);}

@@ -8,10 +8,10 @@
         "identity_button" : "Remplir des cartes d'identité"
     },
     "questions" : {
-        "correct_answer" : "... réponse exacte ! Bien joué !",
+        "correct_answer" : "Bonne réponse, bien joué !",
         "wrong_answer_prompt" : "Dommage, cette fois c'est faux...",
-        "wrong_answer_correction" : "La bonne réponse était ",
-        "new_question" : "Nouvelle question"
+        "new_question" : "Nouvelle question",
+        "button" : "Vérifier"
     },
     "identity" : {
         "category": "Catégorie",
