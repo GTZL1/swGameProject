@@ -31,6 +31,14 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
     const [selectedAllegiances, setSelectedAllegiances] = useState([]);
     const [allegiancesAreCorrect, setAllegiancesAreCorrect] = useState(false);
 
+    const AllegiancesAnswerStatus = {
+        TOO_MANY : "too_many",
+        WRONG : "wrong",
+        NOT_ENOUGH : "not_enough",
+        NOTHING_DISPLAY : "nothing"
+    }
+    const [allegiancesStatus, setAllegiancesStatus] = useState(AllegiancesAnswerStatus.NOTHING_DISPLAY);
+
     useEffect(() => {
         if (!characterDocId) return;
 
@@ -176,7 +184,7 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
     }
 
     function Allegiances() {
-        return <>
+        return <div>
                 <Select
                     isMulti
                     {...(selectedAllegiances.length > 0 && !allegiancesAreCorrect ?
@@ -192,7 +200,11 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
                         ({value: a, label: a}))}
                     className="basic-multi-select"
                     classNamePrefix="select"/>
-            </>
+
+                    { allegiancesStatus !== AllegiancesAnswerStatus.NOTHING_DISPLAY && (
+                        <p style = {{ marginTop: 0 }}>{t(`identity.${allegiancesStatus}`)} </p>
+                    )} 
+            </div>
     }
 
     function noobButton() {
@@ -264,6 +276,19 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
             Utils.translateAllegiances(character.allegiances, i18n, t).includes(a)))
             && (inputs.length === character.allegiances.length);
         setAllegiancesAreCorrect(allCheck);
+
+        if(!allCheck) {
+            if (inputs.length < character.allegiances.length) {
+                setAllegiancesStatus(AllegiancesAnswerStatus.NOT_ENOUGH);
+            } else if (inputs.length > character.allegiances.length) {
+                setAllegiancesStatus(AllegiancesAnswerStatus.TOO_MANY);
+            } else {
+                setAllegiancesStatus(AllegiancesAnswerStatus.WRONG);
+            }
+        } else {
+            setAllegiancesStatus(AllegiancesAnswerStatus.NOTHING_DISPLAY);
+        }
+
         result = allCheck && result;
 
         setAllCorrect(result);

@@ -23,3 +23,21 @@ header h1 {
     right: 0;
     text-align: right;
 }
+
+.links:has(#home) {
+    position: absolute; 
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
+    text-align: left;
+    border: none; 
+    padding: 0;
+    background-color: transparent;
+    cursor: pointer;
+    width: 44px;
+}
+
+.links:has(#home) img {
+    max-width: 100%;
+}

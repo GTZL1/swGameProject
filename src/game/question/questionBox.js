@@ -14,14 +14,14 @@ const QuestionBox = () => {
 
     useEffect(() => {
         axios
-         .get(`${ENDPOINTS.GET_ALL_QUESTION_DOCIDS}`)
-         .then((response) => {
-            setAllQuestionDocIds(response.data);
-            fetchQuestion(response.data);
-         })
-         .catch((error) => {
-            console.log(error);
-         });
+            .get(`${ENDPOINTS.GET_ALL_QUESTION_DOCIDS}`)
+            .then((response) => {
+                setAllQuestionDocIds(response.data);
+                fetchQuestion(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }, []);
 
     function fetchQuestion(allDocIds, docId = null) {
