@@ -127,9 +127,9 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
     function Names({reqLast}) {
         return <div id="names">
             <TextField id="firstName" label = {t('identity.first_name')} variant='outlined' required={true}
-            {...(firstName !== null ? { value: firstName } : {})}/>
+                {...(firstName !== null ? { value: firstName } : {})}/>
             <TextField id="lastName" label = {t('identity.last_name')} variant='outlined' required= {reqLast} disabled={!reqLast}
-            {...(lastName !== null ? { value: lastName } : {})}/>
+                {...(lastName !== null ? { value: lastName } : {})}/>
         </div>
     }
 
@@ -277,7 +277,7 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
             && (inputs.length === character.allegiances.length);
         setAllegiancesAreCorrect(allCheck);
 
-        if(!allCheck) {
+        if (!allCheck) {
             if (inputs.length < character.allegiances.length) {
                 setAllegiancesStatus(AllegiancesAnswerStatus.NOT_ENOUGH);
             } else if (inputs.length > character.allegiances.length) {
