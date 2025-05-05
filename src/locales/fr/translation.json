@@ -8,10 +8,10 @@
         "identity_button" : "Remplir des cartes d'identité"
     },
     "questions" : {
-        "correct_answer" : "... réponse exacte ! Bien joué !",
+        "correct_answer" : "Bonne réponse, bien joué !",
         "wrong_answer_prompt" : "Dommage, cette fois c'est faux...",
-        "wrong_answer_correction" : "La bonne réponse était ",
-        "new_question" : "Nouvelle question"
+        "new_question" : "Nouvelle question",
+        "button" : "Vérifier"
     },
     "identity" : {
         "category": "Catégorie",
@@ -25,6 +25,9 @@
         "BBY": "av.BY",
         "ABY": "ap.BY",
         "allegiances": "Affiliations",
+        "too_many" : "Trop d'affiliations",
+        "wrong": "Une ou plusieurs affiliations sont fausses",
+        "not_enough" : "Pas assez d'affiliations",
         "submit": "Vérifier",
         "new_character_message": "Bien joué... Tu repars pour un tour ?",
         "new_character_button": "Nouveau personnage",

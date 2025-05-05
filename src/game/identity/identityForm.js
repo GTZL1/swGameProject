@@ -31,9 +31,18 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
     const [selectedAllegiances, setSelectedAllegiances] = useState([]);
     const [allegiancesAreCorrect, setAllegiancesAreCorrect] = useState(false);
 
+    const AllegiancesAnswerStatus = {
+        TOO_MANY : "too_many",
+        WRONG : "wrong",
+        NOT_ENOUGH : "not_enough",
+        NOTHING_DISPLAY : "nothing"
+    }
+    const [allegiancesStatus, setAllegiancesStatus] = useState(AllegiancesAnswerStatus.NOTHING_DISPLAY);
+
     useEffect(() => {
         if (!characterDocId) return;
 
+        setAllCorrect(null);
         fetchCharacter();
     }, [characterDocId]);
 
@@ -118,9 +127,9 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
     function Names({reqLast}) {
         return <div id="names">
             <TextField id="firstName" label = {t('identity.first_name')} variant='outlined' required={true}
-            {...(firstName !== null ? { value: firstName } : {})}/>
+                {...(firstName !== null ? { value: firstName } : {})}/>
             <TextField id="lastName" label = {t('identity.last_name')} variant='outlined' required= {reqLast} disabled={!reqLast}
-            {...(lastName !== null ? { value: lastName } : {})}/>
+                {...(lastName !== null ? { value: lastName } : {})}/>
         </div>
     }
 
@@ -175,7 +184,7 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
     }
 
     function Allegiances() {
-        return <>
+        return <div>
                 <Select
                     isMulti
                     {...(selectedAllegiances.length > 0 && !allegiancesAreCorrect ?
@@ -191,7 +200,11 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
                         ({value: a, label: a}))}
                     className="basic-multi-select"
                     classNamePrefix="select"/>
-            </>
+
+                    { allegiancesStatus !== AllegiancesAnswerStatus.NOTHING_DISPLAY && (
+                        <p style = {{ marginTop: 0 }}>{t(`identity.${allegiancesStatus}`)} </p>
+                    )} 
+            </div>
     }
 
     function noobButton() {
@@ -219,7 +232,7 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
         setSelectedCategory(character.category);
         setSelectedAllegiances(Utils.translateAllegiances(character.allegiances, i18n, t));
         setAllegiancesAreCorrect(true);
-        setAllCorrect(true);
+        setAllCorrect(false);
         setIsNoob(true);
     }
 
@@ -263,6 +276,19 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
             Utils.translateAllegiances(character.allegiances, i18n, t).includes(a)))
             && (inputs.length === character.allegiances.length);
         setAllegiancesAreCorrect(allCheck);
+
+        if (!allCheck) {
+            if (inputs.length < character.allegiances.length) {
+                setAllegiancesStatus(AllegiancesAnswerStatus.NOT_ENOUGH);
+            } else if (inputs.length > character.allegiances.length) {
+                setAllegiancesStatus(AllegiancesAnswerStatus.TOO_MANY);
+            } else {
+                setAllegiancesStatus(AllegiancesAnswerStatus.WRONG);
+            }
+        } else {
+            setAllegiancesStatus(AllegiancesAnswerStatus.NOTHING_DISPLAY);
+        }
+
         result = allCheck && result;
 
         setAllCorrect(result);

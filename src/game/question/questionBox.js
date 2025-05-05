@@ -14,14 +14,14 @@ const QuestionBox = () => {
 
     useEffect(() => {
         axios
-         .get(`${ENDPOINTS.GET_ALL_QUESTION_DOCIDS}`)
-         .then((response) => {
-            setAllQuestionDocIds(response.data);
-            fetchQuestion(response.data);
-         })
-         .catch((error) => {
-            console.log(error);
-         });
+            .get(`${ENDPOINTS.GET_ALL_QUESTION_DOCIDS}`)
+            .then((response) => {
+                setAllQuestionDocIds(response.data);
+                fetchQuestion(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }, []);
 
     function fetchQuestion(allDocIds, docId = null) {
@@ -36,15 +36,13 @@ const QuestionBox = () => {
 
     function CorrectAnswer() {
         return <>
-            <span className="rightA"><br/>
-            {t('questions.correct_answer')}</span>
+            <p className="rightA">{t('questions.correct_answer')}</p>
         </>
     }
 
     function WrongAnswer() {
         return <>
             <p className="wrongA">{t('questions.wrong_answer_prompt')}</p>
-            <span>{t('questions.wrong_answer_correction')}</span>
         </>
     }
 

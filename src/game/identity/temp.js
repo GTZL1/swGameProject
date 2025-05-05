@@ -59,3 +59,18 @@
                     {allCategories.map((c, index) => <option key={index} value={c}>{c}</option>)}
             </select>
         */
+
+/*
+<div id="flagList" key={isClicked}
+        style={{transform : isClicked ? "translateY(26%)" : "translateY(0%)"}}>
+            <button onClick={() => handleLanguageChange(i18n.language)}>
+                <img src={'/resources/icons/' + ICONS[i18n.language]}
+                 className="langFlag" alt="Current language icon" />
+            </button>
+            {
+            isClicked && 
+            <button onClick={() => handleLanguageChange(otherLanguage)}>
+                <img src={'/resources/icons/' + ICONS[otherLanguage]} alt="Other language icon" className="langFlag"/></button>
+        }
+        </div>
+*/

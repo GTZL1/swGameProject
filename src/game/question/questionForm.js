@@ -61,7 +61,7 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect}) => {
                 disabled={isCorrect !== null}
                 {...(userInput.length > 0 ? {value : userInput} : {})}/>
             <button type="submit"
-            disabled={isCorrect !== null}>V</button>
+            disabled={isCorrect !== null}>{t('questions.button')}</button>
         </form>
         </>);
     }

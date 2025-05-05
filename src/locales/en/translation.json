@@ -8,10 +8,10 @@
         "identity_button" : "Fill some identity cards"
     },
     "questions" : {
-        "correct_answer" : "... that is correct ! Well done !",
+        "correct_answer" : "Correct, well done !",
         "wrong_answer_prompt" : "Too bad, you're wrong this time...",
-        "wrong_answer_correction" : "Correct answer was ",
-        "new_question" : "New question"
+        "new_question" : "New question",
+        "button" : "Check"
     },
     "identity" : {
         "category": "Category",
@@ -25,6 +25,9 @@
         "BBY": "BBY",
         "ABY": "ABY",
         "allegiances": "Affiliations",
+        "too_many" : "Too many affiliations",
+        "wrong": "One or more wrong affiliations",
+        "not_enough" : "Not enough affiliations",
         "submit": "Check",
         "new_character_message": "Well done... You try a new one ?",
         "new_character_button": "New character",

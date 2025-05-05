@@ -1,4 +1,4 @@
-header {
+/*header {
     display: flex;
     position: sticky;
     top: 0;
@@ -15,11 +15,29 @@ header h1 {
     left: 50%;
     transform: translateX(-50%);
     margin: 0;
-}
+}*/
 
 /*position only, appearance is in button.css*/
 #flagList {
     position: absolute; 
     right: 0;
     text-align: right;
+}
+
+.links:has(#home) {
+    position: absolute; 
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
+    text-align: left;
+    border: none; 
+    padding: 0;
+    background-color: transparent;
+    cursor: pointer;
+    width: 44px;
+}
+
+.links:has(#home) img {
+    max-width: 100%;
 }
