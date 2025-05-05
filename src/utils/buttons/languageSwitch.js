@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import "./buttons.css"
 import { useTranslation } from "react-i18next";
 import { ALL_LANGUAGES } from "../../i18n.js";
 import ICONS from "../../constants/icons.js";
 
-const LanguageSwitch = () => {
+const LanguageSwitch = ( {style} ) => {
     const { i18n } = useTranslation();
     const [isClicked, setIsClicked] = useState(false);
     
@@ -14,10 +13,9 @@ const LanguageSwitch = () => {
     };
 
     const otherLanguage = ALL_LANGUAGES.filter((lang) => lang != i18n.language);
-    return (<div id="flagList" key={isClicked}>
-            <button onClick={() => handleLanguageChange(otherLanguage)}>
-            <img src={'/resources/icons/' + ICONS[otherLanguage]} alt="Other language icon" className="langFlag"/></button>
-        </div>
+    return (<button className= {`${style}`} id="flagList" key={isClicked} onClick={() => handleLanguageChange(otherLanguage)}>
+            <img className="langFlag max-h-full" src={'/resources/icons/' + ICONS[otherLanguage]} alt="Other language icon"/>
+            </button>
     );
 };
 

@@ -9,7 +9,7 @@ const TitleBar = ({nameP}) => {
     }
         
     return (<header className='items-center flex sticky top-0 w-full h-[60px] overflow-visible bg-stone-300'>
-            <ButtonLink route={'/'} children={<img src={'/resources/icons/home_icon.png'} id='home' />} />
+            <ButtonLink route={'/'} children={<img className='max-h-full' src={'/resources/icons/home_icon.png'} id='home' />} />
             <TitleText name={nameP} />
             <LanguageSwitch />
         </header>);
