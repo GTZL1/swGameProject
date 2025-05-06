@@ -8,6 +8,7 @@ export default {
     extend: {
       fontFamily: {
         starjedi: ['starjedi', 'sans-serif'],
+        aurebesh: ['aurebesh', 'sans-serif']
       }
     },
   },

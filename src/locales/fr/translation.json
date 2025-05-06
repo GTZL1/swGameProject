@@ -1,11 +1,12 @@
 {
     "titles": {
-        "main_title" : "UN SIMPLE JEU DANS LA GALAXIE...",
+        "main_title" : "UN MODESTE JEU DANS LA GALAXIE...",
         "question_title" : "Questions",
         "identity_title" : "Cartes d'identité",
         "daily_title" : "Les défis du jour",
         "question_button" : "Enchaîner les questions",
-        "identity_button" : "Remplir des cartes d'identité"
+        "identity_button" : "Remplir des cartes d'identité",
+        "aurebesh" : "Mode aurebesh"
     },
     "questions" : {
         "correct_answer" : "Bonne réponse, bien joué !",

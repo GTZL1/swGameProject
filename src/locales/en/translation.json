@@ -5,7 +5,8 @@
         "identity_title" : "Identity cards",
         "daily_title" : "Today's challenges",
         "question_button" : "Chain the questions",
-        "identity_button" : "Fill some identity cards"
+        "identity_button" : "Fill some identity cards",
+        "aurebesh" : "Aurebesh mode"
     },
     "questions" : {
         "correct_answer" : "Correct, well done !",

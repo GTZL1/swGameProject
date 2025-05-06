@@ -4,7 +4,14 @@
 
 @font-face {
     font-family: 'starjedi';
-    src: url('/resources/fonts/Starjedi.ttf') format('truetype');
+    src: url('../public/resources/fonts/Starjedi.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
-  }
+}
+
+@font-face {
+  font-family: 'aurebesh';
+  src: url('../public/resources/fonts/Aurebesh.otf') format('opentype');
+  font-weight: normal;
+    font-style: normal;
+}
