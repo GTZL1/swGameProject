@@ -34,32 +34,25 @@ const QuestionBox = () => {
         setQuestionDocId(docId);
     }
 
-    function CorrectAnswer() {
-        return <>
-            <p className="rightA">{t('questions.correct_answer')}</p>
-        </>
-    }
-
-    function WrongAnswer() {
-        return <>
-            <p className="wrongA">{t('questions.wrong_answer_prompt')}</p>
-        </>
+    function answerMessage(isCorrect) {
+        return (isCorrect ? t('questions.correct_answer') : t('questions.wrong_answer_prompt'));
     }
 
     return(<>
         <QuestionForm questionDocId={questionDocId}
         isCorrect={isCorrect}
-        setIsCorrect={setIsCorrect}/>
-
-        {isCorrect !== null && ( <>
-            {isCorrect ? <CorrectAnswer /> : <WrongAnswer />}
-            <button onClick={() => {
-                fetchQuestion(allQuestionDocIds);
-                setNbQuestions(nbQuestions + 1);
-            }} disabled={nbQuestions == allQuestionDocIds.length}>
-                {t('questions.new_question')}
-            </button></>
-        )}
+        setIsCorrect={setIsCorrect}
+        answerProps=
+            {isCorrect !== null ? (<>
+                <p className="my-2">
+                    {answerMessage(isCorrect)}</p>
+                <button onClick={() => {
+                    fetchQuestion(allQuestionDocIds);
+                    setNbQuestions(nbQuestions + 1);
+                }} disabled={nbQuestions == allQuestionDocIds.length}>
+                    {t('questions.new_question')}
+                </button></>
+            ) : <></>} />
     </>);
 }
 

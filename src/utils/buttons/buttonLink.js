@@ -1,9 +1,8 @@
 import React from 'react'
-import "./buttons.css"
 import { Link } from 'react-router'
 
-const ButtonLink = ({ route, children }) => {
-  return <Link to={route}><button className='links'>{children}</button></Link>
+const ButtonLink = ({ route, children, style }) => {
+  return <Link to={route}><button className={`links ${style}`}>{children}</button></Link>
 }
 
 export default ButtonLink

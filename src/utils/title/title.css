@@ -17,27 +17,28 @@ header h1 {
     margin: 0;
 }*/
 
-/*position only, appearance is in button.css*/
 #flagList {
-    position: absolute; 
-    right: 0;
-    text-align: right;
+    /*position: absolute; 
+    right: 0;*/
+    @apply absolute right-0;
+}
+
+header button {
+    @apply flex items-center justify-center  border-none p-0 m-0 bg-transparent cursor-pointer;
+    /*display: flex; 
+    align-items: center;
+    justify-content: center;
+    border: none; 
+    padding: 0; 
+    margin: 0;
+    height: 80%;
+    background-color: transparent; 
+    cursor: pointer; */
 }
 
 .links:has(#home) {
-    position: absolute; 
+    /*position: absolute; 
     left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    margin: 0;
-    text-align: left;
-    border: none; 
-    padding: 0;
-    background-color: transparent;
-    cursor: pointer;
-    width: 44px;
-}
-
-.links:has(#home) img {
-    max-width: 100%;
+    transform: translateY(-50%);*/
+    @apply absolute left-0 transform -translate-y-1/2 h-[80%];
 }

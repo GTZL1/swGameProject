@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { useTranslation } from "react-i18next";
+import { TextField } from '@mui/material';
 import Question from "./question.js";
-import "./question.css";
 import ENDPOINTS from "../../constants/endpoints.js";
 
-const QuestionForm = ({questionDocId, isCorrect, setIsCorrect}) => {
+const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => {
     const [question, setQuestion] = useState(null);
     const [userInput, setUserInput] = useState("");
     const { i18n, t } = useTranslation();
@@ -49,29 +49,46 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect}) => {
 
     function QuestionComponent() {
         return <>
-            <div>Q: {question?.getQuestionTitle()}</div>
-            {question?.getAnswerIndication() !== null && <div id="indication">{question?.getAnswerIndication()}</div>}
+            <p className="text-xl text-center">{question?.getQuestionTitle()}</p>
         </> 
     }
 
     function Answer() {
         return(<>
-        <form onSubmit={checkAnswer}>
-            <input id="answerInput"
+        <form onSubmit={checkAnswer}
+            className="flex justify-center items-center mt-2">
+            <TextField id="answerInput" variant="outlined"
+                {...(question?.getAnswerIndication() !== null ? {label : question?.getAnswerIndication()} : {})}
                 disabled={isCorrect !== null}
-                {...(userInput.length > 0 ? {value : userInput} : {})}/>
-            <button type="submit"
-            disabled={isCorrect !== null}>{t('questions.button')}</button>
+                {...(userInput.length > 0 ? {value : userInput} : {})} 
+                size="small"
+                slotProps={{
+                    input : {
+                        className: "bg-gray-100 rounded-lg text-black"
+                    },
+                }}
+                sx={{
+                    width: "60%",
+                    "& .MuiInputLabel-root": {
+                        color: "gray text-2xs",
+                    }
+                }}/>
+            <button type="submit" className="ml-4"
+                disabled={isCorrect !== null}>{t('questions.button')}</button>
         </form>
         </>);
     }
 
-    return(<>
-        { (question !== null && question.getImageUrl().length > 0) &&
-        <img src={(`${ENDPOINTS.BACKEND_URL}${question.getImageUrl()}`)} />}    
-        <QuestionComponent />
-        <Answer />
-    </>);
+    return(<div className="flex flex-col max-w-[50vw]">
+        {(question !== null) &&
+            <img src={(`${ENDPOINTS.BACKEND_URL}${question.getImageUrl()}`)} 
+                className={`max-h-[50vh] object-contain question-div`} />}    
+        <div className={`flex flex-col items-center question-div mt-8 p-3`}>
+            <QuestionComponent />
+            <Answer />
+            {answerProps}
+        </div>
+    </div>);
 }
 
 export default QuestionForm;

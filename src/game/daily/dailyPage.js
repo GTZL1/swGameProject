@@ -6,14 +6,18 @@ import axios from 'axios';
 import ENDPOINTS from '../../constants/endpoints.js';
 import IdentityForm from '../identity/identityForm.js';
 import QuestionForm from '../question/questionForm.js';
+import { useFont } from '../../context/FontContext.js';
+import '../common.css';
 
 export const NUMBER_DAILY_QUESTIONS = 4;
 export const NUMBER_DAILY_CHARACTERS = 2;
 
 const DailyPage = () => {
+    const { t } = useTranslation();
+    const { contentFont } = useFont();
+
     const [questionDocIds, setQuestionDocIds] = useState([]);
     const [charDocIds, setCharDocIds] = useState([]);
-    const { i18n, t } = useTranslation();
     const effectRan = useRef(false);
     const [currentId, setCurrentId] = useState(0);
     const [allCorrect, setAllCorrect] = useState(false);
@@ -137,44 +141,47 @@ const DailyPage = () => {
         <title>{SENTENCES.TITLES.MAIN_TITLE}</title>
         <TitleBar nameP={t('titles.daily_title')}/>
 
-        {(currentId < NUMBER_DAILY_QUESTIONS) && (
-            <QuestionForm questionDocId={questionDocIds[currentId]}
-                isCorrect={allCorrect}
-                setIsCorrect={setAllCorrect} />
-        )}
-        {(currentId >= NUMBER_DAILY_QUESTIONS && currentId < (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) && (
-            <IdentityForm characterDocId={charDocIds[currentId-NUMBER_DAILY_QUESTIONS]}
-                allCorrect={allCorrect}
-                setAllCorrect={setAllCorrect}
-                setIsNoob={setIsNoob} />
-        )}
+        <section className={`${contentFont} flex justify-center mt-5 game-button`}>
 
-        {(currentId >= (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) && (<>
-            <Score scores = {questionScore}
-                title = {t('titles.question_title')}
-                range = {NUMBER_DAILY_QUESTIONS} />
-            <Score scores = {characterScore}
-                title = {t('titles.identity_title')}
-                range = {NUMBER_DAILY_CHARACTERS} />
-            <button onClick={() => {
-                navigator.clipboard.writeText(
-                    scoreText(questionScore, t('titles.question_title'), NUMBER_DAILY_QUESTIONS) + "\n"
-                    + scoreText(characterScore, t('titles.identity_title'), NUMBER_DAILY_CHARACTERS));
-            }}>
-                {t('daily.copy_score')}
-            </button>
-            </>
-        )} 
+            {(currentId < NUMBER_DAILY_QUESTIONS) && (
+                <QuestionForm questionDocId={questionDocIds[currentId]}
+                    isCorrect={allCorrect}
+                    setIsCorrect={setAllCorrect} />
+            )}
+            {(currentId >= NUMBER_DAILY_QUESTIONS && currentId < (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) && (
+                <IdentityForm characterDocId={charDocIds[currentId-NUMBER_DAILY_QUESTIONS]}
+                    allCorrect={allCorrect}
+                    setAllCorrect={setAllCorrect}
+                    setIsNoob={setIsNoob} />
+            )}
+
+            {(currentId >= (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) && (<>
+                <Score scores = {questionScore}
+                    title = {t('titles.question_title')}
+                    range = {NUMBER_DAILY_QUESTIONS} />
+                <Score scores = {characterScore}
+                    title = {t('titles.identity_title')}
+                    range = {NUMBER_DAILY_CHARACTERS} />
+                <button onClick={() => {
+                    navigator.clipboard.writeText(
+                        scoreText(questionScore, t('titles.question_title'), NUMBER_DAILY_QUESTIONS) + "\n"
+                        + scoreText(characterScore, t('titles.identity_title'), NUMBER_DAILY_CHARACTERS));
+                }}>
+                    {t('daily.copy_score')}
+                </button>
+                </>
+            )} 
        
-        {displayNextButton() && (currentId < (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) && (<>
-            <button onClick={() => {
-                updateScore(currentId, allCorrect, isNoob);
-                setCurrentId(currentId + 1);}
-            }>
-                {(currentId === (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS -1))
-                    ? t('daily.see_score') : t('daily.next')}
-            </button>
-        </>)}
+            {displayNextButton() && (currentId < (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) && (<>
+                <button onClick={() => {
+                    updateScore(currentId, allCorrect, isNoob);
+                    setCurrentId(currentId + 1);}
+                }>
+                    {(currentId === (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS -1))
+                        ? t('daily.see_score') : t('daily.next')}
+                </button>
+            </>)}
+        </section>
     </>);
 }
 
