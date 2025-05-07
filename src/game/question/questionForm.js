@@ -5,7 +5,7 @@ import { TextField } from '@mui/material';
 import Question from "./question.js";
 import ENDPOINTS from "../../constants/endpoints.js";
 
-const QuestionForm = ({questionDocId, isCorrect, setIsCorrect}) => {
+const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => {
     const [question, setQuestion] = useState(null);
     const [userInput, setUserInput] = useState("");
     const { i18n, t } = useTranslation();
@@ -49,14 +49,14 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect}) => {
 
     function QuestionComponent() {
         return <>
-            <p>{question?.getQuestionTitle()}</p>
+            <p className="text-xl text-center">{question?.getQuestionTitle()}</p>
         </> 
     }
 
     function Answer() {
         return(<>
         <form onSubmit={checkAnswer}
-            className="flex justify-center items-center">
+            className="flex justify-center items-center mt-2">
             <TextField id="answerInput" variant="outlined"
                 {...(question?.getAnswerIndication() !== null ? {label : question?.getAnswerIndication()} : {})}
                 disabled={isCorrect !== null}
@@ -64,30 +64,29 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect}) => {
                 size="small"
                 slotProps={{
                     input : {
-                        className: "bg-gray-100 rounded-lg text-black w-[80%]"
-                    }
+                        className: "bg-gray-100 rounded-lg text-black"
+                    },
                 }}
                 sx={{
+                    width: "60%",
                     "& .MuiInputLabel-root": {
-                        color: "gray",
-                    },
+                        color: "gray text-2xs",
+                    }
                 }}/>
-            <button type="submit"
-            disabled={isCorrect !== null}
-            className="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-700">
-                {t('questions.button')}</button>
+            <button type="submit" className="ml-4"
+                disabled={isCorrect !== null}>{t('questions.button')}</button>
         </form>
         </>);
     }
 
-    const questionStyle = "bg-slate-400/[.90] rounded-2xl outline outline-4 outline-cyan-600 outline-offset-4";
-    return(<div className="flex flex-col">
+    return(<div className="flex flex-col max-w-[50vw]">
         {(question !== null) &&
             <img src={(`${ENDPOINTS.BACKEND_URL}${question.getImageUrl()}`)} 
-                className={`max-h-[50vh] max-w-[60vw] object-contain ${questionStyle}`} />}    
-        <div className={`flex flex-col items-center content-center ${questionStyle} mt-8 p-3`}>
+                className={`max-h-[50vh] object-contain question-div`} />}    
+        <div className={`flex flex-col items-center question-div mt-8 p-3`}>
             <QuestionComponent />
             <Answer />
+            {answerProps}
         </div>
     </div>);
 }

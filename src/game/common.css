@@ -1,3 +1,7 @@
-/*.outline-width {
-    outline-width: 4px;
-}*/
+.game-button button {
+    @apply bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-700;
+}
+
+.question-div {
+    @apply bg-slate-400/[.90] rounded-2xl outline outline-4 outline-cyan-600 outline-offset-4;
+}
