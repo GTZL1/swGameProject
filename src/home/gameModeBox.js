@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import ButtonLink from '../utils/buttons/buttonLink.js';
-import { useFont } from '../context/FontContext.js'; 
 
 const GameModeBox = ({endpoint, boxText, buttonText}) => {
-    const { contentFont } = useFont();
     return (
-        <div className='w-80 flex flex-col items-center justify-center gap-1 p-3 border-4 border-solid border-black m-5'>
-            <p className={`${contentFont} h-[90%] flex items-center text-center`}>{boxText}</p>
+        <div className={`w-80 flex flex-col items-center justify-center gap-1 p-3 border-4 border-solid border-black m-5`}>
+            <p className={`h-[90%] flex items-center text-center`}>{boxText}</p>
             <ButtonLink route = {endpoint} style="text-red-600 max-w-md">{buttonText}</ButtonLink>
         </div>
     );

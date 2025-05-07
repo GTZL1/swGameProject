@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { useTranslation } from "react-i18next";
+import { TextField } from '@mui/material';
 import Question from "./question.js";
-import "./question.css";
 import ENDPOINTS from "../../constants/endpoints.js";
 
 const QuestionForm = ({questionDocId, isCorrect, setIsCorrect}) => {
@@ -49,29 +49,47 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect}) => {
 
     function QuestionComponent() {
         return <>
-            <div>Q: {question?.getQuestionTitle()}</div>
-            {question?.getAnswerIndication() !== null && <div id="indication">{question?.getAnswerIndication()}</div>}
+            <p>{question?.getQuestionTitle()}</p>
         </> 
     }
 
     function Answer() {
         return(<>
-        <form onSubmit={checkAnswer}>
-            <input id="answerInput"
+        <form onSubmit={checkAnswer}
+            className="flex justify-center items-center">
+            <TextField id="answerInput" variant="outlined"
+                {...(question?.getAnswerIndication() !== null ? {label : question?.getAnswerIndication()} : {})}
                 disabled={isCorrect !== null}
-                {...(userInput.length > 0 ? {value : userInput} : {})}/>
+                {...(userInput.length > 0 ? {value : userInput} : {})} 
+                size="small"
+                slotProps={{
+                    input : {
+                        className: "bg-gray-100 rounded-lg text-black w-[80%]"
+                    }
+                }}
+                sx={{
+                    "& .MuiInputLabel-root": {
+                        color: "gray",
+                    },
+                }}/>
             <button type="submit"
-            disabled={isCorrect !== null}>{t('questions.button')}</button>
+            disabled={isCorrect !== null}
+            className="bg-blue-500 text-white px-3 py-2 rounded hover:bg-blue-700">
+                {t('questions.button')}</button>
         </form>
         </>);
     }
 
-    return(<>
-        { (question !== null && question.getImageUrl().length > 0) &&
-        <img src={(`${ENDPOINTS.BACKEND_URL}${question.getImageUrl()}`)} />}    
-        <QuestionComponent />
-        <Answer />
-    </>);
+    const questionStyle = "bg-slate-400/[.90] rounded-2xl outline outline-4 outline-cyan-600 outline-offset-4";
+    return(<div className="flex flex-col">
+        {(question !== null) &&
+            <img src={(`${ENDPOINTS.BACKEND_URL}${question.getImageUrl()}`)} 
+                className={`max-h-[50vh] max-w-[60vw] object-contain ${questionStyle}`} />}    
+        <div className={`flex flex-col items-center content-center ${questionStyle} mt-8 p-3`}>
+            <QuestionComponent />
+            <Answer />
+        </div>
+    </div>);
 }
 
 export default QuestionForm;

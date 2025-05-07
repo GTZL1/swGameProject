@@ -28,7 +28,7 @@ const FontSwitch = ({ style }) => {
 
     return (<div className={`flex items-center ${style}`}>
                 <span className='text-xs'>{t('titles.aurebesh')}</span>
-                <Switch onClick={toggleFont} />
+                <Switch onClick={toggleFont} checked={useSingleFont} />
             </div>
     );
 };
