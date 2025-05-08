@@ -36,29 +36,26 @@ const IdentityBox = () => {
         setCharacterDocId(docId);
     }
 
-    function RightAnswer() {
-        return <div>{t('identity.new_character_message')}</div>
-    }
-
-    function WrongAnswer() {
-        return <div>{t('identity.noob')}</div>
+    function answerMessage(isNoob) {
+        return (isNoob ? t('identity.noob') : t('identity.new_character_message'));
     }
 
     return <div id = "master" className='flex flex-wrap'>
         <IdentityForm characterDocId={characterDocId}
         allCorrect={allCorrect}
+        isNoob={isNoob}
         setAllCorrect={setAllCorrect}
-        setIsNoob={setIsNoob} />
-        <div>
-                {(allCorrect || isNoob) && (<>
-                    { isNoob ? <WrongAnswer /> : <RightAnswer />}
-                    <button onClick={() => {
-                        fetchCharacter(allCharIds);
-                        setNbChars(nbChars + 1);
-                    }}
-                    disabled = { nbChars === allCharIds.length }>{t('identity.new_character_button')}</button></>
-                )}
-        </div>
+        setIsNoob={setIsNoob}
+        answerProps={
+            (allCorrect || isNoob) && (<>
+                <div className='pt-2 pb-1'>{answerMessage(isNoob)}</div>
+                <button onClick={() => {
+                    fetchCharacter(allCharIds);
+                    setNbChars(nbChars + 1);
+                }}
+                    disabled = { nbChars === allCharIds.length }>{t('identity.new_character_button')}</button>
+            </>)}
+        />
     </div>
 }
 

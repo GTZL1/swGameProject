@@ -12,7 +12,7 @@ import Utils from './utils.js';
 export const BBY = "BBY";
 export const ABY = "ABY";
 
-const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) => {
+const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsNoob, answerProps}) => {
     const [allCategories, setAllCategories] = useState([]);
     const [allAllegiances, setAllAllegiances] = useState([]);
     const { i18n,t } = useTranslation();
@@ -120,7 +120,14 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
                 placeholder = {t('identity.category')}
                 required="true"
                 className="basic-select"
-                classNamePrefix="select"/>
+                classNamePrefix="select"
+                menuPortalTarget={document.body} 
+                styles={{
+                    menuPortal: (base) => ({
+                        ...base,
+                        zIndex: 9999, 
+                    }),
+                }}/>
         </div>
     }
 
@@ -168,8 +175,8 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
             setEra((prevEra) => (prevEra === BBY ? ABY : BBY));
         };
 
-        return <div className='flex justify-between items-end pb-3'>
-            <div className='w-[20%]'>{t(yearLabel)}</div>
+        return <div className='flex justify-start items-end pb-3'>
+            <div className='w-[20%] mr-1'>{t(yearLabel)}</div>
             <div className='flex items-end gap-x-2'>
                 <NumberField.Root id = {`${event.toLowerCase()}Year`} disabled = {!reqYear} required={reqYear} className="numberRoot">
                 <NumberField.Group>
@@ -216,7 +223,7 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
                     classNamePrefix="select"/>
 
                     { allegiancesStatus !== AllegiancesAnswerStatus.NOTHING_DISPLAY && (
-                        <p style = {{ marginTop: 0 }}>{t(`identity.${allegiancesStatus}`)} </p>
+                        <p className='text-xs text-center text-red-800 mt-0'>{t(`identity.${allegiancesStatus}`)} </p>
                     )} 
             </div>
     }
@@ -310,7 +317,7 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
 
     function Image() {
         return <img src={(`${ENDPOINTS.BACKEND_URL}${character?.imageUrl}`)}
-            className='min-w-64 max-w-[35vw] mx-3 mb-5 question-div self-start' />
+            className='min-w-64 max-w-[30vw] mx-3 mb-5 question-div self-start' />
     }
 
     return <div className='flex flex-wrap justify-center'>
@@ -328,8 +335,10 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
         
             <Allegiances />
             
-            <button disabled={allCorrect} type="submit">{t('identity.submit')}</button>
-            <button disabled={allCorrect} onClick={noobButton}>{t('identity.noob_button')}</button>
+            <button disabled={(allCorrect || isNoob)} type="submit" className='mb-3'>{t('identity.submit')}</button>
+            <button disabled={(allCorrect || isNoob)} onClick={noobButton} className='text-xs'>{t('identity.noob_button')}</button>
+
+            {answerProps}
         </form>
     </div>
 }
