@@ -72,7 +72,7 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => 
                     "& .MuiInputLabel-root": {
                         color: "gray text-2xs",
                     }
-                }}/>
+                }} />
             <button type="submit" className="ml-4"
                 disabled={isCorrect !== null}>{t('questions.button')}</button>
         </form>

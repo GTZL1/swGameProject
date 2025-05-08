@@ -5,3 +5,7 @@
 .question-div {
     @apply bg-slate-400/[.90] rounded-2xl outline outline-4 outline-cyan-600 outline-offset-4;
 }
+
+.page {
+    @apply flex justify-center mt-5;
+}

@@ -13,7 +13,7 @@ const QuestionPage = () => {
     return (<>
     <title>{SENTENCES.TITLES.MAIN_TITLE}</title>
     <TitleBar nameP={t('titles.question_title')}/>
-    <section className={`${contentFont} flex justify-center mt-5 game-button`}><QuestionBox /></section>
+    <section className={`${contentFont} page game-button`}><QuestionBox /></section>
     </>);
 }
 
