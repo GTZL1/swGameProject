@@ -79,7 +79,7 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => 
         </>);
     }
 
-    return(<div className="flex flex-col max-w-[50vw]">
+    return(<div className="flex flex-col max-w-[50vw] items-center">
         {(question !== null) &&
             <img src={(`${ENDPOINTS.BACKEND_URL}${question.getImageUrl()}`)} 
                 className={`max-h-[50vh] object-contain question-div`} />}    
