@@ -12,7 +12,8 @@
         "correct_answer" : "Correct, well done !",
         "wrong_answer_prompt" : "Too bad, you're wrong this time...",
         "new_question" : "New question",
-        "button" : "Check"
+        "button" : "Check",
+        "help_message" : "Answer only with the requested word(s), without any determiner, plural and so on."
     },
     "identity" : {
         "category": "Category",
@@ -33,7 +34,8 @@
         "new_character_message": "Well done... You try a new one ?",
         "new_character_button": "New character",
         "noob_button": "Stop guessing",
-        "noob": "You'll do better with the next one..."
+        "noob": "You'll do better with the next one...",
+        "help_message" : "Choose one category, fill every active field with the requested year (watch out for the era !) or proper name then choose all needed affiliations."
     },
     "daily" : {
         "next" : "Next",

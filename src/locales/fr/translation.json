@@ -12,7 +12,8 @@
         "correct_answer" : "Bonne réponse, bien joué !",
         "wrong_answer_prompt" : "Dommage, cette fois c'est faux...",
         "new_question" : "Nouvelle question",
-        "button" : "Vérifier"
+        "button" : "Vérifier",
+        "help_message" : "Réponds uniquement avec le ou les mots demandés, sans déterminant, pluriel, etc."
     },
     "identity" : {
         "category": "Catégorie",
@@ -43,7 +44,8 @@
             "rebel_alliance": "Alliance Rebelle",
             "new_republic": "Nouvelle République",
             "imperial_remnants": "Vestiges de l'Empire"
-        }
+        },
+        "help_message" : "Sélectionne une seule catégorie, remplis chaque champ actif avec l'année (attention à l'ère !) ou le nom propre requis puis choisis toutes les affiliations nécessaires."
     },
     "daily" : {
         "next" : "Suivant",

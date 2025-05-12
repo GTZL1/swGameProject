@@ -8,6 +8,7 @@ import { NumberField } from '@base-ui-components/react/number-field';
 import axios from 'axios';
 import '../common.css';
 import Utils from './utils.js';
+import InfoBubble from '../help/infoBubble.js';
 
 export const BBY = "BBY";
 export const ABY = "ABY";
@@ -322,24 +323,28 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
 
     return <div className='flex flex-wrap justify-center'>
         <Image />
-        <form onSubmit={checkAnswers} className='w-[55vw] min-w-96 mx-3 px-5 py-3 question-div flex flex-col justify-center items-center'>
-            <Category />
-            <div className='items-start w-full'>
-                <Names reqLast={character?.lastName !== null} />
-                <Specie />
-                <DatePlanet year={character?.birthDate} planet={character?.birthPlanet}
-                    event={"Birth"} stateEra={birthEra} stateDate={birthDate} statePlanet={birthPlanet} />
-                <DatePlanet year={character?.deathDate} planet={character?.deathPlanet}
-                    event={"Death"} stateEra={deathEra} stateDate={deathDate} statePlanet={deathPlanet} />
-            </div>
-        
-            <Allegiances />
+        <div className='flex flex-col items-center'>
+            <form onSubmit={checkAnswers} className='w-[55vw] min-w-96 mx-3 mb-4 px-5 py-3 question-div flex flex-col justify-center items-center'>
+                <Category />
+                <div className='items-start w-full'>
+                    <Names reqLast={character?.lastName !== null} />
+                    <Specie />
+                    <DatePlanet year={character?.birthDate} planet={character?.birthPlanet}
+                        event={"Birth"} stateEra={birthEra} stateDate={birthDate} statePlanet={birthPlanet} />
+                    <DatePlanet year={character?.deathDate} planet={character?.deathPlanet}
+                        event={"Death"} stateEra={deathEra} stateDate={deathDate} statePlanet={deathPlanet} />
+                </div>
             
-            <button disabled={(allCorrect || isNoob)} type="submit" className='mb-3'>{t('identity.submit')}</button>
-            <button disabled={(allCorrect || isNoob)} onClick={noobButton} className='text-xs'>{t('identity.noob_button')}</button>
+                <Allegiances />
+                
+                <button disabled={(allCorrect || isNoob)} type="submit" className='mb-3'>{t('identity.submit')}</button>
+                <button disabled={(allCorrect || isNoob)} onClick={noobButton} className='text-xs'>{t('identity.noob_button')}</button>
 
-            {answerProps}
-        </form>
+                {answerProps}
+            </form>
+            {!(allCorrect || isNoob) &&
+                <InfoBubble helpMessage={t('identity.help_message')} />}
+        </div>
     </div>
 }
 

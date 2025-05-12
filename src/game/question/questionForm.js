@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { TextField } from '@mui/material';
 import Question from "./question.js";
 import ENDPOINTS from "../../constants/endpoints.js";
+import InfoBubble from "../help/infoBubble.js";
 
 const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => {
     const [question, setQuestion] = useState(null);
@@ -83,11 +84,13 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => 
         {(question !== null) &&
             <img src={(`${ENDPOINTS.BACKEND_URL}${question.getImageUrl()}`)} 
                 className={`max-h-[50vh] object-contain question-div`} />}    
-        <div className={`flex flex-col items-center question-div mt-8 p-3`}>
+        <div className={`flex flex-col items-center question-div mt-8 mb-4 p-3`}>
             <QuestionComponent />
             <Answer />
             {answerProps}
         </div>
+        {isCorrect === null &&
+            <InfoBubble helpMessage={t('questions.help_message')} />}
     </div>);
 }
 
