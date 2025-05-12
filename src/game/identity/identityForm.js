@@ -6,13 +6,14 @@ import { TextField, FormControlLabel, Switch } from '@mui/material';
 import Select from 'react-select';
 import { NumberField } from '@base-ui-components/react/number-field';
 import axios from 'axios';
-import './identity.css';
+import '../common.css';
 import Utils from './utils.js';
+import InfoBubble from '../help/infoBubble.js';
 
 export const BBY = "BBY";
 export const ABY = "ABY";
 
-const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) => {
+const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsNoob, answerProps}) => {
     const [allCategories, setAllCategories] = useState([]);
     const [allAllegiances, setAllAllegiances] = useState([]);
     const { i18n,t } = useTranslation();
@@ -110,7 +111,7 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
     }
 
     function Category () {
-        return <div > 
+        return <div className='pb-3'> 
             <Select
                 {...(selectedCategory !== null ?
                     {value: ({value : selectedCategory, label : selectedCategory})} : {})}
@@ -120,30 +121,48 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
                 placeholder = {t('identity.category')}
                 required="true"
                 className="basic-select"
-                classNamePrefix="select"/>
+                classNamePrefix="select"
+                menuPortalTarget={document.body} 
+                styles={{
+                    menuPortal: (base) => ({
+                        ...base,
+                        zIndex: 9999, 
+                    }),
+                }}/>
         </div>
+    }
+
+    function TextInput( {id, label, required, disabled, value, width} ) {
+        return <>
+            <TextField id={id} label = {label} variant='outlined' required={required} disabled={disabled}
+                size='small' {...(value !== null ? { value: value } : {})}
+                slotProps={{
+                    input : {
+                        className: "bg-gray-100 rounded-lg text-black"
+                    },
+                }}
+                sx={{
+                    width: {width},
+                    "& .MuiInputLabel-root": {
+                        color: "gray text-2xs",
+                    }
+                }} />
+        </>
     }
 
     function Names({reqLast}) {
-        return <div id="names">
-            <TextField id="firstName" label = {t('identity.first_name')} variant='outlined' required={true}
-                {...(firstName !== null ? { value: firstName } : {})}/>
-            <TextField id="lastName" label = {t('identity.last_name')} variant='outlined' required= {reqLast} disabled={!reqLast}
-                {...(lastName !== null ? { value: lastName } : {})}/>
+        const namesWidth="48%";
+        return <div className='flex justify-between pb-3'>
+            <TextInput id="firstName" label = {t('identity.first_name')} required={true} disabled={false}
+                value={firstName} width={namesWidth} />
+            <TextInput id="lastName" label = {t('identity.last_name')} required= {reqLast} disabled={!reqLast}
+                value={lastName} width={namesWidth} />
         </div>
     }
 
-    function Specie(required) {
-        return <div >
-            <TextField id="specie" label = {t('identity.specie')} variant='outlined' required={required}
-                {...(specie !== null ? { value: specie } : {})}/>
-        </div>
-    }
-
-    function Image() {
-        return <div>
-            <img src={(`${ENDPOINTS.BACKEND_URL}${character?.imageUrl}`)} />
-        </div>
+    function Specie() {
+        return <div className='pb-3'><TextInput id="specie" label={t('identity.specie')}
+            required={true} disabled={false} value= {specie} width="48%"/></div>
     }
 
     function DatePlanet({year, planet, event, stateEra, stateDate, statePlanet}) {
@@ -157,34 +176,37 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
             setEra((prevEra) => (prevEra === BBY ? ABY : BBY));
         };
 
-        return <div className='event'>
-            <NumberField.Root id = {`${event.toLowerCase()}Year`} disabled = {!reqYear} required={reqYear} className="numberRoot">
-                <NumberField.Group className="numberField">
-                    <NumberField.Input 
-                        placeholder={t(yearLabel)}
+        return <div className='flex justify-start items-end pb-3'>
+            <div className='w-[20%] mr-1'>{t(yearLabel)}</div>
+            <div className='flex items-end gap-x-2'>
+                <NumberField.Root id = {`${event.toLowerCase()}Year`} disabled = {!reqYear} required={reqYear} className="numberRoot">
+                <NumberField.Group>
+                    <NumberField.Input className="w-10 mr-5"
                         {...(stateDate !== null ? { value: stateDate } : {})}/>
                 </NumberField.Group>
-            </NumberField.Root>
-            <FormControlLabel
-                control={
-                    <Switch
-                        checked={era === ABY}
-                        disabled = {!reqYear || (stateEra !== null)}
-                        onChange={handleToggle}
-                        color="primary"
-                        {...(stateEra !== null ? { value: stateEra } : {})}/>
-                }
-                label={t(eraLabel)}
-                labelPlacement="end"/>
-            <input type="hidden" name ={`${event}Era`} value={era}/>
-            <TextField id={`${event.toLowerCase()}Planet`} label = {t(planetLabel)} variant = "outlined"
-                disabled = {!reqPlanet} required={reqPlanet}
-                {...(statePlanet !== null ? { value: statePlanet } : {})}/>
+                </NumberField.Root>
+                <FormControlLabel
+                    control={
+                        <Switch
+                            checked={era === ABY}
+                            disabled = {!reqYear || (stateEra !== null)}
+                            onChange={handleToggle}
+                            color="primary"
+                            size='small'/>
+                    }
+                    label={t(eraLabel)}
+                    labelPlacement="end"/>
+                <input type="hidden" name={`${event}Era`} value={era}/>
+
+                <span>on</span>
+                <TextInput id={`${event.toLowerCase()}Planet`} label = {t(planetLabel)}
+                    disabled = {!reqPlanet} required={reqPlanet} value={statePlanet} width="60%"/>
+            </div>
         </div>
     }
 
     function Allegiances() {
-        return <div>
+        return <div className='pb-3'>
                 <Select
                     isMulti
                     {...(selectedAllegiances.length > 0 && !allegiancesAreCorrect ?
@@ -202,7 +224,7 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
                     classNamePrefix="select"/>
 
                     { allegiancesStatus !== AllegiancesAnswerStatus.NOTHING_DISPLAY && (
-                        <p style = {{ marginTop: 0 }}>{t(`identity.${allegiancesStatus}`)} </p>
+                        <p className='text-xs text-center text-red-800 mt-0'>{t(`identity.${allegiancesStatus}`)} </p>
                     )} 
             </div>
     }
@@ -294,27 +316,36 @@ const IdentityForm = ({characterDocId, allCorrect, setAllCorrect, setIsNoob}) =>
         setAllCorrect(result);
     }
 
-    return <>
-        <div className="formDiv">
-            <form onSubmit={checkAnswers}>
+    function Image() {
+        return <img src={(`${ENDPOINTS.BACKEND_URL}${character?.imageUrl}`)}
+            className='min-w-64 max-w-[30vw] mx-3 mb-5 question-div self-start' />
+    }
+
+    return <div className='flex flex-wrap justify-center'>
+        <Image />
+        <div className='flex flex-col items-center'>
+            <form onSubmit={checkAnswers} className='w-[55vw] min-w-96 mx-3 mb-4 px-5 py-3 question-div flex flex-col justify-center items-center'>
                 <Category />
-                <Names reqLast={character?.lastName !== null} />
-                <Specie />
-                <div className='row dates'>
+                <div className='items-start w-full'>
+                    <Names reqLast={character?.lastName !== null} />
+                    <Specie />
                     <DatePlanet year={character?.birthDate} planet={character?.birthPlanet}
                         event={"Birth"} stateEra={birthEra} stateDate={birthDate} statePlanet={birthPlanet} />
                     <DatePlanet year={character?.deathDate} planet={character?.deathPlanet}
                         event={"Death"} stateEra={deathEra} stateDate={deathDate} statePlanet={deathPlanet} />
                 </div>
+            
                 <Allegiances />
-                <div id="button">
-                    <button disabled={allCorrect} type="submit">{t('identity.submit')}</button>
-                </div>
+                
+                <button disabled={(allCorrect || isNoob)} type="submit" className='mb-3'>{t('identity.submit')}</button>
+                <button disabled={(allCorrect || isNoob)} onClick={noobButton} className='text-xs'>{t('identity.noob_button')}</button>
+
+                {answerProps}
             </form>
-            <button disabled={allCorrect} onClick={noobButton}>{t('identity.noob_button')}</button>
+            {!(allCorrect || isNoob) &&
+                <InfoBubble helpMessage={t('identity.help_message')} />}
         </div>
-        <Image />
-    </>
+    </div>
 }
 
 export default IdentityForm;

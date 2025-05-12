@@ -12,7 +12,8 @@
         "correct_answer" : "Bonne réponse, bien joué !",
         "wrong_answer_prompt" : "Dommage, cette fois c'est faux...",
         "new_question" : "Nouvelle question",
-        "button" : "Vérifier"
+        "button" : "Vérifier",
+        "help_message" : "Réponds uniquement avec le ou les mots demandés, sans déterminant, pluriel, etc."
     },
     "identity" : {
         "category": "Catégorie",
@@ -43,11 +44,18 @@
             "rebel_alliance": "Alliance Rebelle",
             "new_republic": "Nouvelle République",
             "imperial_remnants": "Vestiges de l'Empire"
-        }
+        },
+        "help_message" : "Sélectionne une seule catégorie, remplis chaque champ actif avec l'année (attention à l'ère !) ou le nom propre requis puis choisis toutes les affiliations nécessaires."
     },
     "daily" : {
         "next" : "Suivant",
         "see_score" : "Voir mon score",
-        "copy_score" : "Copier mon score"
+        "copy_score" : "Copier mon score",
+        "score_noob_questions" : "Tu devrais jouer un peu plus en mode questions pour améliorer ça...",
+        "score_good_questions" : "C'est déjà bien ! Continue comme ça !",
+        "score_perfect_questions" : "Tu connais le Wookiee par coeur ? Bien joué !",
+        "score_noob_identity" : "Tu ne devrais peut-être pas te concentrer uniquement sur les vaisseaux quand tu regardes les films !",
+        "score_good_identity" : "Bois un verre de moins à la cantina et ce sera parfait !",
+        "score_perfect_identity" : "Tu reviens d'une galaxie lointaine, très lointaine ? Bien joué !"
     }
 }

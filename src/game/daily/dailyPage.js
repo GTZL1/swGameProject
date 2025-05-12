@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import TitleBar from '../../utils/title/title.js';
 import { useTranslation } from 'react-i18next';
-import SENTENCES from '../../constants/sentences.js';
 import axios from 'axios';
 import ENDPOINTS from '../../constants/endpoints.js';
+import { NUMBER_DAILY_QUESTIONS, NUMBER_DAILY_CHARACTERS, RIGHT_ANSWER_CHAR, WRONG_ANSWER_CHAR }
+    from '../../constants/constants.js';
 import IdentityForm from '../identity/identityForm.js';
 import QuestionForm from '../question/questionForm.js';
 import { useFont } from '../../context/FontContext.js';
+import Utils from './utils.js';
 import '../common.css';
-
-export const NUMBER_DAILY_QUESTIONS = 4;
-export const NUMBER_DAILY_CHARACTERS = 2;
+import ScoreBox from './scoreBox.js';
 
 const DailyPage = () => {
     const { t } = useTranslation();
@@ -25,10 +25,6 @@ const DailyPage = () => {
 
     const [questionScore, setQuestionScore] = useState([]);
     const [characterScore, setCharacterScore] = useState([]);
-
-    const rightAnswerChar = 'V';
-    const wrongAnswerChar = 'X';
-    const noAnswerChar = '.';
     
     useEffect(() => {
         if (effectRan.current) return;
@@ -104,30 +100,10 @@ const DailyPage = () => {
 
     function updateScore(currentId, isCorrect, isNoob) {
         if (currentId < NUMBER_DAILY_QUESTIONS) {
-            setQuestionScore([...questionScore, (isCorrect ? rightAnswerChar : wrongAnswerChar)]);
+            setQuestionScore([...questionScore, (isCorrect ? RIGHT_ANSWER_CHAR : WRONG_ANSWER_CHAR)]);
         } else {
-            setCharacterScore([...characterScore, (isNoob ? wrongAnswerChar : rightAnswerChar)]);
+            setCharacterScore([...characterScore, (isNoob ? WRONG_ANSWER_CHAR : RIGHT_ANSWER_CHAR)]);
         }
-    }
-
-    function scoreText(scores, title, range) {
-        return `${title} : [` + 
-        `${Array.from({ length : range }, (_, index) => {
-            return index < scores.length ? scores[index] : noAnswerChar;
-        }).join('')}]`;
-    }
-    
-    function Score({scores, title, range}) {
-        return <div>
-            <p>{title} : &#91;
-                {
-                    Array.from({ length : range }, (_, index) => {
-                        return index < scores.length ? scores[index] : noAnswerChar;
-                    }).join('')
-                }
-                &#93;
-            </p>
-        </div>
     }
 
     function displayNextButton() {
@@ -137,49 +113,47 @@ const DailyPage = () => {
         return (allCorrect !== null);
     }
 
+    function AnswerProps() {
+        const score = currentId >= NUMBER_DAILY_QUESTIONS ? characterScore : questionScore;
+        const range = currentId >= NUMBER_DAILY_QUESTIONS ? NUMBER_DAILY_CHARACTERS : NUMBER_DAILY_QUESTIONS;
+        const chars = Utils.onlyScore(score,range).split('');
+        chars[score.length] = allCorrect ? RIGHT_ANSWER_CHAR : WRONG_ANSWER_CHAR;
+        return (<>
+            <p className='mt-2'>{chars.join('')}</p>
+            <button className='mt-2'
+                onClick={() => {
+                    updateScore(currentId, allCorrect, isNoob);
+                    setCurrentId(currentId + 1);}}>
+                    {(currentId === (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS -1))
+                        ? t('daily.see_score') : t('daily.next')}
+            </button>
+        </>);
+    }
+
     return (<>
-        <title>{SENTENCES.TITLES.MAIN_TITLE}</title>
+        <title>{t('titles.main_title')}</title>
         <TitleBar nameP={t('titles.daily_title')}/>
 
-        <section className={`${contentFont} flex justify-center mt-5 game-button`}>
+        <section className={`${contentFont} page game-button`}>
 
             {(currentId < NUMBER_DAILY_QUESTIONS) && (
                 <QuestionForm questionDocId={questionDocIds[currentId]}
                     isCorrect={allCorrect}
-                    setIsCorrect={setAllCorrect} />
+                    setIsCorrect={setAllCorrect}
+                    answerProps={displayNextButton() && (currentId < (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) &&
+                        AnswerProps()} />
             )}
             {(currentId >= NUMBER_DAILY_QUESTIONS && currentId < (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) && (
                 <IdentityForm characterDocId={charDocIds[currentId-NUMBER_DAILY_QUESTIONS]}
                     allCorrect={allCorrect}
                     setAllCorrect={setAllCorrect}
-                    setIsNoob={setIsNoob} />
+                    setIsNoob={setIsNoob}
+                    answerProps={displayNextButton() && (currentId < (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) &&
+                        AnswerProps()} />
             )}
 
             {(currentId >= (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) && (<>
-                <Score scores = {questionScore}
-                    title = {t('titles.question_title')}
-                    range = {NUMBER_DAILY_QUESTIONS} />
-                <Score scores = {characterScore}
-                    title = {t('titles.identity_title')}
-                    range = {NUMBER_DAILY_CHARACTERS} />
-                <button onClick={() => {
-                    navigator.clipboard.writeText(
-                        scoreText(questionScore, t('titles.question_title'), NUMBER_DAILY_QUESTIONS) + "\n"
-                        + scoreText(characterScore, t('titles.identity_title'), NUMBER_DAILY_CHARACTERS));
-                }}>
-                    {t('daily.copy_score')}
-                </button>
-                </>
-            )} 
-       
-            {displayNextButton() && (currentId < (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) && (<>
-                <button onClick={() => {
-                    updateScore(currentId, allCorrect, isNoob);
-                    setCurrentId(currentId + 1);}
-                }>
-                    {(currentId === (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS -1))
-                        ? t('daily.see_score') : t('daily.next')}
-                </button>
+                <ScoreBox questionScore={questionScore} characterScore={characterScore} />
             </>)}
         </section>
     </>);

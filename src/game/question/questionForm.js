@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { TextField } from '@mui/material';
 import Question from "./question.js";
 import ENDPOINTS from "../../constants/endpoints.js";
+import InfoBubble from "../help/infoBubble.js";
 
 const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => {
     const [question, setQuestion] = useState(null);
@@ -72,22 +73,24 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => 
                     "& .MuiInputLabel-root": {
                         color: "gray text-2xs",
                     }
-                }}/>
+                }} />
             <button type="submit" className="ml-4"
                 disabled={isCorrect !== null}>{t('questions.button')}</button>
         </form>
         </>);
     }
 
-    return(<div className="flex flex-col max-w-[50vw]">
+    return(<div className="flex flex-col max-w-[50vw] items-center">
         {(question !== null) &&
             <img src={(`${ENDPOINTS.BACKEND_URL}${question.getImageUrl()}`)} 
                 className={`max-h-[50vh] object-contain question-div`} />}    
-        <div className={`flex flex-col items-center question-div mt-8 p-3`}>
+        <div className={`flex flex-col items-center question-div mt-8 mb-4 p-3`}>
             <QuestionComponent />
             <Answer />
             {answerProps}
         </div>
+        {isCorrect === null &&
+            <InfoBubble helpMessage={t('questions.help_message')} />}
     </div>);
 }
 
