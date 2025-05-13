@@ -13,6 +13,7 @@ const FontSwitch = ({ style }) => {
         toggleSingleFont,
     } = useFont();
     const {t} = useTranslation();
+    const buttonTitle = t('titles.aurebesh');
 
     function toggleFont() {
         // if single font is false, it means it's been toggled to true, so it switches to aurebesh
@@ -27,7 +28,7 @@ const FontSwitch = ({ style }) => {
     }
 
     return (<div className={`flex items-center ${style}`}>
-                <span className={`text-xs ${contentFont}`}>{t('titles.aurebesh')}</span>
+                <span className={`text-xs ${contentFont}`} dangerouslySetInnerHTML={{__html : buttonTitle}} />
                 <Switch onClick={toggleFont} checked={useSingleFont} />
             </div>
     );

@@ -133,9 +133,7 @@ const DailyPage = () => {
     return (<>
         <title>{t('titles.main_title')}</title>
         <TitleBar nameP={t('titles.daily_title')}/>
-
         <section className={`${contentFont} page game-button`}>
-
             {(currentId < NUMBER_DAILY_QUESTIONS) && (
                 <QuestionForm questionDocId={questionDocIds[currentId]}
                     isCorrect={allCorrect}
@@ -151,7 +149,6 @@ const DailyPage = () => {
                     answerProps={displayNextButton() && (currentId < (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) &&
                         AnswerProps()} />
             )}
-
             {(currentId >= (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) && (<>
                 <ScoreBox questionScore={questionScore} characterScore={characterScore} />
             </>)}
