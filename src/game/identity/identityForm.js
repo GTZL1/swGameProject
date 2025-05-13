@@ -5,10 +5,12 @@ import { useTranslation } from "react-i18next";
 import { TextField, FormControlLabel, Switch } from '@mui/material';
 import Select from 'react-select';
 import { NumberField } from '@base-ui-components/react/number-field';
+import { useFont } from '../../context/FontContext.js';
 import axios from 'axios';
 import '../common.css';
 import Utils from './utils.js';
 import InfoBubble from '../help/infoBubble.js';
+import { FONT_NAME_PART_TO_REMOVE } from '../../constants/constants.js';
 
 export const BBY = "BBY";
 export const ABY = "ABY";
@@ -17,6 +19,7 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
     const [allCategories, setAllCategories] = useState([]);
     const [allAllegiances, setAllAllegiances] = useState([]);
     const { i18n,t } = useTranslation();
+    const { contentFont } = useFont();
     const [character, setCharacter] = useState([]);
     
     const [firstName, setFirstName] = useState(null);
@@ -126,7 +129,8 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
                 styles={{
                     menuPortal: (base) => ({
                         ...base,
-                        zIndex: 9999, 
+                        zIndex: 9999,
+                        fontFamily: `${contentFont.replace(FONT_NAME_PART_TO_REMOVE, '')}, sans-serif`,
                     }),
                 }}/>
         </div>
@@ -143,7 +147,11 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
                 }}
                 sx={{
                     width: {width},
+                    "& .MuiInputBase-input": {
+                        fontFamily: `${contentFont.replace(FONT_NAME_PART_TO_REMOVE, '')}, sans-serif`,
+                    },                 
                     "& .MuiInputLabel-root": {
+                        fontFamily: `${contentFont.replace(FONT_NAME_PART_TO_REMOVE, '')}, sans-serif`,
                         color: "gray text-2xs",
                     }
                 }} />
@@ -195,7 +203,13 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
                             size='small'/>
                     }
                     label={t(eraLabel)}
-                    labelPlacement="end"/>
+                    labelPlacement="end"
+                    sx={{
+                        "& .MuiFormControlLabel-label": {
+                            fontFamily: `${contentFont.replace(FONT_NAME_PART_TO_REMOVE, '')}, sans-serif`,
+                        },
+                    }}
+                />
                 <input type="hidden" name={`${event}Era`} value={era}/>
 
                 <span>on</span>

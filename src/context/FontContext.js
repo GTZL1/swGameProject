@@ -1,10 +1,11 @@
 import React, { createContext, useState, useContext } from 'react';
+import { TITLE_FONT, CONTENT_FONT } from "../constants/constants.js"; 
 
 const FontContext = createContext();
 
 export const FontProvider = ({ children }) => {
-    const [titleFont, setTitleFont] = useState('font-starjedi');
-    const [contentFont, setContentFont] = useState('font-sans');
+    const [titleFont, setTitleFont] = useState(TITLE_FONT);
+    const [contentFont, setContentFont] = useState(CONTENT_FONT);
     const [useSingleFont, setUseSingleFont] = useState(false);
 
     const toggleSingleFont = () => {

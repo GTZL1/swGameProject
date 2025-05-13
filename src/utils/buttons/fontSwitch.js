@@ -2,13 +2,13 @@ import React from 'react';
 import { useFont } from '../../context/FontContext.js';
 import { Switch } from '@mui/material';
 import { useTranslation } from "react-i18next";
+import { TITLE_FONT, CONTENT_FONT, AUREBESH_FONT } from "../../constants/constants.js"; 
 
 const FontSwitch = ({ style }) => {
     const {
-        titleFont,
         setTitleFont,
-        contentFont,
         setContentFont,
+        contentFont,
         useSingleFont,
         toggleSingleFont,
     } = useFont();
@@ -17,17 +17,17 @@ const FontSwitch = ({ style }) => {
     function toggleFont() {
         // if single font is false, it means it's been toggled to true, so it switches to aurebesh
         if (!useSingleFont) {
-            setTitleFont('font-aurebesh');
-            setContentFont('font-aurebesh');
+            setTitleFont(AUREBESH_FONT);
+            setContentFont(AUREBESH_FONT);
         } else {
-            setTitleFont('font-starjedi');
-            setContentFont('font-sans');
+            setTitleFont(TITLE_FONT);
+            setContentFont(CONTENT_FONT);
         }
         toggleSingleFont();
     }
 
     return (<div className={`flex items-center ${style}`}>
-                <span className='text-xs'>{t('titles.aurebesh')}</span>
+                <span className={`text-xs ${contentFont}`}>{t('titles.aurebesh')}</span>
                 <Switch onClick={toggleFont} checked={useSingleFont} />
             </div>
     );

@@ -5,11 +5,14 @@ import { TextField } from '@mui/material';
 import Question from "./question.js";
 import ENDPOINTS from "../../constants/endpoints.js";
 import InfoBubble from "../help/infoBubble.js";
+import { useFont } from '../../context/FontContext.js';
+import { FONT_NAME_PART_TO_REMOVE } from "../../constants/constants.js";
 
 const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => {
     const [question, setQuestion] = useState(null);
     const [userInput, setUserInput] = useState("");
     const { i18n, t } = useTranslation();
+    const { contentFont } = useFont();
 
     useEffect(() => {
         if (!questionDocId) return;
@@ -70,7 +73,11 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => 
                 }}
                 sx={{
                     width: "60%",
+                    "& .MuiInputBase-input": {
+                        fontFamily: `${contentFont.replace(FONT_NAME_PART_TO_REMOVE, '')}, sans-serif`,
+                    },
                     "& .MuiInputLabel-root": {
+                        fontFamily: `${contentFont.replace(FONT_NAME_PART_TO_REMOVE, '')}, sans-serif`,
                         color: "gray text-2xs",
                     }
                 }} />
