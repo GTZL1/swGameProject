@@ -334,12 +334,9 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
                     <DatePlanet year={character?.deathDate} planet={character?.deathPlanet}
                         event={"Death"} stateEra={deathEra} stateDate={deathDate} statePlanet={deathPlanet} />
                 </div>
-            
                 <Allegiances />
-                
                 <button disabled={(allCorrect || isNoob)} type="submit" className='mb-3'>{t('identity.submit')}</button>
                 <button disabled={(allCorrect || isNoob)} onClick={noobButton} className='text-xs'>{t('identity.noob_button')}</button>
-
                 {answerProps}
             </form>
             {!(allCorrect || isNoob) &&

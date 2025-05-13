@@ -6,6 +6,9 @@
         "daily_title" : "Les défis du jour",
         "question_button" : "Enchaîner les questions",
         "identity_button" : "Remplir des cartes d'identité",
+        "question_intro" : "Questions simples, réponses simples, simple si tu sais !",
+        "identity_intro" : "Connais-tu tes personnages favoris aussi bien que tu le prétends ?",
+        "daily_intro" : "4 questions et 2 personnages au hasard, les mêmes pour tout le monde !",
         "aurebesh" : "Mode aurebesh"
     },
     "questions" : {

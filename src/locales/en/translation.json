@@ -6,6 +6,9 @@
         "daily_title" : "Today's challenges",
         "question_button" : "Chain the questions",
         "identity_button" : "Fill some identity cards",
+        "question_intro" : "Simple questions, simple answers, simple if you know !",
+        "identity_intro" : "Do you know your favorite characters as well as you claim to ?",
+        "daily_intro" : "4 questions and 2 characters random every day, the same for everyone !",
         "aurebesh" : "Aurebesh mode"
     },
     "questions" : {
