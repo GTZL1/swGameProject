@@ -332,7 +332,7 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
 
     function Image() {
         return <img src={(`${ENDPOINTS.BACKEND_URL}${character?.imageUrl}`)}
-            className='min-w-64 max-w-[30vw] mx-3 mb-5 question-div self-start' />
+            className='min-w-64 max-w-[30vw] max-h-[30rem] mx-3 mb-5 question-div self-start' />
     }
 
     return <div className='flex flex-wrap justify-center'>
