@@ -14,7 +14,7 @@ const HomePage = () => {
         <title>{t('titles.main_title')}</title>
         <TitleBar nameP={t('titles.main_title')} />
         <section className={`${contentFont} page flex-col items-center`}>
-            <div className='question-div max-w-[32rem] mx-10 p-3 text-justify text-[13px]'>
+            <div className='question-div max-w-[32rem] mx-10 px-3 py-2 text-justify text-[13px]'>
                 <p className='text-cyan-600 font-bold text-sm'>{t('intro.title')}</p>
                 <p>{t('intro.message')}</p>
             </div>

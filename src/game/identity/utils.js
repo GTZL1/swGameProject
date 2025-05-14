@@ -10,12 +10,13 @@ class Utils {
     }
 
     static checkYearAnswer (field, answer, era, setYearState, setEraState) {
-        const result = ((era === BBY ? field*-1 : field) === answer);
+        const defYear = (era === BBY ? field*-1 : field);
+        const result = (Number(defYear) === Number(answer));
         if (result) {
             setYearState(field);
             setEraState(era);
         }
-        return result
+        return result;
     }
 
     static translateAllegiances (allegiances, i18n, t) {

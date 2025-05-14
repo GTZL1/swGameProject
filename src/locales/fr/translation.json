@@ -9,7 +9,7 @@
         "question_intro" : "Questions simples, réponses simples, simple si tu sais !",
         "identity_intro" : "Connais-tu tes personnages favoris aussi bien que tu le prétends ?",
         "daily_intro" : "4 questions et 2 personnages, les mêmes pour tout le monde !",
-        "aurebesh" : "Je suis <i>vraiment</i> fan !"
+        "aurebesh" : "Moi je suis <i>vraiment</i> fan !"
     },
     "questions" : {
         "correct_answer" : "Bonne réponse, bien joué !",
@@ -29,6 +29,7 @@
         "death_planet": "Planète de sa mort",
         "BBY": "av.BY",
         "ABY": "ap.BY",
+        "on": "sur",
         "allegiances": "Affiliations",
         "too_many" : "Trop d'affiliations",
         "wrong": "Une ou plusieurs affiliations sont fausses",
@@ -46,7 +47,11 @@
             "early_rebel_networks": "Premiers réseaux rebelles",
             "rebel_alliance": "Alliance Rebelle",
             "new_republic": "Nouvelle République",
-            "imperial_remnants": "Vestiges de l'Empire"
+            "imperial_remnants": "Vestiges de l'Empire",
+            "sith": "Sith",
+            "confederacy_of_independant_systems": "Confédération des Systèmes Indépendants",
+            "resistance": "Résistance",
+            "underworld": "Monde de la pègre"
         },
         "help_message" : "Sélectionne une seule catégorie, remplis chaque champ actif avec l'année (attention à l'ère !) ou le nom propre requis puis choisis toutes les affiliations nécessaires."
     },

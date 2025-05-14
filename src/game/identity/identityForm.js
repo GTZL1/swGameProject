@@ -179,7 +179,8 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
         const reqPlanet = planet !== undefined;
         const yearLabel = `identity.${event.toLowerCase()}_year`;
         const planetLabel = `identity.${event.toLowerCase()}_planet`;
-        const eraLabel = `identity.${era}`;
+        const eraLabel = `identity.${(stateEra === null ? era : stateEra)}`;
+
         const handleToggle = () => {
             setEra((prevEra) => (prevEra === BBY ? ABY : BBY));
         };
@@ -196,7 +197,7 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
                 <FormControlLabel
                     control={
                         <Switch
-                            checked={era === ABY}
+                            checked={(era === ABY) || (stateEra === ABY)}
                             disabled = {!reqYear || (stateEra !== null)}
                             onChange={handleToggle}
                             color="primary"
@@ -210,9 +211,9 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
                         },
                     }}
                 />
-                <input type="hidden" name={`${event}Era`} value={era}/>
+                <input type="hidden" name={`${event}Era`} value={(stateEra === null ? era : stateEra)}/>
 
-                <span>on</span>
+                <span>{t('identity.on')}</span>
                 <TextInput id={`${event.toLowerCase()}Planet`} label = {t(planetLabel)}
                     disabled = {!reqPlanet} required={reqPlanet} value={statePlanet} width="60%"/>
             </div>
@@ -289,6 +290,7 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
         }
         result = Utils.checkTextAnswer(elements.specie.value.toLowerCase(),
             character.specie.toLowerCase(), character.specie, setSpecie) && result;
+
         if(character.birthDate !== null) {
             result = Utils.checkYearAnswer(elements.birthYear.value, character.birthDate,
                 elements.BirthEra.value, setBirthDate, setBirthEra) && result;
