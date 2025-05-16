@@ -23,6 +23,12 @@ class Utils {
             characterScoreSetter(characterDone.split('=')[1].split(','));
         }
     }
+
+    static cookieLife() {
+        const hours = new Date().getHours();
+        const minutes = new Date().getMinutes();
+        return (23 - hours) * 3600 + (60 - minutes) * 60; //3600 seconds per hour
+    }
 }
 
 export default Utils;

@@ -25,11 +25,6 @@ const DailyPage = () => {
 
     const [questionScore, setQuestionScore] = useState([]);
     const [characterScore, setCharacterScore] = useState([]);
-
-    const now = new Date();
-    const tomorrow = new Date(now);
-    tomorrow.setHours(24, 0, 0, 0); 
-    const secondsUntilMidnight = Math.floor((tomorrow - now) / 1000);
     
     useEffect(() => {
         if (effectRan.current) {
@@ -40,7 +35,7 @@ const DailyPage = () => {
         if (document.cookie.split('; ').find(row => row.startsWith('hasVisited='))) {
             Utils.updateFromCookie(document.cookie, setCurrentId, setQuestionScore, setCharacterScore);
         } else {
-            document.cookie = `hasVisited=true; path=/; max-age=${secondsUntilMidnight}; samesite=lax`;
+            document.cookie = `hasVisited=true; path=/; max-age=${Utils.cookieLife()}; samesite=lax`;
         }
 
         const date = new Date().toISOString().split('T')[0];
@@ -112,15 +107,15 @@ const DailyPage = () => {
     }
 
     function updateScore(currentId, isCorrect, isNoob) {
-        document.cookie = `currentId=${currentId}; path=/; max-age=${secondsUntilMidnight}; samesite=lax`;
+        document.cookie = `currentId=${currentId}; path=/; max-age=${Utils.cookieLife()}; samesite=lax`;
         if (currentId < NUMBER_DAILY_QUESTIONS) {
             const newQuestionScore = [...questionScore, (isCorrect ? RIGHT_ANSWER_CHAR : WRONG_ANSWER_CHAR)];
             setQuestionScore(newQuestionScore);
-            document.cookie = `questionScore=${newQuestionScore}; path=/; max-age=${secondsUntilMidnight}; samesite=lax`;
+            document.cookie = `questionScore=${newQuestionScore}; path=/; max-age=${Utils.cookieLife()}; samesite=lax`;
         } else {
             const newCharacterScore = [...characterScore, (isNoob ? WRONG_ANSWER_CHAR : RIGHT_ANSWER_CHAR)];
             setCharacterScore(newCharacterScore);
-            document.cookie = `characterScore=${newCharacterScore}; path=/; max-age=${secondsUntilMidnight}; samesite=lax`;
+            document.cookie = `characterScore=${newCharacterScore}; path=/; max-age=${Utils.cookieLife()}; samesite=lax`;
         }
     }
 
