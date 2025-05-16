@@ -6,7 +6,10 @@
         "daily_title" : "Les défis du jour",
         "question_button" : "Enchaîner les questions",
         "identity_button" : "Remplir des cartes d'identité",
-        "aurebesh" : "Mode aurebesh"
+        "question_intro" : "Questions simples, réponses simples, simple si tu sais !",
+        "identity_intro" : "Connais-tu tes personnages favoris aussi bien que tu le prétends ?",
+        "daily_intro" : "4 questions et 2 personnages, les mêmes pour tout le monde !",
+        "aurebesh" : "Moi je suis <i>vraiment</i> fan !"
     },
     "questions" : {
         "correct_answer" : "Bonne réponse, bien joué !",
@@ -26,6 +29,7 @@
         "death_planet": "Planète de sa mort",
         "BBY": "av.BY",
         "ABY": "ap.BY",
+        "on": "sur",
         "allegiances": "Affiliations",
         "too_many" : "Trop d'affiliations",
         "wrong": "Une ou plusieurs affiliations sont fausses",
@@ -43,7 +47,11 @@
             "early_rebel_networks": "Premiers réseaux rebelles",
             "rebel_alliance": "Alliance Rebelle",
             "new_republic": "Nouvelle République",
-            "imperial_remnants": "Vestiges de l'Empire"
+            "imperial_remnants": "Vestiges de l'Empire",
+            "sith": "Sith",
+            "confederacy_of_independant_systems": "Confédération des Systèmes Indépendants",
+            "resistance": "Résistance",
+            "underworld": "Monde de la pègre"
         },
         "help_message" : "Sélectionne une seule catégorie, remplis chaque champ actif avec l'année (attention à l'ère !) ou le nom propre requis puis choisis toutes les affiliations nécessaires."
     },
@@ -57,5 +65,9 @@
         "score_noob_identity" : "Tu ne devrais peut-être pas te concentrer uniquement sur les vaisseaux quand tu regardes les films !",
         "score_good_identity" : "Bois un verre de moins à la cantina et ce sera parfait !",
         "score_perfect_identity" : "Tu reviens d'une galaxie lointaine, très lointaine ? Bien joué !"
+    },
+    "intro" : {
+        "title" : "Il n'y a pas si longtemps, dans une galaxie proche, très proche...",
+        "message" : "... j'ai décidé de profiter d'une occasion pour créer le petit jeu Star Wars auquel j'aurais adoré jouer. Deux modes de jeu, simples à comprendre mais d'un niveau digne de notre passion, et un système de défis quotidiens pour se mesurer aux autres. J'espère que vous aimerez et que la Force soit avec vous !"
     }
 }

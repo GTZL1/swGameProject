@@ -6,7 +6,10 @@
         "daily_title" : "Today's challenges",
         "question_button" : "Chain the questions",
         "identity_button" : "Fill some identity cards",
-        "aurebesh" : "Aurebesh mode"
+        "question_intro" : "Simple questions, simple answers, simple if you know !",
+        "identity_intro" : "Do you know your favorite characters as well as you claim to ?",
+        "daily_intro" : "4 questions and 2 characters every day, the same for everyone !",
+        "aurebesh" : "I'm a real fan !"
     },
     "questions" : {
         "correct_answer" : "Correct, well done !",
@@ -26,6 +29,7 @@
         "death_planet": "Death planet",
         "BBY": "BBY",
         "ABY": "ABY",
+        "on": "on",
         "allegiances": "Affiliations",
         "too_many" : "Too many affiliations",
         "wrong": "One or more wrong affiliations",
@@ -47,5 +51,9 @@
         "score_noob_identity" : "You shouldn't focus on starships only while watching movies...",
         "score_good_identity" : "Drink one glass less at the cantina and it'll be perfect !",
         "score_perfect_identity" : "You come back from a galaxy far, far away ? Well done !"
+    },
+    "intro" : {
+        "title" : "Not so long ago, in a galaxy very, very close...",
+        "message" : "... I decided to take advantage of an opportunity to create the little Star Wars game I'd have loved to play. Two game modes, easy to understand but of a level worthy of our passion, and a system of daily challenges to measure yourself against others. I hope you'll like it and may the Force be with you !"
     }
 }

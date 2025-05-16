@@ -5,10 +5,12 @@ import { useTranslation } from "react-i18next";
 import { TextField, FormControlLabel, Switch } from '@mui/material';
 import Select from 'react-select';
 import { NumberField } from '@base-ui-components/react/number-field';
+import { useFont } from '../../context/FontContext.js';
 import axios from 'axios';
 import '../common.css';
 import Utils from './utils.js';
 import InfoBubble from '../help/infoBubble.js';
+import { FONT_NAME_PART_TO_REMOVE } from '../../constants/constants.js';
 
 export const BBY = "BBY";
 export const ABY = "ABY";
@@ -17,6 +19,7 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
     const [allCategories, setAllCategories] = useState([]);
     const [allAllegiances, setAllAllegiances] = useState([]);
     const { i18n,t } = useTranslation();
+    const { contentFont } = useFont();
     const [character, setCharacter] = useState([]);
     
     const [firstName, setFirstName] = useState(null);
@@ -126,7 +129,8 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
                 styles={{
                     menuPortal: (base) => ({
                         ...base,
-                        zIndex: 9999, 
+                        zIndex: 9999,
+                        fontFamily: `${contentFont.replace(FONT_NAME_PART_TO_REMOVE, '')}, sans-serif`,
                     }),
                 }}/>
         </div>
@@ -143,7 +147,11 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
                 }}
                 sx={{
                     width: {width},
+                    "& .MuiInputBase-input": {
+                        fontFamily: `${contentFont.replace(FONT_NAME_PART_TO_REMOVE, '')}, sans-serif`,
+                    },                 
                     "& .MuiInputLabel-root": {
+                        fontFamily: `${contentFont.replace(FONT_NAME_PART_TO_REMOVE, '')}, sans-serif`,
                         color: "gray text-2xs",
                     }
                 }} />
@@ -171,7 +179,8 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
         const reqPlanet = planet !== undefined;
         const yearLabel = `identity.${event.toLowerCase()}_year`;
         const planetLabel = `identity.${event.toLowerCase()}_planet`;
-        const eraLabel = `identity.${era}`;
+        const eraLabel = `identity.${(stateEra === null ? era : stateEra)}`;
+
         const handleToggle = () => {
             setEra((prevEra) => (prevEra === BBY ? ABY : BBY));
         };
@@ -188,17 +197,23 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
                 <FormControlLabel
                     control={
                         <Switch
-                            checked={era === ABY}
+                            checked={(era === ABY) || (stateEra === ABY)}
                             disabled = {!reqYear || (stateEra !== null)}
                             onChange={handleToggle}
                             color="primary"
                             size='small'/>
                     }
                     label={t(eraLabel)}
-                    labelPlacement="end"/>
-                <input type="hidden" name={`${event}Era`} value={era}/>
+                    labelPlacement="end"
+                    sx={{
+                        "& .MuiFormControlLabel-label": {
+                            fontFamily: `${contentFont.replace(FONT_NAME_PART_TO_REMOVE, '')}, sans-serif`,
+                        },
+                    }}
+                />
+                <input type="hidden" name={`${event}Era`} value={(stateEra === null ? era : stateEra)}/>
 
-                <span>on</span>
+                <span>{t('identity.on')}</span>
                 <TextInput id={`${event.toLowerCase()}Planet`} label = {t(planetLabel)}
                     disabled = {!reqPlanet} required={reqPlanet} value={statePlanet} width="60%"/>
             </div>
@@ -275,6 +290,7 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
         }
         result = Utils.checkTextAnswer(elements.specie.value.toLowerCase(),
             character.specie.toLowerCase(), character.specie, setSpecie) && result;
+
         if(character.birthDate !== null) {
             result = Utils.checkYearAnswer(elements.birthYear.value, character.birthDate,
                 elements.BirthEra.value, setBirthDate, setBirthEra) && result;
@@ -317,8 +333,8 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
     }
 
     function Image() {
-        return <img src={(`${ENDPOINTS.BACKEND_URL}${character?.imageUrl}`)}
-            className='min-w-64 max-w-[30vw] mx-3 mb-5 question-div self-start' />
+        return <img src={(`${character?.imageUrl}`)}
+            className='min-w-64 max-w-[30vw] max-h-[30rem] mx-3 mb-5 question-div self-start' />
     }
 
     return <div className='flex flex-wrap justify-center'>
@@ -334,12 +350,9 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
                     <DatePlanet year={character?.deathDate} planet={character?.deathPlanet}
                         event={"Death"} stateEra={deathEra} stateDate={deathDate} statePlanet={deathPlanet} />
                 </div>
-            
                 <Allegiances />
-                
                 <button disabled={(allCorrect || isNoob)} type="submit" className='mb-3'>{t('identity.submit')}</button>
                 <button disabled={(allCorrect || isNoob)} onClick={noobButton} className='text-xs'>{t('identity.noob_button')}</button>
-
                 {answerProps}
             </form>
             {!(allCorrect || isNoob) &&

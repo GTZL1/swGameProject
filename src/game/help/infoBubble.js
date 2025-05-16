@@ -30,7 +30,7 @@ const InfoBubble = ({helpMessage}) => {
             </button>
 
             {isVisible && (
-                <div className="w-64 bg-slate-400/[.90] rounded-2xl p-2 mt-2 text-justify text-xs">
+                <div className="w-64 bg-slate-400/[.90] rounded-2xl p-2 mt-2 text-justify text-xs text-gray-600">
                     {helpMessage}
                 </div>
             )}

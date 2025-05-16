@@ -10,6 +10,25 @@ class Utils {
     static scoreText(scores, title, range) {
         return `${title} : ${this.onlyScore(scores, range)}`;
     }
+
+    static updateFromCookie(cookie, idSetter, questionScoreSetter, characterScoreSetter) {
+        idSetter(Number(cookie.split('; ').find(row => row.startsWith('currentId=')).split('=')[1]) + 1);
+
+        const questionsDone = cookie.split('; ').find(row => row.startsWith('questionScore='));
+        if(questionsDone) {
+            questionScoreSetter(questionsDone.split('=')[1].split(','));
+        }
+        const characterDone = cookie.split('; ').find(row => row.startsWith('characterScore='));
+        if (characterDone) {
+            characterScoreSetter(characterDone.split('=')[1].split(','));
+        }
+    }
+
+    static cookieLife() {
+        const hours = new Date().getHours();
+        const minutes = new Date().getMinutes();
+        return (23 - hours) * 3600 + (60 - minutes) * 60; //3600 seconds per hour
+    }
 }
 
 export default Utils;
