@@ -1,6 +1,7 @@
 {
     "titles": {
         "main_title" : "A SIMPLE GAME IN THE GALAXY...",
+        "main_title_lower" : "A simple game in the galaxy...",
         "question_title" : "Questions",
         "identity_title" : "Identity cards",
         "daily_title" : "Today's challenges",
@@ -9,7 +10,7 @@
         "question_intro" : "Simple questions, simple answers, simple if you know !",
         "identity_intro" : "Do you know your favorite characters as well as you claim to ?",
         "daily_intro" : "4 questions and 2 characters every day, the same for everyone !",
-        "aurebesh" : "I'm a real fan !"
+        "aurebesh" : "I'm a <i>real</i> fan !"
     },
     "questions" : {
         "correct_answer" : "Correct, well done !",

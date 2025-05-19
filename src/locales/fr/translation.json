@@ -1,6 +1,7 @@
 {
     "titles": {
         "main_title" : "UN MODESTE JEU DANS LA GALAXIE...",
+        "main_title_lower" : "Un modeste jeu dans la galaxie...",
         "question_title" : "Questions",
         "identity_title" : "Cartes d'identité",
         "daily_title" : "Les défis du jour",
