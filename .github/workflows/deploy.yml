@@ -1,0 +1,20 @@
+# .github/workflows/deploy.yml
+name: Deploy React App (Manual)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: react-build
+          path: ./build
+
+      - name: Deploy to server
+        run: |
+          rsync -avz --delete ./build/ ${{ secrets.SSH_USER }}@${{ secrets.SERVER_IP }}:/var/www/html/
