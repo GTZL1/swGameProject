@@ -44,6 +44,10 @@ jobs:
           name: game-build
           path: ./build
 
-      - name: Deploy to server
-        run: |
-          rsync -avz --delete ./build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_ADDRESS }}/sites/game/
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4
+        with:
+          server: ${{ secrets.SSH_ADRESS }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./build
