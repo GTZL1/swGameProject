@@ -36,5 +36,5 @@ jobs:
     - name: Upload production build as artifact
       uses: actions/upload-artifact@v4
       with:
-        name: react-build
-        path: ./build
+        name: game-build
+        path: build/
