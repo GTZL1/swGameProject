@@ -12,7 +12,13 @@ class Utils {
     }
 
     static updateFromCookie(cookie, idSetter, questionScoreSetter, characterScoreSetter) {
-        idSetter(Number(cookie.split('; ').find(row => row.startsWith('currentId=')).split('=')[1]) + 1);
+        const lastId = cookie.split('; ').find(row => row.startsWith('currentId='));
+
+        if (!lastId) {
+            return;
+        }
+
+        idSetter(Number(lastId.split('=')[1]) + 1);
 
         const questionsDone = cookie.split('; ').find(row => row.startsWith('questionScore='));
         if(questionsDone) {

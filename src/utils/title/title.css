@@ -19,8 +19,8 @@ header h1 {
 
 #flagList {
     /*position: absolute; 
-    right: 0;*/
-    @apply absolute right-0;
+    right: 0;
+    @apply absolute right-0;*/
 }
 
 header button {
@@ -39,6 +39,6 @@ header button {
 .links:has(#home) {
     /*position: absolute; 
     left: 0;
-    transform: translateY(-50%);*/
-    @apply absolute left-0 transform -translate-y-1/2 h-[80%];
+    transform: translateY(-50%);
+    @apply absolute left-0 transform -translate-y-1/2 h-[80%];*/
 }

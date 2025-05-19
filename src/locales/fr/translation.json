@@ -1,6 +1,7 @@
 {
     "titles": {
         "main_title" : "UN MODESTE JEU DANS LA GALAXIE...",
+        "main_title_lower" : "Un modeste jeu dans la galaxie...",
         "question_title" : "Questions",
         "identity_title" : "Cartes d'identité",
         "daily_title" : "Les défis du jour",
@@ -9,7 +10,8 @@
         "question_intro" : "Questions simples, réponses simples, simple si tu sais !",
         "identity_intro" : "Connais-tu tes personnages favoris aussi bien que tu le prétends ?",
         "daily_intro" : "4 questions et 2 personnages, les mêmes pour tout le monde !",
-        "aurebesh" : "Moi je suis <i>vraiment</i> fan !"
+        "aurebesh" : "Moi je suis <i>vraiment</i> fan !",
+        "date_format": "fr-FR"
     },
     "questions" : {
         "correct_answer" : "Bonne réponse, bien joué !",

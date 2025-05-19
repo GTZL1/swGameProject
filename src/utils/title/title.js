@@ -9,13 +9,14 @@ const TitleBar = ({nameP}) => {
     const { titleFont } = useFont();
 
     function TitleText({ name }) {
-        return <h1 className={`${titleFont} text-3xl whitespace-nowrap absolute left-1/2 transform -translate-x-1/2 m-0`}>
+        return <h1 className={`${titleFont} text-3xl w-[75%] absolute left-1/2 transform -translate-x-1/2 m-0 text-center`}>
             {name.toLowerCase()}</h1>;
     }
         
     return (
-        <header className='items-center flex sticky top-0 w-full h-20 overflow-visible bg-stone-300'>
-            <ButtonLink route={'/'} children={<img className='max-h-full' src={'/resources/icons/home_icon.png'} id='home' />} />
+        <header className='flex items-center justify-between sticky top-0 w-full h-20 overflow-visible bg-stone-300'>
+            <ButtonLink route={'/'} children={<img className='max-h-full' src={'/resources/icons/home_icon.png'} id='home'/>}
+                style="h-16" />
             <TitleText name={nameP} />
             <div id="flagList" className='flex flex-col h-full items-end'>
                 <LanguageSwitch style="h-[60%] p-1" />

@@ -34,8 +34,11 @@ const ScoreBox = ( {questionScore, characterScore} ) => {
 
         <button onClick={() => {
             navigator.clipboard.writeText(
-                Utils.scoreText(questionScore, t('titles.question_title'), NUMBER_DAILY_QUESTIONS) + "\n"
-                + Utils.scoreText(characterScore, t('titles.identity_title'), NUMBER_DAILY_CHARACTERS));
+                t('titles.main_title_lower') + " – " +
+                new Date().toLocaleDateString(t('titles.date_format'), { year: 'numeric', month: 'long', day: 'numeric' }) + "\n" 
+                + Utils.scoreText(questionScore, t('titles.question_title'), NUMBER_DAILY_QUESTIONS) + "\n"
+                + Utils.scoreText(characterScore, t('titles.identity_title'), NUMBER_DAILY_CHARACTERS) + "\n"
+                + "🔗 http://asimplestarwarsgame.net");
         }}>
             {t('daily.copy_score')}
         </button>
