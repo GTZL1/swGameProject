@@ -3,8 +3,8 @@ const ENDPOINTS = {
     'QUESTION_PAGE' : '/question',
     'IDENTITY_PAGE' : '/identity',
     'DAILY_PAGE' : '/daily',
-    'BACKEND_URL': 'https://delicate-chickens-6ab648b3a3.strapiapp.com',
-    'IMAGE_BACKEND_URL': 'https://delicate-chickens-6ab648b3a3.media.strapiapp.com'
+    'BACKEND_URL': 'http://localhost:1337',
+    'IMAGE_BACKEND_URL': 'http://asimplestarwarsgame.net/images/'
 };
 
 ENDPOINTS.GET_ALL_QUESTION_DOCIDS = `${ENDPOINTS.BACKEND_URL}/api/question-api/all`;

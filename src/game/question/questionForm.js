@@ -37,7 +37,7 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => 
                     response.data.questionTitle,
                     response.data.answer,
                     response.data.indication,
-                    response.data.image));
+                    response.data.imageUrl));
             })
             .catch((error) => {
                 console.log(error);
@@ -89,7 +89,7 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => 
 
     return(<div className="flex flex-col max-w-[50vw] items-center">
         {(question !== null) &&
-            <img src={(`${question.getImageUrl()}`)} 
+            <img src={(`${ENDPOINTS.IMAGE_BACKEND_URL}${question.getImageUrl()}`)} 
                 className={`max-h-[50vh] object-contain question-div`} />}    
         <div className={`flex flex-col items-center question-div mt-8 mb-4 p-3`}>
             <QuestionComponent />
