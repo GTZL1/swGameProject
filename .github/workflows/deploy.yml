@@ -52,4 +52,4 @@ jobs:
           
       - name: Deploy to server
         run: |
-            rsync -avz --delete ./build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_ADDRESS }}:sites/asimplestarwarsgame.net/
+            rsync -avz --delete --exclude 'images/' ./build/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_ADDRESS }}:sites/asimplestarwarsgame.net/
