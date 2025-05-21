@@ -145,7 +145,6 @@ const DailyPage = () => {
     }
 
     return (<>
-        <title>{t('titles.main_title')}</title>
         <TitleBar nameP={t('titles.daily_title')}/>
         <section className={`${contentFont} page game-button`}>
             {(currentId < NUMBER_DAILY_QUESTIONS) && (

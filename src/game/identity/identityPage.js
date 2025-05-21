@@ -11,7 +11,6 @@ const IdentityPage = () => {
     const { contentFont } = useFont();
     
     return (<>
-      <title>{SENTENCES.TITLES.MAIN_TITLE}</title>
       <TitleBar nameP={t('titles.identity_title')}/>
       <section className={`${contentFont} page game-button`}>
         <IdentityBox /></section>

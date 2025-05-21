@@ -11,7 +11,6 @@ const HomePage = () => {
     const {contentFont} = useFont();
     
     return (<>
-        <title>{t('titles.main_title_lower')}</title>
         <TitleBar nameP={t('titles.main_title')} />
         <section className={`${contentFont} page flex-col items-center`}>
             <div className='question-div max-w-[32rem] mx-10 px-3 py-2 text-justify text-[13px]'>

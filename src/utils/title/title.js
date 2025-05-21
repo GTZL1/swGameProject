@@ -4,8 +4,10 @@ import LanguageSwitch from '../buttons/languageSwitch.js';
 import ButtonLink from '../buttons/buttonLink.js';
 import { useFont } from '../../context/FontContext.js'; 
 import FontSwitch from '../buttons/fontSwitch.js';
+import { useTranslation } from "react-i18next";
 
 const TitleBar = ({nameP}) => {
+    const { t } = useTranslation();
     const { titleFont } = useFont();
 
     function TitleText({ name }) {
@@ -13,7 +15,8 @@ const TitleBar = ({nameP}) => {
             {name.toLowerCase()}</h1>;
     }
         
-    return (
+    return (<>
+        <title>{t('titles.main_title_lower')}</title>
         <header className='flex items-center justify-between sticky top-0 w-full h-20 overflow-visible bg-stone-300'>
             <ButtonLink route={'/'} children={<img className='max-h-full' src={'/resources/icons/home_icon.png'} id='home'/>}
                 style="h-16" />
@@ -23,7 +26,7 @@ const TitleBar = ({nameP}) => {
                 <FontSwitch style="justify-end h-[40%]" />
             </div>
         </header>
-    );
+    </>);
 }
 
 export default TitleBar;
