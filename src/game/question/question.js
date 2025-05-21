@@ -5,12 +5,12 @@ class Question {
     #answerIndication;
     #imageUrl;
 
-    constructor(documentId, text, answer, answerIndication, image) {
+    constructor(documentId, text, answer, answerIndication, imageUrl) {
         this.#documentId = documentId;
         this.#questionTitle = text;
         this.#answer = answer;
         this.#answerIndication = answerIndication;
-        this.#imageUrl = (image === null ? "" : image.url)
+        this.#imageUrl = imageUrl;
     }
 
     getDocumentId() {

@@ -106,7 +106,7 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
                     response.data.birthYear,
                     response.data.deathPlanet?.name,
                     response.data.deathYear,
-                    response.data.image.url));
+                    response.data.imageUrl));
             })
             .catch((error) => {
                 console.log(error);
@@ -333,7 +333,7 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
     }
 
     function Image() {
-        return <img src={(`${character?.imageUrl}`)}
+        return <img src={(`${ENDPOINTS.IMAGE_BACKEND_URL}${character?.imageUrl}`)}
             className='min-w-64 max-w-[30vw] max-h-[30rem] mx-3 mb-5 question-div self-start' />
     }
 
