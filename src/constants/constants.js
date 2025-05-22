@@ -9,4 +9,5 @@ export const RIGHT_ANSWER_CHAR = '✅';
 export const WRONG_ANSWER_CHAR = '❌';
 export const NO_ANSWER_CHAR = ' ';
 
-export const FLAG_FILES = ['empire.png', 'rebels.png', 'chiss_ascendancy.svg'];
+export const FLAG_FILES = ['empire.png', 'rebels.png', 'chiss_ascendancy.svg',
+    'jedi.svg', 'nihil.svg', 'republic.png', 'starbird.png'];
