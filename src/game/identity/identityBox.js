@@ -42,19 +42,19 @@ const IdentityBox = () => {
 
     return <div id = "master" className='flex flex-wrap'>
         <IdentityForm characterDocId={characterDocId}
-        allCorrect={allCorrect}
-        isNoob={isNoob}
-        setAllCorrect={setAllCorrect}
-        setIsNoob={setIsNoob}
-        answerProps={
-            (allCorrect || isNoob) && (<>
-                <div className='pt-2 pb-1'>{answerMessage(isNoob)}</div>
-                <button onClick={() => {
-                    fetchCharacter(allCharIds);
-                    setNbChars(nbChars + 1);
-                }}
-                    disabled = { nbChars === allCharIds.length }>{t('identity.new_character_button')}</button>
-            </>)}
+            allCorrect={allCorrect}
+            isNoob={isNoob}
+            setAllCorrect={setAllCorrect}
+            setIsNoob={setIsNoob}
+            answerProps={
+                (allCorrect || isNoob) && (<>
+                    <div className='pt-2 pb-1'>{answerMessage(isNoob)}</div>
+                    <button onClick={() => {
+                        fetchCharacter(allCharIds);
+                        setNbChars(nbChars + 1);
+                    }}
+                        disabled = { nbChars === allCharIds.length }>{t('identity.new_character_button')}</button>
+                </>)}
         />
     </div>
 }

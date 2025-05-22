@@ -2,15 +2,16 @@ import Character from './character.js';
 import ENDPOINTS from '../../constants/endpoints.js';
 import { useState, useEffect } from 'react';
 import { useTranslation } from "react-i18next";
-import { TextField, FormControlLabel, Switch } from '@mui/material';
 import Select from 'react-select';
-import { NumberField } from '@base-ui-components/react/number-field';
 import { useFont } from '../../context/FontContext.js';
 import axios from 'axios';
 import '../common.css';
 import Utils from './utils.js';
 import InfoBubble from '../help/infoBubble.js';
-import { FONT_NAME_PART_TO_REMOVE } from '../../constants/constants.js';
+import TextInput from './fields/textInput.js';
+import DatePlanet from './fields/datePlanet.js';
+import { FLAG_FILES, FONT_NAME_PART_TO_REMOVE } from '../../constants/constants.js';
+import LoadingScreen from '../help/loadingScreen.js';
 
 export const BBY = "BBY";
 export const ABY = "ABY";
@@ -25,15 +26,21 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
     const [firstName, setFirstName] = useState(null);
     const [lastName, setLastName] = useState(null);
     const [specie, setSpecie] = useState(null);
+
     const [birthDate, setBirthDate] = useState(null);
     const [birthPlanet, setBirthPlanet] = useState(null);
     const [deathDate, setDeathDate] = useState(null);
     const [deathPlanet, setDeathPlanet] = useState(null);
     const [birthEra, setBirthEra] = useState(null);
     const [deathEra, setDeathEra] = useState(null);
+    const [birthRemount, setBirthRemount] = useState(0);
+    const [deathRemount, setDeathRemount] = useState(0);
+
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedAllegiances, setSelectedAllegiances] = useState([]);
     const [allegiancesAreCorrect, setAllegiancesAreCorrect] = useState(false);
+
+    const [loading, setLoading] = useState(true);
 
     const AllegiancesAnswerStatus = {
         TOO_MANY : "too_many",
@@ -92,6 +99,7 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
     }, [character]);
 
     function fetchCharacter() {
+        setLoading(true);
         axios
             .get(`${ENDPOINTS.GET_CHARACTER_PER_DOCID}${characterDocId}&locale=${i18n.language}`)
             .then((response) => {
@@ -107,6 +115,7 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
                     response.data.deathPlanet?.name,
                     response.data.deathYear,
                     response.data.imageUrl));
+                setLoading(false);
             })
             .catch((error) => {
                 console.log(error);
@@ -136,28 +145,6 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
         </div>
     }
 
-    function TextInput( {id, label, required, disabled, value, width} ) {
-        return <>
-            <TextField id={id} label = {label} variant='outlined' required={required} disabled={disabled}
-                size='small' {...(value !== null ? { value: value } : {})}
-                slotProps={{
-                    input : {
-                        className: "bg-gray-100 rounded-lg text-black"
-                    },
-                }}
-                sx={{
-                    width: {width},
-                    "& .MuiInputBase-input": {
-                        fontFamily: `${contentFont.replace(FONT_NAME_PART_TO_REMOVE, '')}, sans-serif`,
-                    },                 
-                    "& .MuiInputLabel-root": {
-                        fontFamily: `${contentFont.replace(FONT_NAME_PART_TO_REMOVE, '')}, sans-serif`,
-                        color: "gray text-2xs",
-                    }
-                }} />
-        </>
-    }
-
     function Names({reqLast}) {
         const namesWidth="48%";
         return <div className='flex justify-between pb-3'>
@@ -173,51 +160,15 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
             required={true} disabled={false} value= {specie} width="48%"/></div>
     }
 
-    function DatePlanet({year, planet, event, stateEra, stateDate, statePlanet}) {
-        const [era, setEra] = useState(BBY);
-        const reqYear = year !== null;
-        const reqPlanet = planet !== undefined;
-        const yearLabel = `identity.${event.toLowerCase()}_year`;
-        const planetLabel = `identity.${event.toLowerCase()}_planet`;
-        const eraLabel = `identity.${(stateEra === null ? era : stateEra)}`;
-
-        const handleToggle = () => {
-            setEra((prevEra) => (prevEra === BBY ? ABY : BBY));
-        };
-
-        return <div className='flex justify-start items-end pb-3'>
-            <div className='w-[20%] mr-1'>{t(yearLabel)}</div>
-            <div className='flex items-end gap-x-2'>
-                <NumberField.Root id = {`${event.toLowerCase()}Year`} disabled = {!reqYear} required={reqYear} className="numberRoot">
-                <NumberField.Group>
-                    <NumberField.Input className="w-10 mr-5"
-                        {...(stateDate !== null ? { value: stateDate } : {})}/>
-                </NumberField.Group>
-                </NumberField.Root>
-                <FormControlLabel
-                    control={
-                        <Switch
-                            checked={(era === ABY) || (stateEra === ABY)}
-                            disabled = {!reqYear || (stateEra !== null)}
-                            onChange={handleToggle}
-                            color="primary"
-                            size='small'/>
-                    }
-                    label={t(eraLabel)}
-                    labelPlacement="end"
-                    sx={{
-                        "& .MuiFormControlLabel-label": {
-                            fontFamily: `${contentFont.replace(FONT_NAME_PART_TO_REMOVE, '')}, sans-serif`,
-                        },
-                    }}
-                />
-                <input type="hidden" name={`${event}Era`} value={(stateEra === null ? era : stateEra)}/>
-
-                <span>{t('identity.on')}</span>
-                <TextInput id={`${event.toLowerCase()}Planet`} label = {t(planetLabel)}
-                    disabled = {!reqPlanet} required={reqPlanet} value={statePlanet} width="60%"/>
-            </div>
-        </div>
+    function BirthDeath() {
+        return <>
+            <DatePlanet key={`${birthDate}-${birthEra}-${birthPlanet}-${birthRemount}-1`}
+                year={character?.birthDate} planet={character?.birthPlanet}
+                event={"Birth"} stateEra={birthEra} stateDate={birthDate} statePlanet={birthPlanet} dateSetter={setBirthDate}/>
+            <DatePlanet key={`${deathDate}-${deathEra}-${deathPlanet}-${deathRemount}-2`}
+                year={character?.deathDate} planet={character?.deathPlanet}
+                event={"Death"} stateEra={deathEra} stateDate={deathDate} statePlanet={deathPlanet} dateSetter={setDeathDate}/>
+        </>
     }
 
     function Allegiances() {
@@ -294,18 +245,22 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
         if(character.birthDate !== null) {
             result = Utils.checkYearAnswer(elements.birthYear.value, character.birthDate,
                 elements.BirthEra.value, setBirthDate, setBirthEra) && result;
+            setBirthRemount(prev => prev + 1);
         }
         if(character.birthPlanet !== undefined) {
             result = Utils.checkTextAnswer(elements.birthPlanet.value.toLowerCase(),
-            character.birthPlanet.toLowerCase(), character.birthPlanet, setBirthPlanet) && result;
+                character.birthPlanet.toLowerCase(), character.birthPlanet, setBirthPlanet) && result;
+            setBirthRemount(prev => prev + 1)
         }
         if(character.deathDate !== null) {
             result = Utils.checkYearAnswer(elements.deathYear.value, character.deathDate,
                 elements.DeathEra.value, setDeathDate, setDeathEra) && result;
+            setDeathRemount(prev => prev + 1);
         }
         if(character.deathPlanet !== undefined) {
             result = Utils.checkTextAnswer(elements.deathPlanet.value.toLowerCase(),
-            character.deathPlanet.toLowerCase(), character.deathPlanet, setDeathPlanet) && result;
+                character.deathPlanet.toLowerCase(), character.deathPlanet, setDeathPlanet) && result;
+            setDeathRemount(prev => prev + 1);
         }
         
         const inputs = botheringFields.slice(allegiancesIndex).map((a) => a[1]); 
@@ -333,31 +288,32 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
     }
 
     function Image() {
-        return <img src={(`${ENDPOINTS.IMAGE_BACKEND_URL}${character?.imageUrl}`)}
-            className='min-w-64 max-w-[30vw] max-h-[30rem] mx-3 mb-5 question-div self-start' />
+        return <>{character.imageUrl !== undefined &&
+            <img src={(`${ENDPOINTS.IMAGE_BACKEND_URL}${character.imageUrl}`)}
+            className='min-w-64 max-w-[30vw] max-h-[30rem] mx-3 mb-5 question-div self-start' />}
+        </>;
     }
 
     return <div className='flex flex-wrap justify-center'>
-        <Image />
-        <div className='flex flex-col items-center'>
-            <form onSubmit={checkAnswers} className='w-[55vw] min-w-96 mx-3 mb-4 px-5 py-3 question-div flex flex-col justify-center items-center'>
-                <Category />
-                <div className='items-start w-full'>
-                    <Names reqLast={character?.lastName !== null} />
-                    <Specie />
-                    <DatePlanet year={character?.birthDate} planet={character?.birthPlanet}
-                        event={"Birth"} stateEra={birthEra} stateDate={birthDate} statePlanet={birthPlanet} />
-                    <DatePlanet year={character?.deathDate} planet={character?.deathPlanet}
-                        event={"Death"} stateEra={deathEra} stateDate={deathDate} statePlanet={deathPlanet} />
-                </div>
-                <Allegiances />
-                <button disabled={(allCorrect || isNoob)} type="submit" className='mb-3'>{t('identity.submit')}</button>
-                <button disabled={(allCorrect || isNoob)} onClick={noobButton} className='text-xs'>{t('identity.noob_button')}</button>
-                {answerProps}
-            </form>
-            {!(allCorrect || isNoob) &&
-                <InfoBubble helpMessage={t('identity.help_message')} />}
-        </div>
+        {loading ? <LoadingScreen flagFiles = {FLAG_FILES} /> : <>
+            <Image />
+            <div className='flex flex-col items-center'>
+                <form onSubmit={checkAnswers} className='w-[55vw] min-w-96 mx-3 mb-4 px-5 py-3 question-div flex flex-col justify-center items-center'>
+                    <Category />
+                    <div className='items-start w-full'>
+                        <Names reqLast={character?.lastName !== null} />
+                        <Specie />
+                        <BirthDeath />
+                    </div>
+                    <Allegiances />
+                    <button disabled={(allCorrect || isNoob)} type="submit" className='mb-3'>{t('identity.submit')}</button>
+                    <button disabled={(allCorrect || isNoob)} onClick={noobButton} className='text-xs'>{t('identity.noob_button')}</button>
+                    {answerProps}
+                </form>
+                {!(allCorrect || isNoob) &&
+                    <InfoBubble helpMessage={t('identity.help_message')} />}
+            </div>
+        </>}
     </div>
 }
 

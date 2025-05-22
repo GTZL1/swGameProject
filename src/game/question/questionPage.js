@@ -11,7 +11,6 @@ const QuestionPage = () => {
     const { contentFont } = useFont();
 
     return (<>
-    <title>{SENTENCES.TITLES.MAIN_TITLE}</title>
     <TitleBar nameP={t('titles.question_title')}/>
     <section className={`${contentFont} page game-button`}><QuestionBox /></section>
     </>);
