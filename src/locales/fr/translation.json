@@ -71,5 +71,9 @@
     "intro" : {
         "title" : "Il n'y a pas si longtemps, dans une galaxie proche, très proche...",
         "message" : "... j'ai décidé de profiter d'une occasion pour créer le petit jeu Star Wars auquel j'aurais adoré jouer. Deux modes de jeu, simples à comprendre mais d'un niveau digne de notre passion, et un système de défis quotidiens pour se mesurer aux autres. J'espère que vous aimerez et que la Force soit avec vous !"
+    },
+    "loading" : {
+        "title" : "Chargement",
+        "precision" : "Cela peut prendre jusqu'à une minute."
     }
 }

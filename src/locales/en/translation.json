@@ -57,5 +57,9 @@
     "intro" : {
         "title" : "Not so long ago, in a galaxy very, very close...",
         "message" : "... I decided to take advantage of an opportunity to create the little Star Wars game I'd have loved to play. Two game modes, easy to understand but of a level worthy of our passion, and a system of daily challenges to measure yourself against others. I hope you'll like it and may the Force be with you !"
+    },
+    "loading" : {
+        "title" : "Loading",
+        "precision" : "It can take up to one minute."
     }
 }
