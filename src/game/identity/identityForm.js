@@ -10,7 +10,7 @@ import Utils from './utils.js';
 import InfoBubble from '../help/infoBubble.js';
 import TextInput from './fields/textInput.js';
 import DatePlanet from './fields/datePlanet.js';
-import { FONT_NAME_PART_TO_REMOVE } from '../../constants/constants.js';
+import { FLAG_FILES, FONT_NAME_PART_TO_REMOVE } from '../../constants/constants.js';
 import LoadingScreen from '../help/loadingScreen.js';
 
 export const BBY = "BBY";
@@ -115,7 +115,7 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
                     response.data.deathPlanet?.name,
                     response.data.deathYear,
                     response.data.imageUrl));
-                setLoading(true);
+                setLoading(false);
             })
             .catch((error) => {
                 console.log(error);
@@ -295,7 +295,7 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
     }
 
     return <div className='flex flex-wrap justify-center'>
-        {loading ? <LoadingScreen /> : <>
+        {loading ? <LoadingScreen flagFiles = {FLAG_FILES} /> : <>
             <Image />
             <div className='flex flex-col items-center'>
                 <form onSubmit={checkAnswers} className='w-[55vw] min-w-96 mx-3 mb-4 px-5 py-3 question-div flex flex-col justify-center items-center'>
