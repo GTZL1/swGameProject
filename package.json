@@ -22,6 +22,8 @@
     "@emotion/styled": "^11.14.0",
     "@mui/material": "^7.0.2",
     "axios": "^1.8.4",
+    "embla-carousel-autoplay": "^8.6.0",
+    "embla-carousel-fade": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "i18next": "^24.2.3",
     "react": "^19.0.0",
