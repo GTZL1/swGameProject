@@ -6,13 +6,15 @@ import Question from "./question.js";
 import ENDPOINTS from "../../constants/endpoints.js";
 import InfoBubble from "../help/infoBubble.js";
 import { useFont } from '../../context/FontContext.js';
-import { FONT_NAME_PART_TO_REMOVE } from "../../constants/constants.js";
+import { FLAG_FILES, FONT_NAME_PART_TO_REMOVE } from "../../constants/constants.js";
+import LoadingScreen from "../help/loadingScreen.js";
 
 const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => {
     const [question, setQuestion] = useState(null);
     const [userInput, setUserInput] = useState("");
     const { i18n, t } = useTranslation();
     const { contentFont } = useFont();
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         if (!questionDocId) return;
@@ -29,6 +31,7 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => 
     }, [i18n.language]);
 
     function fetchQuestion() {
+        setLoading(true);
         axios
             .get(`${ENDPOINTS.GET_QUESTION_PER_DOCID}${questionDocId}&locale=${i18n.language}`)
             .then((response) => {
@@ -38,6 +41,7 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => 
                     response.data.answer,
                     response.data.indication,
                     response.data.imageUrl));
+                    setLoading(false);
             })
             .catch((error) => {
                 console.log(error);
@@ -88,16 +92,18 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => 
     }
 
     return(<div className="flex flex-col max-w-[50vw] items-center">
-        {(question !== null) &&
-            <img src={(`${ENDPOINTS.IMAGE_BACKEND_URL}${question.getImageUrl()}`)} 
-                className={`max-h-[50vh] object-contain question-div`} />}    
-        <div className={`flex flex-col items-center question-div mt-8 mb-4 p-3`}>
-            <QuestionComponent />
-            <Answer />
-            {answerProps}
-        </div>
-        {isCorrect === null &&
-            <InfoBubble helpMessage={t('questions.help_message')} />}
+         {loading ? <LoadingScreen flagFiles = {FLAG_FILES} /> : <>
+            {(question !== null) &&
+                <img src={(`${ENDPOINTS.IMAGE_BACKEND_URL}${question.getImageUrl()}`)} 
+                    className={`max-h-[50vh] object-contain question-div`} />}    
+            <div className={`flex flex-col items-center question-div mt-8 mb-4 p-3`}>
+                <QuestionComponent />
+                <Answer />
+                {answerProps}
+            </div>
+            {isCorrect === null &&
+                <InfoBubble helpMessage={t('questions.help_message')} />}
+        </>}
     </div>);
 }
 
