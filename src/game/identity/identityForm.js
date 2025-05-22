@@ -11,6 +11,7 @@ import InfoBubble from '../help/infoBubble.js';
 import TextInput from './fields/textInput.js';
 import DatePlanet from './fields/datePlanet.js';
 import { FONT_NAME_PART_TO_REMOVE } from '../../constants/constants.js';
+import LoadingScreen from '../help/loadingScreen.js';
 
 export const BBY = "BBY";
 export const ABY = "ABY";
@@ -25,18 +26,21 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
     const [firstName, setFirstName] = useState(null);
     const [lastName, setLastName] = useState(null);
     const [specie, setSpecie] = useState(null);
+
     const [birthDate, setBirthDate] = useState(null);
     const [birthPlanet, setBirthPlanet] = useState(null);
     const [deathDate, setDeathDate] = useState(null);
     const [deathPlanet, setDeathPlanet] = useState(null);
     const [birthEra, setBirthEra] = useState(null);
     const [deathEra, setDeathEra] = useState(null);
+    const [birthRemount, setBirthRemount] = useState(0);
+    const [deathRemount, setDeathRemount] = useState(0);
+
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedAllegiances, setSelectedAllegiances] = useState([]);
     const [allegiancesAreCorrect, setAllegiancesAreCorrect] = useState(false);
 
-    const [birthRemount, setBirthRemount] = useState(0);
-    const [deathRemount, setDeathRemount] = useState(0);
+    const [loading, setLoading] = useState(true);
 
     const AllegiancesAnswerStatus = {
         TOO_MANY : "too_many",
@@ -95,6 +99,7 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
     }, [character]);
 
     function fetchCharacter() {
+        setLoading(true);
         axios
             .get(`${ENDPOINTS.GET_CHARACTER_PER_DOCID}${characterDocId}&locale=${i18n.language}`)
             .then((response) => {
@@ -110,6 +115,7 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
                     response.data.deathPlanet?.name,
                     response.data.deathYear,
                     response.data.imageUrl));
+                setLoading(true);
             })
             .catch((error) => {
                 console.log(error);
@@ -152,6 +158,17 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
     function Specie() {
         return <div className='pb-3'><TextInput id="specie" label={t('identity.specie')}
             required={true} disabled={false} value= {specie} width="48%"/></div>
+    }
+
+    function BirthDeath() {
+        return <>
+            <DatePlanet key={`${birthDate}-${birthEra}-${birthPlanet}-${birthRemount}-1`}
+                year={character?.birthDate} planet={character?.birthPlanet}
+                event={"Birth"} stateEra={birthEra} stateDate={birthDate} statePlanet={birthPlanet} dateSetter={setBirthDate}/>
+            <DatePlanet key={`${deathDate}-${deathEra}-${deathPlanet}-${deathRemount}-2`}
+                year={character?.deathDate} planet={character?.deathPlanet}
+                event={"Death"} stateEra={deathEra} stateDate={deathDate} statePlanet={deathPlanet} dateSetter={setDeathDate}/>
+        </>
     }
 
     function Allegiances() {
@@ -278,28 +295,25 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
     }
 
     return <div className='flex flex-wrap justify-center'>
-        <Image />
-        <div className='flex flex-col items-center'>
-            <form onSubmit={checkAnswers} className='w-[55vw] min-w-96 mx-3 mb-4 px-5 py-3 question-div flex flex-col justify-center items-center'>
-                <Category />
-                <div className='items-start w-full'>
-                    <Names reqLast={character?.lastName !== null} />
-                    <Specie />
-                    <DatePlanet key={`${birthDate}-${birthEra}-${birthPlanet}-${birthRemount}-1`}
-                        year={character?.birthDate} planet={character?.birthPlanet}
-                        event={"Birth"} stateEra={birthEra} stateDate={birthDate} statePlanet={birthPlanet} dateSetter={setBirthDate}/>
-                    <DatePlanet key={`${deathDate}-${deathEra}-${deathPlanet}-${deathRemount}-2`}
-                        year={character?.deathDate} planet={character?.deathPlanet}
-                        event={"Death"} stateEra={deathEra} stateDate={deathDate} statePlanet={deathPlanet} dateSetter={setDeathDate}/>
-                </div>
-                <Allegiances />
-                <button disabled={(allCorrect || isNoob)} type="submit" className='mb-3'>{t('identity.submit')}</button>
-                <button disabled={(allCorrect || isNoob)} onClick={noobButton} className='text-xs'>{t('identity.noob_button')}</button>
-                {answerProps}
-            </form>
-            {!(allCorrect || isNoob) &&
-                <InfoBubble helpMessage={t('identity.help_message')} />}
-        </div>
+        {loading ? <LoadingScreen /> : <>
+            <Image />
+            <div className='flex flex-col items-center'>
+                <form onSubmit={checkAnswers} className='w-[55vw] min-w-96 mx-3 mb-4 px-5 py-3 question-div flex flex-col justify-center items-center'>
+                    <Category />
+                    <div className='items-start w-full'>
+                        <Names reqLast={character?.lastName !== null} />
+                        <Specie />
+                        <BirthDeath />
+                    </div>
+                    <Allegiances />
+                    <button disabled={(allCorrect || isNoob)} type="submit" className='mb-3'>{t('identity.submit')}</button>
+                    <button disabled={(allCorrect || isNoob)} onClick={noobButton} className='text-xs'>{t('identity.noob_button')}</button>
+                    {answerProps}
+                </form>
+                {!(allCorrect || isNoob) &&
+                    <InfoBubble helpMessage={t('identity.help_message')} />}
+            </div>
+        </>}
     </div>
 }
 
