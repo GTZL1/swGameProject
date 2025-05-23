@@ -17,12 +17,12 @@ const TitleBar = ({nameP}) => {
         
     return (<>
         <title>{t('titles.main_title_lower')}</title>
-        <header className='flex items-center justify-between sticky top-0 w-full h-20 overflow-visible bg-stone-300'>
+        <header className='flex items-center justify-between sticky top-0 w-full h-24 sm:h-20 overflow-visible bg-stone-300'>
             <ButtonLink route={'/'} children={<img className='max-h-full' src={'/resources/icons/home_icon.png'} id='home'/>}
                 style="h-16" />
             <TitleText name={nameP} />
-            <div id="flagList" className='flex flex-col h-full items-end'>
-                <LanguageSwitch style="h-[60%] p-1" />
+            <div id="flagList" className='flex flex-col h-full items-end justify-between'>
+                <LanguageSwitch style="h-[60%] max-h-12 p-1" />
                 <FontSwitch style="justify-end h-[40%]" />
             </div>
         </header>

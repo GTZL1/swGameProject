@@ -27,9 +27,11 @@ const FontSwitch = ({ style }) => {
         toggleSingleFont();
     }
 
-    return (<div className={`flex items-center ${style}`}>
-                <span className={`text-xs ${contentFont}`} dangerouslySetInnerHTML={{__html : buttonTitle}} />
-                <Switch onClick={toggleFont} checked={useSingleFont} />
+    return (<div className={`flex flex-col sm:flex-row items-end sm:items-center ${style}`}>
+                <span className={`text-xs ${contentFont} order-2 sm:order-none mr-1 sm:mr-0`}
+                    dangerouslySetInnerHTML={{__html : buttonTitle}} />
+                <Switch className='order-1 sm:order-none'
+                    onClick={toggleFont} checked={useSingleFont} />
             </div>
     );
 };
