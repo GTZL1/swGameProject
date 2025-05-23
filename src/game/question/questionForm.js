@@ -50,7 +50,7 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => 
 
     function checkAnswer(event) {
         event.preventDefault();
-        const userAnswer = event.currentTarget.elements.answerInput.value;
+        const userAnswer = event.currentTarget.elements.answerInput.value.trimEnd();
         setIsCorrect(question.checkAnswer(userAnswer));
         setUserInput(question.getAnswer());
     }
@@ -64,7 +64,7 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => 
     function Answer() {
         return(<>
         <form onSubmit={checkAnswer}
-            className="flex justify-center items-center mt-2">
+            className="flex flex-col sm:flex-row justify-center items-center mt-2">
             <TextField id="answerInput" variant="outlined"
                 {...(question?.getAnswerIndication() !== null ? {label : question?.getAnswerIndication()} : {})}
                 disabled={isCorrect !== null}
@@ -76,7 +76,10 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => 
                     },
                 }}
                 sx={{
-                    width: "60%",
+                    width: {
+                        xs: "90%",
+                        sm: "60%"
+                    },
                     "& .MuiInputBase-input": {
                         fontFamily: `${contentFont.replace(FONT_NAME_PART_TO_REMOVE, '')}, sans-serif`,
                     },
@@ -85,7 +88,7 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => 
                         color: "gray text-2xs",
                     }
                 }} />
-            <button type="submit" className="ml-4"
+            <button type="submit" className="sm:ml-4 mt-2 sm:mt-0"
                 disabled={isCorrect !== null}>{t('questions.button')}</button>
         </form>
         </>);

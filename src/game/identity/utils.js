@@ -2,7 +2,7 @@ import { BBY } from "./identityForm.js";
 
 class Utils {
     static checkTextAnswer (field, answer, answerRef, setState) {
-        const result = (field === answer);
+        const result = (field.trimEnd() === answer);
         if (result) {
             setState(answerRef);
         }
