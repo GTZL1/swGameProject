@@ -16,12 +16,6 @@ jest.mock('../../context/FontContext.js', () => ({
     }),
 }));
 
-beforeEach(async () => {
-  axios.get.mockResolvedValue(question);
-  render(<QuestionFormWrapper />);
-  await screen.findByText(new RegExp(question.data.questionTitle, 'i'));
-});
-
 const wrongAnswer = "Too bad";
 const rightAnswer = "Correct";
 const question = {
@@ -32,6 +26,11 @@ const question = {
         indication: 'Name',
         imageUrl: '/murley.png'
     }
+}
+
+async function renderAndWait() {
+  render(<QuestionFormWrapper />);
+  await screen.findByText(new RegExp(question.data.questionTitle, 'i'));
 }
 
 function answerMessage(isCorrect) {
@@ -51,30 +50,41 @@ function QuestionFormWrapper() {
 }
 
 test('loads and displays question', async () => {
+    axios.get.mockResolvedValue(question);
+    await renderAndWait();
+
     expect(screen.queryByText(new RegExp(question.data.questionTitle, 'i'))).toBeInTheDocument();
-});
-
-test('submit no answer', async () => {
-    fireEvent.click(screen.getByRole('button', { name: /questions/i }));
-
-    expect((screen.getByRole('textbox').value)).toBe(question.data.answer, 'i');
-    expect(screen.queryByText(new RegExp(wrongAnswer, 'i'))).toBeInTheDocument();
+    expect(screen.queryByText(new RegExp(rightAnswer, 'i'))).not.toBeInTheDocument();
+    expect(screen.queryByText(new RegExp(wrongAnswer, 'i'))).not.toBeInTheDocument();
 });
 
 test('submit right answer', async () => {
-    fireEvent.change(screen.getByRole('textbox'), { target: { value: question.answer } });
+    axios.get.mockResolvedValue(question);
+    await renderAndWait();
+
+    fireEvent.change(screen.getByRole('textbox'), { target: { value: question.data.answer } });
+    fireEvent.click(screen.getByRole('button', { name: /questions/i }));
+
+    expect((screen.getByRole('textbox').value)).toBe(question.data.answer, 'i');
+    expect(screen.queryByText(new RegExp(rightAnswer, 'i'))).toBeInTheDocument();
+});
+
+test('submit wrong answer', async () => {
+    axios.get.mockResolvedValue(question);
+    await renderAndWait();
+
+    fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Buggles' } });
+    fireEvent.click(screen.getByRole('button', { name: /questions/i }));
+
+    expect(screen.queryByText(new RegExp(wrongAnswer, 'i'))).toBeInTheDocument();
+});
+
+test('submit no answer', async () => {
+    axios.get.mockResolvedValue(question);
+    await renderAndWait();
+
     fireEvent.click(screen.getByRole('button', { name: /questions/i }));
 
     expect((screen.getByRole('textbox').value)).toBe(question.data.answer, 'i');
     expect(screen.queryByText(new RegExp(wrongAnswer, 'i'))).toBeInTheDocument();
 });
-/*
-test('loading screen works properly', async () => {
-    render(<QuestionFormWrapper />);
-    expect(await screen.findByText(new RegExp('Loading', 'i'))).toBeInTheDocument();
-
-    axios.get.mockResolvedValue(question);
-
-    expect(await screen.findByText(new RegExp('Loading', 'i'))).not.toBeInTheDocument();
-    expect(await screen.findByText(new RegExp(question.data.questionTitle, 'i'))).toBeInTheDocument();
-});*/
