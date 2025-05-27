@@ -30,6 +30,7 @@
     "react-dom": "^19.0.0",
     "react-i18next": "^15.4.1",
     "react-router": "^7.5.0",
+    "react-router-dom": "^7.6.1",
     "react-scripts": "^5.0.1",
     "react-select": "^5.10.1"
   },
@@ -53,6 +54,11 @@
     "tailwindcss": "^3.4.17"
   },
   "jest": {
-    "transformIgnorePatterns": ["node_modules/(?!axios)/"]
+    "transformIgnorePatterns": [
+      "node_modules/(?!axios)/"
+    ],
+    "moduleNameMapper": {
+      "^react-router-dom$": "<rootDir>/node_modules/react-router-dom/dist/index.js"
+    }
   }
 }
