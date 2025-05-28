@@ -58,5 +58,5 @@ test('navigates to question page on button click', async () => {
 
     fireEvent.click(screen.getByRole('link'));
 
-   onHomePage();
+    onHomePage();
 });

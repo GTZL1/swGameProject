@@ -55,6 +55,9 @@
   "jest": {
     "transformIgnorePatterns": [
       "node_modules/(?!axios)/"
-    ]
+    ],
+    "moduleNameMapper": {
+      "^@base-ui-components/react/number-field$": "@base-ui-components/react/esm/number-field"
+    }
   }
 }

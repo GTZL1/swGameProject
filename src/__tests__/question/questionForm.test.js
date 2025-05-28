@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import axios from 'axios';
 import QuestionForm from '../../game/question/questionForm.js';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 jest.mock('axios');
 jest.mock('../../game/help/loadingScreen.js', () => () => <div>Loading...</div>);
