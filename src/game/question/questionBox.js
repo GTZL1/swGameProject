@@ -7,10 +7,10 @@ import QuestionForm from "./questionForm.js";
 const QuestionBox = () => {
     const [allQuestionDocIds, setAllQuestionDocIds] = useState([]);
     const [isCorrect, setIsCorrect] = useState(null);
-    const [alreadyUsedIds, setAlreadyUsedIds] = useState([])
+    const [alreadyUsedIds, setAlreadyUsedIds] = useState([]);
     const [questionDocId, setQuestionDocId] = useState(null);
     const [nbQuestions, setNbQuestions] = useState(1);
-    const { i18n,t } = useTranslation();
+    const { t } = useTranslation();
 
     useEffect(() => {
         axios

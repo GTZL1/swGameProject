@@ -73,7 +73,7 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
                     response.data.data.map((c) => c.name), i18n, t));
             })
             .catch((error) => {
-            console.log(error);
+                console.log(error);
             });
         
         if (characterDocId) {
