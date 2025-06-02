@@ -55,7 +55,7 @@
             "resistance": "Résistance",
             "underworld": "Monde de la pègre"
         },
-        "help_message" : "Sélectionne une seule catégorie, remplis chaque champ actif avec l'année (attention à l'ère !) ou le nom propre requis puis choisis toutes les affiliations nécessaires."
+        "help_message" : "Sélectionne une seule catégorie, remplis chaque champ actif avec l'année (attention à l'ère !) ou le nom propre requis puis choisis toutes les affiliations nécessaires.\nTu peux vérifier tes réponses autant de fois que tu veux. Du moment que tu ne donnes pas ta langue au tooka, ce sera considéré comme juste."
     },
     "daily" : {
         "next" : "Suivant",

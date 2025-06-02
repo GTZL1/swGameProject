@@ -22,7 +22,7 @@ const InfoBubble = ({helpMessage}) => {
     }, []);
 
     return (
-        <div className={`flex flex-col items-center h-32`} ref={bubbleRef}>
+        <div className={`flex flex-col items-center h-48`} ref={bubbleRef}>
             <button onClick={toggleBubble}
                 className="flex items-center justify-center !bg-transparent !p-0">
                 <img className="w-6 object-contain"  
@@ -30,8 +30,9 @@ const InfoBubble = ({helpMessage}) => {
             </button>
 
             {isVisible && (
-                <div className="w-64 bg-slate-400/[.90] rounded-2xl p-2 mt-2 text-justify text-xs text-gray-600">
-                    {helpMessage}
+                <div className="w-80 bg-slate-400/[.90] rounded-2xl p-2 mt-2 text-justify text-xs text-gray-600">
+                    {helpMessage.split('\n').map((line, idx) =>
+                         <span key={idx}>{line}<br/></span>)}
                 </div>
             )}
         </div>
