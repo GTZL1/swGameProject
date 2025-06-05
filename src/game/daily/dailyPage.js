@@ -27,7 +27,6 @@ const DailyPage = () => {
     const [questionScore, setQuestionScore] = useState([]);
     const [characterScore, setCharacterScore] = useState([]);
 
-    //const showNextBox = ;
     const dailyNextBox = displayNextButton() &&
         (currentId < (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) &&
         (<DailyNextBox
@@ -39,6 +38,11 @@ const DailyPage = () => {
             setCurrentId={setCurrentId}
             setQuestionScore={setQuestionScore}
             setCharacterScore={setCharacterScore }/>);
+
+    useEffect(() => {
+        setAllCorrect(null);
+        setIsNoob(false);
+    }, [currentId]);
     
     useEffect(() => {
         if (effectRan.current) {
