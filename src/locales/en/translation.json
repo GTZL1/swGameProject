@@ -41,7 +41,7 @@
         "new_character_button": "New character",
         "noob_button": "Stop guessing",
         "noob": "You'll do better with the next one...",
-        "help_message" : "Choose one category, fill every active field with the requested year (watch out for the era !) or proper name then choose all needed affiliations."
+        "help_message" : "Choose one category, fill every active field with the requested year (watch out for the era !) or proper name then choose all needed affiliations.\nYou can check your answers as many times as you want. As long as don't stop guessing, it'll be considered as true."
     },
     "daily" : {
         "next" : "Next",
