@@ -138,10 +138,9 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
                 styles={{
                     menuPortal: (base) => ({
                         ...base,
-                        zIndex: 9999,
                         fontFamily: `${contentFont.replace(FONT_NAME_PART_TO_REMOVE, '')}, sans-serif`,
                     }),
-                }}/>
+            }}/>
         </div>
     }
 
@@ -173,26 +172,26 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
 
     function Allegiances() {
         return <div className='pb-3'>
-                <Select
-                    isMulti
-                    {...(selectedAllegiances.length > 0 && !allegiancesAreCorrect ?
-                        {defaultValue: (selectedAllegiances.map((a) =>
-                            ({value : a, label : a})))} : {})}
-                    {...(allegiancesAreCorrect ?
-                        {value: (selectedAllegiances.map((a) =>
-                            ({value : a, label : a})))} : {})}
-                    name="allegiances"
-                    required={true}
-                    placeholder={t('identity.allegiances')}
-                    options={allAllegiances.map((a) =>
-                        ({value: a, label: a}))}
-                    className="basic-multi-select"
-                    classNamePrefix="select"/>
+            <Select
+                isMulti
+                {...(selectedAllegiances.length > 0 && !allegiancesAreCorrect ?
+                    {defaultValue: (selectedAllegiances.map((a) =>
+                        ({value : a, label : a})))} : {})}
+                {...(allegiancesAreCorrect ?
+                    {value: (selectedAllegiances.map((a) =>
+                        ({value : a, label : a})))} : {})}
+                name="allegiances"
+                required={true}
+                placeholder={t('identity.allegiances')}
+                options={allAllegiances.map((a) =>
+                    ({value: a, label: a}))}
+                className="basic-multi-select"
+                classNamePrefix="select"/>
 
-                    { allegiancesStatus !== AllegiancesAnswerStatus.NOTHING_DISPLAY && (
-                        <p className='text-xs text-center text-red-800 mt-0'>{t(`identity.${allegiancesStatus}`)} </p>
-                    )} 
-            </div>
+            { allegiancesStatus !== AllegiancesAnswerStatus.NOTHING_DISPLAY && (
+                <p className='text-xs text-center text-red-800 mt-0'>{t(`identity.${allegiancesStatus}`)} </p>
+            )}
+        </div>
     }
 
     function noobButton() {

@@ -3,7 +3,7 @@ import TitleBar from '../../utils/title/title.js';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import ENDPOINTS from '../../constants/endpoints.js';
-import { NUMBER_DAILY_QUESTIONS, NUMBER_DAILY_CHARACTERS, RIGHT_ANSWER_CHAR, WRONG_ANSWER_CHAR }
+import { NUMBER_DAILY_QUESTIONS, NUMBER_DAILY_CHARACTERS, }
     from '../../constants/constants.js';
 import IdentityForm from '../identity/identityForm.js';
 import QuestionForm from '../question/questionForm.js';
@@ -11,6 +11,7 @@ import { useFont } from '../../context/FontContext.js';
 import Utils from './utils.js';
 import '../common.css';
 import ScoreBox from './scoreBox.js';
+import DailyNextBox from './dailyNextBox.js';
 
 const DailyPage = () => {
     const { t } = useTranslation();
@@ -25,6 +26,23 @@ const DailyPage = () => {
 
     const [questionScore, setQuestionScore] = useState([]);
     const [characterScore, setCharacterScore] = useState([]);
+
+    const dailyNextBox = displayNextButton() &&
+        (currentId < (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) &&
+        (<DailyNextBox
+            currentId={currentId}
+            allCorrect={allCorrect}
+            isNoob={isNoob}
+            characterScore={characterScore}
+            questionScore={questionScore}
+            setCurrentId={setCurrentId}
+            setQuestionScore={setQuestionScore}
+            setCharacterScore={setCharacterScore }/>);
+
+    useEffect(() => {
+        setAllCorrect(null);
+        setIsNoob(false);
+    }, [currentId]);
     
     useEffect(() => {
         if (effectRan.current) {
@@ -106,42 +124,11 @@ const DailyPage = () => {
             });
     }
 
-    function updateScore(currentId, isCorrect, isNoob) {
-        document.cookie = `currentId=${currentId}; path=/; max-age=${Utils.cookieLife()}; samesite=lax`;
-        if (currentId < NUMBER_DAILY_QUESTIONS) {
-            const newQuestionScore = [...questionScore, (isCorrect ? RIGHT_ANSWER_CHAR : WRONG_ANSWER_CHAR)];
-            setQuestionScore(newQuestionScore);
-            document.cookie = `questionScore=${newQuestionScore}; path=/; max-age=${Utils.cookieLife()}; samesite=lax`;
-        } else {
-            const newCharacterScore = [...characterScore, (isNoob ? WRONG_ANSWER_CHAR : RIGHT_ANSWER_CHAR)];
-            setCharacterScore(newCharacterScore);
-            document.cookie = `characterScore=${newCharacterScore}; path=/; max-age=${Utils.cookieLife()}; samesite=lax`;
-        }
-    }
-
     function displayNextButton() {
         if (currentId >= NUMBER_DAILY_QUESTIONS) {
             return (allCorrect || isNoob);
         }
         return (allCorrect !== null);
-    }
-
-    function AnswerProps() {
-        const score = currentId >= NUMBER_DAILY_QUESTIONS ? characterScore : questionScore;
-        const range = currentId >= NUMBER_DAILY_QUESTIONS ? NUMBER_DAILY_CHARACTERS : NUMBER_DAILY_QUESTIONS;
-        const chars = Utils.onlyScore(score,range).split('');
-        chars[score.length] = allCorrect ? RIGHT_ANSWER_CHAR : WRONG_ANSWER_CHAR;
-        return (<>
-            <p className='mt-2'>{chars.join('')}</p>
-            <button className='mt-2'
-                onClick={() => {
-                    updateScore(currentId, allCorrect, isNoob);
-                    setCurrentId(currentId + 1);
-                }}>
-                    {(currentId === (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS -1))
-                        ? t('daily.see_score') : t('daily.next')}
-            </button>
-        </>);
     }
 
     return (<>
@@ -151,16 +138,14 @@ const DailyPage = () => {
                 <QuestionForm questionDocId={questionDocIds[currentId]}
                     isCorrect={allCorrect}
                     setIsCorrect={setAllCorrect}
-                    answerProps={displayNextButton() && (currentId < (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) &&
-                        AnswerProps()} />
+                    answerProps={dailyNextBox} />
             )}
             {(currentId >= NUMBER_DAILY_QUESTIONS && currentId < (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) && (
                 <IdentityForm characterDocId={charDocIds[currentId-NUMBER_DAILY_QUESTIONS]}
                     allCorrect={allCorrect}
                     setAllCorrect={setAllCorrect}
                     setIsNoob={setIsNoob}
-                    answerProps={displayNextButton() && (currentId < (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) &&
-                        AnswerProps()} />
+                    answerProps={dailyNextBox} />
             )}
             {(currentId >= (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) && (<>
                 <ScoreBox questionScore={questionScore} characterScore={characterScore} />

@@ -5,6 +5,7 @@ import ButtonLink from '../buttons/buttonLink.js';
 import { useFont } from '../../context/FontContext.js'; 
 import FontSwitch from '../buttons/fontSwitch.js';
 import { useTranslation } from "react-i18next";
+import TitleButtons from './titleButtons.js';
 
 const TitleBar = ({nameP}) => {
     const { t } = useTranslation();
@@ -17,16 +18,18 @@ const TitleBar = ({nameP}) => {
         
     return (<>
         <title>{t('titles.main_title_lower')}</title>
-        <header className='flex items-center justify-between sticky top-0 w-full h-24 sm:h-20 overflow-visible bg-stone-300'>
-            <ButtonLink route={'/'} children={<img className='max-h-full' src={'/resources/icons/home_icon.png'} id='home'/>}
-                style="h-16" />
-            <TitleText name={nameP} />
-            <div id="flagList" className='flex flex-col h-full items-end justify-between'>
-                <LanguageSwitch style="h-[60%] max-h-12 p-1" />
-                <FontSwitch style="justify-end h-[40%]" />
+        <header className='sticky top-0'>
+            <div className='flex items-center justify-between top-0 w-full h-24 sm:h-20 overflow-visible bg-stone-300'>
+                <TitleButtons />
+                <TitleText name={nameP} />
+                <div id="flagList" className='flex flex-col h-full items-end justify-between'>
+                    <LanguageSwitch style="h-[60%] max-h-12 p-1" />
+                    <FontSwitch style="justify-end h-[40%]" />
+                </div>
             </div>
+            
         </header>
     </>);
 }
-
+//<div className='w-full h-12 bg-red-700'></div>
 export default TitleBar;
