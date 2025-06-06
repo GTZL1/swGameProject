@@ -18,7 +18,7 @@
         "wrong_answer_prompt" : "Too bad, you're wrong this time...",
         "new_question" : "New question",
         "button" : "Check",
-        "help_message" : "Answer only with the requested word(s), without any determiner, plural and so on."
+        "help_message" : "Answer only with the requested word(s), without any determiner, plural and so on.\nYou can check an empty answer to give up if you don't know."
     },
     "identity" : {
         "category": "Category",
