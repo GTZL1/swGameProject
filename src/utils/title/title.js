@@ -17,7 +17,7 @@ const TitleBar = ({nameP}) => {
         return <h1 className={`${titleFont} text-3xl w-[75%] absolute left-1/2 transform -translate-x-1/2 m-0 text-center`}>
             {name.toLowerCase()}</h1>;
     }
-    console.log(showMenu);  
+
     return (<>
         <title>{t('titles.main_title_lower')}</title>
         <header className='sticky top-0'>

@@ -2,16 +2,16 @@ import { useTranslation } from "react-i18next";
 import { useFont } from "../context/FontContext.js";
 import TitleBar from "../utils/title/title.js";
 
-const AboutPage = () => {
+const SupportPage = () => {
     const {t} = useTranslation();
     const {contentFont} = useFont();
     
     return (<>
-        <TitleBar nameP={t('titles.about_title')} />
+        <TitleBar nameP={t('titles.support_title')} />
         <section className={`${contentFont} page flex-col items-center`}>
             
         </section>
     </>);
 }
 
-export default AboutPage;
+export default SupportPage;

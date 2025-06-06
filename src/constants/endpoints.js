@@ -4,7 +4,7 @@ const ENDPOINTS = {
     'IDENTITY_PAGE' : '/identity',
     'DAILY_PAGE' : '/daily',
     'ABOUT': '/about',
-    'HOW-TO': '/how-to',
+    'HOW_TO': '/how-to',
     'SUPPORT': '/support',
     'BACKEND_URL': 'https://delicate-chickens-6ab648b3a3.strapiapp.com',
     'IMAGE_BACKEND_URL': 'https://asimplestarwarsgame.net/images/'
