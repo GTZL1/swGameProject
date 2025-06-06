@@ -18,7 +18,7 @@
         "wrong_answer_prompt" : "Dommage, cette fois c'est faux...",
         "new_question" : "Nouvelle question",
         "button" : "Vérifier",
-        "help_message" : "Réponds uniquement avec le ou les mots demandés, sans déterminant, pluriel, etc."
+        "help_message" : "Réponds uniquement avec le ou les mots demandés, sans déterminant, pluriel, etc.\nTu peux valider une réponse vide pour abandonner si tu ne sais pas."
     },
     "identity" : {
         "category": "Catégorie",

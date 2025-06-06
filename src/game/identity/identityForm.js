@@ -138,7 +138,6 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
                 styles={{
                     menuPortal: (base) => ({
                         ...base,
-                        zIndex: 9999,
                         fontFamily: `${contentFont.replace(FONT_NAME_PART_TO_REMOVE, '')}, sans-serif`,
                     }),
             }}/>

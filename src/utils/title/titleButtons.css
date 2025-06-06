@@ -1,0 +1,7 @@
+.title-button {
+    @apply sm:h-10 sm:w-10 h-8 w-8 py-1;
+}
+
+.title-button img {
+    @apply max-h-full;
+}
