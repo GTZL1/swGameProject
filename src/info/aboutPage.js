@@ -3,11 +3,20 @@ import { useFont } from "../context/FontContext.js";
 import TitleBar from "../utils/title/title.js";
 import ENDPOINTS from "../constants/endpoints.js";
 import ICONS from "../constants/icons.js";
+import { useState, useEffect } from "react";
 
 const AboutPage = () => {
-    const {t} = useTranslation();
+    const { i18n, t } = useTranslation();
     const {contentFont} = useFont();
-    
+    const [messageText, setMessageText] = useState(null);
+
+    useEffect(() => {
+        fetch(`${ENDPOINTS.TEXT_PATH}${t('intro.message')}`)
+            .then(response => {
+                return response.text();})
+            .then(text => setMessageText(text));
+    }, [i18n.language]);
+
     return (<>
         <TitleBar nameP={t('titles.about_title')} />
         <section className={`${contentFont} page flex-col items-center`}>
@@ -15,7 +24,7 @@ const AboutPage = () => {
                 text-justify text-[13px] items-center sm:items-start`}>
                 <div className="pr-3 sm:w-[80%]">
                     <p className='text-cyan-600 font-bold text-sm'>{t('intro.title')}</p>
-                    <p>{t('intro.message')}</p>
+                    <p>{messageText}</p>
                     <IconsParagraph text={'To discuss anything game-related, the Discord server is here.'}
                         icons={[ICONS.BLUE_DISCORD]} links={['']} />
                     <IconsParagraph text={'You can reach me on my social media. '} icons={[ICONS.YOUTUBE, ICONS.INSTA]}
@@ -33,7 +42,7 @@ const IconsParagraph = ({text, icons, links}) => {
         <br/>
         <p>{text}{text}</p>
         <div className="flex justify-center gap-4">
-            {icons.map((icon, idx) => <a href={links[idx]}>
+            {icons.map((icon, idx) => <a href={links[idx]} key={icon}>
                     <img src={`${ICONS.PATH}${icon}`} className="h-10 object-contain" /></a>)}
         </div>
     </div>);

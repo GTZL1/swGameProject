@@ -6,6 +6,7 @@ const ENDPOINTS = {
     'ABOUT': '/about',
     'HOW_TO': '/how-to',
     'SUPPORT': '/support',
+    'TEXT_PATH': '/resources/texts/',
     'BACKEND_URL': 'https://delicate-chickens-6ab648b3a3.strapiapp.com',
     'IMAGE_BACKEND_URL': 'https://asimplestarwarsgame.net/images/',
     'ME_IMAGE': 'heart.png',
