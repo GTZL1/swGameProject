@@ -8,7 +8,7 @@ const TitleMenu = ({style}) => {
     const { contentFont } = useFont();
 
     return (<nav className={`${style} ${contentFont} flex flex-col sm:flex-row sm:justify-around items-center shadow-md`}>
-        <MenuText text={t('titles.about_title')} />
+        <MenuText text={t('titles.about_title')} route={ENDPOINTS.ABOUT} />
         <MenuText text={t('titles.how_to_title')} />
         <MenuText text={t('titles.support_title')} />
         <MenuText text={t('titles.daily_title')} route={ENDPOINTS.DAILY_PAGE} />
