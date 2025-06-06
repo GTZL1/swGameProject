@@ -5,3 +5,9 @@
 .title-button img {
     @apply max-h-full;
 }
+
+@media (min-width: 640px) {
+  .home-button img {
+    max-height: 90%;
+  }
+}
