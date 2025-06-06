@@ -16,7 +16,6 @@ const AboutPage = () => {
                 <div className="pr-3 sm:w-[80%]">
                     <p className='text-cyan-600 font-bold text-sm'>{t('intro.title')}</p>
                     <p>{t('intro.message')}</p>
-                    <p>{t('intro.message')}</p>
                     <IconsParagraph text={'To discuss anything game-related, the Discord server is here.'}
                         icons={[ICONS.BLUE_DISCORD]} links={['']} />
                     <IconsParagraph text={'You can reach me on my social media. '} icons={[ICONS.YOUTUBE, ICONS.INSTA]}
