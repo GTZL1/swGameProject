@@ -7,7 +7,10 @@ const ENDPOINTS = {
     'HOW_TO': '/how-to',
     'SUPPORT': '/support',
     'BACKEND_URL': 'https://delicate-chickens-6ab648b3a3.strapiapp.com',
-    'IMAGE_BACKEND_URL': 'https://asimplestarwarsgame.net/images/'
+    'IMAGE_BACKEND_URL': 'https://asimplestarwarsgame.net/images/',
+    'ME_IMAGE': 'heart.png',
+    'YT_LINK': 'https://www.youtube.com/@EagleBricks-sw6',
+    'INSTA_LINK': 'https://www.instagram.com/dd.eaglebricks'
 };
 
 ENDPOINTS.GET_ALL_QUESTION_DOCIDS = `${ENDPOINTS.BACKEND_URL}/api/question-api/all`;
