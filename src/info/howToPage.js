@@ -9,7 +9,12 @@ const HowToPage = () => {
     return (<>
         <TitleBar nameP={t('titles.how_to_title')} />
         <section className={`${contentFont} page flex-col items-center`}>
-            
+            <article>
+
+            </article>
+            <article>
+                
+            </article>
         </section>
     </>);
 }
