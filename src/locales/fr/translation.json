@@ -5,9 +5,9 @@
         "question_title" : "Questions",
         "identity_title" : "Cartes d'identité",
         "daily_title" : "Les défis du jour",
-        "about_title" : "A propos",
+        "about_title" : "A propos de moi",
         "how_to_title" : "Comment jouer",
-        "support_title" : "Soutenir",
+        "support_title" : "Soutenir le jeu",
         "question_button" : "Enchaîner les questions",
         "identity_button" : "Remplir des cartes d'identité",
         "question_intro" : "Questions simples, réponses simples, simple si tu sais !",
@@ -73,7 +73,9 @@
     },
     "intro" : {
         "title" : "Il n'y a pas si longtemps, dans une galaxie proche, très proche...",
-        "message" : "about-fr.txt"
+        "message" : "about-intro-fr.txt",
+        "discord" : "about-discord-fr.txt",
+        "networks": "about-networks-fr.txt"
     },
     "loading" : {
         "title" : "Chargement",
