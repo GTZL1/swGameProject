@@ -9,7 +9,7 @@ const SupportPage = () => {
     return (<>
         <TitleBar nameP={t('titles.support_title')} />
         <section className={`${contentFont} page flex-col items-center`}>
-            
+            <p>This page is in works.</p>
         </section>
     </>);
 }
