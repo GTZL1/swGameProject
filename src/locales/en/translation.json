@@ -5,6 +5,9 @@
         "question_title" : "Questions",
         "identity_title" : "Identity cards",
         "daily_title" : "Today's challenges",
+        "about_title" : "About me",
+        "how_to_title" : "How to play",
+        "support_title" : "Support the game",
         "question_button" : "Chain the questions",
         "identity_button" : "Fill some identity cards",
         "question_intro" : "Simple questions, simple answers, simple if you know !",
@@ -56,7 +59,9 @@
     },
     "intro" : {
         "title" : "Not so long ago, in a galaxy very, very close...",
-        "message" : "... I decided to take advantage of an opportunity to create the little Star Wars game I'd have loved to play. Two game modes, easy to understand but of a level worthy of our passion, and a system of daily challenges to measure yourself against others. I hope you'll like it and may the Force be with you !"
+        "message" : "about-intro-en.txt",
+        "discord" : "about-discord-en.txt",
+        "networks": "about-networks-en.txt"
     },
     "loading" : {
         "title" : "Loading",

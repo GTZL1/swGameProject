@@ -13,10 +13,6 @@ const HomePage = () => {
     return (<>
         <TitleBar nameP={t('titles.main_title')} />
         <section className={`${contentFont} page flex-col items-center`}>
-            <div className='question-div max-w-[32rem] mx-10 px-3 py-2 text-justify text-[13px]'>
-                <p className='text-cyan-600 font-bold text-sm'>{t('intro.title')}</p>
-                <p>{t('intro.message')}</p>
-            </div>
             <div className='flex flex-wrap justify-center'>
                 <GameModeBox endpoint = {ENDPOINTS.QUESTION_PAGE} boxText = {t('titles.question_intro')} buttonText={t('titles.question_button')} />
                 <GameModeBox endpoint = {ENDPOINTS.IDENTITY_PAGE} boxText = {t('titles.identity_intro')} buttonText={t('titles.identity_button')} />
