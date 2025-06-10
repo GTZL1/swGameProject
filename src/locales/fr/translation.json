@@ -77,6 +77,10 @@
         "discord" : "about-discord-fr.txt",
         "networks": "about-networks-fr.txt"
     },
+    "how_to": {
+        "questions": "how-to-question-fr.txt",
+        "intro": "Il y a deux modes de jeu, Questions et Cartes d'identité. Les défis quotidiens reprennent plusieurs de chaque."
+    },
     "loading" : {
         "title" : "Chargement",
         "precision" : "Cela peut prendre jusqu'à une minute."

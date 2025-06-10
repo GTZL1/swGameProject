@@ -63,6 +63,10 @@
         "discord" : "about-discord-en.txt",
         "networks": "about-networks-en.txt"
     },
+    "how_to": {
+        "questions": "how-to-question-en.txt",
+        "intro": "There are two game modes, Questions and Identity cards. The daily challenges feature several of each."
+    },
     "loading" : {
         "title" : "Loading",
         "precision" : "It can take up to one minute."
