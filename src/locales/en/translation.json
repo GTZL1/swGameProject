@@ -68,7 +68,10 @@
         "identity": "how-to-identity-en.txt",
         "daily": "how-to-daily-en.txt",
         "daily_title": "Daily challenges",
-        "intro": "There are two game modes, Questions and Identity cards. The daily challenges feature several of each."
+        "intro": "There are two game modes, Questions and Identity cards. The daily challenges feature several of each.",
+        "voilà": "And that's it !",
+        "discord": "If you still have a question, you can ask it on Discord.",
+        "real_fan": "And if it's too easy for you, well... there's a button for those who are real fans :)."
     },
     "loading" : {
         "title" : "Loading",

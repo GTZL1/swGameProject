@@ -11,6 +11,7 @@ import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 import { identity } from "lodash";
+import Utils from "./utils.js";
 
 const HowToPage = () => {
     const {i18n, t} = useTranslation();
@@ -50,6 +51,11 @@ const HowToPage = () => {
                 <HelpBlock title={t('how_to.daily_title')} images={HOW_TO_IMAGE_DAILY}
                     text = {dailyHelp} precedingLength={HOW_TO_IMAGE_QUESTIONS.length + HOW_TO_IMAGE_IDENTITY.length}
                     setIsOpen={setIsOpen} setPhotoIndex={setPhotoIndex} />
+
+                <Subtitle text={t('how_to.voilà')} />
+                <Utils.IconsParagraph text={t('how_to.discord')} icons={[ICONS.BLUE_DISCORD]}
+                links={[ENDPOINTS.DISCORD_LINK]} lineBreak={false}/>
+                <p className="mt-8">{t('how_to.real_fan')}</p>
             </article>
             <Lightbox open={isOpen}
                 close={() => setIsOpen(false)}

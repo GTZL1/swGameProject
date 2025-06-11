@@ -82,7 +82,10 @@
         "identity": "how-to-identity-fr.txt",
         "daily": "how-to-daily-fr.txt",
         "daily_title": "Défis quotidiens",
-        "intro": "Il y a deux modes de jeu, Questions et Cartes d'identité. Les défis quotidiens reprennent plusieurs de chaque."
+        "intro": "Il y a deux modes de jeu, Questions et Cartes d'identité. Les défis quotidiens reprennent plusieurs de chaque.",
+        "voilà": "Et c'est tout !",
+        "discord": "Si tu as toujours une question, tu peux la poser sur Discord.",
+        "real_fan": "Et si c'est trop facile pour toi, et bien... il y a un bouton pour celles et ceux qui sont vraiment fans :)."
     },
     "loading" : {
         "title" : "Chargement",
