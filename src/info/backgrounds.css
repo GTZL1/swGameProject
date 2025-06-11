@@ -1,0 +1,3 @@
+.info-background::before {
+    @apply bg-[url('../../public/resources/icons/vertical-background.jpg')] md:bg-[url('../../public/resources/icons/jfo-background.jpg')] !important;
+}

@@ -12,6 +12,7 @@ import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
 import { identity } from "lodash";
 import Utils from "./utils.js";
+import './backgrounds.css';
 
 const HowToPage = () => {
     const {i18n, t} = useTranslation();
@@ -21,6 +22,8 @@ const HowToPage = () => {
     const [dailyHelp, setDailyHelp] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const [photoIndex, setPhotoIndex] = useState(0);
+
+    useEffect(() => Utils.setBackgroundClass(document), []);
 
     useEffect(() => {
         axios
@@ -36,8 +39,8 @@ const HowToPage = () => {
     
     return (<>
         <TitleBar nameP={t('titles.how_to_title')} />
-        <section className={`${contentFont} page flex-col items-center `}>
-            <article className='info-page w-[70%] mb-12'>
+        <section className={`${contentFont} page flex-col items-center`}>
+            <article className='info-page w-[70%]'>
                 <p>{t('how_to.intro')}</p>
 
                 <HelpBlock title={t('titles.question_title')} images={HOW_TO_IMAGE_QUESTIONS}

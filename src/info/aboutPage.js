@@ -14,6 +14,8 @@ const AboutPage = () => {
     const [discordMessage, setDiscordMessage] = useState(null);
     const [networkMessage, setNetworkMessage] = useState(null);
 
+    useEffect(() => Utils.setBackgroundClass(document), []);
+
     useEffect(() => {
         axios
             .get(`${ENDPOINTS.ABOUT_TEXT_PATH}${t('intro.message')}`)
