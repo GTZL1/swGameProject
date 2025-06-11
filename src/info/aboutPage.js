@@ -28,7 +28,7 @@ const AboutPage = () => {
     return (<>
         <TitleBar nameP={t('titles.about_title')} />
         <section className={`${contentFont} page flex-col items-center`}>
-            <article className={`question-div info-page flex flex-col-reverse sm:flex-row max-w-[80%] mx-10
+            <article className={`info-page flex flex-col-reverse sm:flex-row max-w-[80%] mx-10
                 items-center sm:items-start`}>
                 <div className="pr-3 sm:w-[80%]">
                     <p className='text-cyan-600 font-bold text-sm'>{t('intro.title')}</p>

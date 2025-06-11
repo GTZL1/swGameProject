@@ -65,6 +65,9 @@
     },
     "how_to": {
         "questions": "how-to-question-en.txt",
+        "identity": "how-to-identity-en.txt",
+        "daily": "how-to-daily-en.txt",
+        "daily_title": "Daily challenges",
         "intro": "There are two game modes, Questions and Identity cards. The daily challenges feature several of each."
     },
     "loading" : {

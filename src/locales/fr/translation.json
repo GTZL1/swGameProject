@@ -79,6 +79,9 @@
     },
     "how_to": {
         "questions": "how-to-question-fr.txt",
+        "identity": "how-to-identity-fr.txt",
+        "daily": "how-to-daily-fr.txt",
+        "daily_title": "Défis quotidiens",
         "intro": "Il y a deux modes de jeu, Questions et Cartes d'identité. Les défis quotidiens reprennent plusieurs de chaque."
     },
     "loading" : {
