@@ -39,20 +39,17 @@ const HowToPage = () => {
             <article className='info-page w-[70%] mb-12'>
                 <p>{t('how_to.intro')}</p>
 
-                <Subtitle text={t('titles.question_title')} />
-                {questionHelp && <HelpParagraph text={questionHelp} />}
-                <Images images={HOW_TO_IMAGE_QUESTIONS} setIsOpen={setIsOpen} setPhotoIndex={setPhotoIndex} />
+                <HelpBlock title={t('titles.question_title')} images={HOW_TO_IMAGE_QUESTIONS}
+                    text = {questionHelp}
+                    setIsOpen={setIsOpen} setPhotoIndex={setPhotoIndex} />
 
-                <Subtitle text={t('titles.identity_title')} />
-                {identityHelp && <HelpParagraph text={identityHelp} />}
-                <Images images={HOW_TO_IMAGE_IDENTITY} setIsOpen={setIsOpen}
-                    setPhotoIndex={setPhotoIndex} precedingLength={HOW_TO_IMAGE_QUESTIONS.length} />
+                <HelpBlock title={t('titles.identity_title')} images={HOW_TO_IMAGE_IDENTITY}
+                    text = {identityHelp} precedingLength={HOW_TO_IMAGE_QUESTIONS.length}
+                    setIsOpen={setIsOpen} setPhotoIndex={setPhotoIndex} />
 
-                <Subtitle text={t('how_to.daily_title')} />
-                {dailyHelp && <HelpParagraph text={dailyHelp} />}
-                <Images images={HOW_TO_IMAGE_DAILY} setIsOpen={setIsOpen}
-                    setPhotoIndex={setPhotoIndex}
-                    precedingLength={HOW_TO_IMAGE_QUESTIONS.length + HOW_TO_IMAGE_IDENTITY.length} />
+                <HelpBlock title={t('how_to.daily_title')} images={HOW_TO_IMAGE_DAILY}
+                    text = {dailyHelp} precedingLength={HOW_TO_IMAGE_QUESTIONS.length + HOW_TO_IMAGE_IDENTITY.length}
+                    setIsOpen={setIsOpen} setPhotoIndex={setPhotoIndex} />
             </article>
             <Lightbox open={isOpen}
                 close={() => setIsOpen(false)}
@@ -62,6 +59,16 @@ const HowToPage = () => {
                 index={photoIndex} />
         </section>
     </>);
+}
+
+const HelpBlock = ({title, text, images, precedingLength = 0, setIsOpen, setPhotoIndex}) => {
+    return (<>
+        <Subtitle text={title} />
+        {text && <HelpParagraph text={text} />}
+        <Images images={images} setIsOpen={setIsOpen}
+            setPhotoIndex={setPhotoIndex}
+            precedingLength={precedingLength} />
+    </>);    
 }
 
 const Subtitle = ({text}) => {
