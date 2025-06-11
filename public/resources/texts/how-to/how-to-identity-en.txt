@@ -1,0 +1,9 @@
+For each character, fill all active fields.|||
+Choose one category.|||
+Put each requested proper name or year.|||
+For the year, watch out for the era.|||
+Select all affiliations of the character.|||
+Watch out for spelling !|||
+You can check your answers as many times as you want.|||
+When you check your answers, the right ones become fixed, the others are reset. This way you can see what to change.|||
+As long as you don't stop guessing, it'll be considered as true.

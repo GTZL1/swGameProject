@@ -32,7 +32,8 @@
     "react-router": "^7.5.0",
     "react-router-dom": "^7.6.1",
     "react-scripts": "^5.0.1",
-    "react-select": "^5.10.1"
+    "react-select": "^5.10.1",
+    "yet-another-react-lightbox": "^3.23.2"
   },
   "browserslist": {
     "production": [

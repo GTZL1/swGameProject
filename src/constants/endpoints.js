@@ -7,11 +7,13 @@ const ENDPOINTS = {
     'HOW_TO': '/how-to',
     'SUPPORT': '/support',
     'ABOUT_TEXT_PATH': '/resources/texts/about/',
+    'HOW_TO_TEXT_PATH': '/resources/texts/how-to/',
     'BACKEND_URL': 'https://delicate-chickens-6ab648b3a3.strapiapp.com',
     'IMAGE_BACKEND_URL': 'https://asimplestarwarsgame.net/images/',
     'ME_IMAGE': 'heart.png',
     'YT_LINK': 'https://www.youtube.com/@EagleBricks-sw6',
-    'INSTA_LINK': 'https://www.instagram.com/dd.eaglebricks'
+    'INSTA_LINK': 'https://www.instagram.com/dd.eaglebricks',
+    'DISCORD_LINK': ''
 };
 
 ENDPOINTS.GET_ALL_QUESTION_DOCIDS = `${ENDPOINTS.BACKEND_URL}/api/question-api/all`;

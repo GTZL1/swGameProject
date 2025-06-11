@@ -13,3 +13,7 @@
 .page {
     @apply flex justify-center mt-5;
 }
+
+.info-page {
+    @apply question-div max-w-[80%] p-3 text-justify text-[13px] mb-12
+}
