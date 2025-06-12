@@ -58,7 +58,7 @@ const HowToPage = () => {
                 <Subtitle text={t('how_to.voilà')} />
                 <Utils.IconsParagraph text={t('how_to.discord')} icons={[ICONS.BLUE_DISCORD]}
                 links={[ENDPOINTS.DISCORD_LINK]} lineBreak={false}/>
-                <p className="mt-8">{t('how_to.real_fan')}</p>
+                    <p className="mt-8">{t('how_to.real_fan')}</p>
             </article>
             <Lightbox open={isOpen}
                 close={() => setIsOpen(false)}

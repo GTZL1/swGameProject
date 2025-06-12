@@ -14,9 +14,14 @@ const HomePage = () => {
         <TitleBar nameP={t('titles.main_title')} />
         <section className={`${contentFont} page flex-col items-center`}>
             <div className='flex flex-wrap justify-center'>
-                <GameModeBox endpoint = {ENDPOINTS.QUESTION_PAGE} boxText = {t('titles.question_intro')} buttonText={t('titles.question_button')} />
-                <GameModeBox endpoint = {ENDPOINTS.IDENTITY_PAGE} boxText = {t('titles.identity_intro')} buttonText={t('titles.identity_button')} />
-                <GameModeBox endpoint = {ENDPOINTS.DAILY_PAGE} boxText = {t('titles.daily_intro')} buttonText={t('titles.daily_title')} />
+                <GameModeBox endpoints = {[ENDPOINTS.DAILY_PAGE]}
+                    title = {t('titles.daily_title')}
+                    text={t('titles.daily_intro')}
+                    buttonTexts={[t('titles.daily_button')]} />
+                <GameModeBox endpoints = {[ENDPOINTS.QUESTION_PAGE, ENDPOINTS.IDENTITY_PAGE]}
+                    title = {t('titles.freeplay_title')}
+                    text={t('titles.freeplay_intro')}
+                    buttonTexts={[t('titles.question_button'), t('titles.identity_button')]} />
             </div>
         </section>
     </>)
