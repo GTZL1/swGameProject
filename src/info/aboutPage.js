@@ -6,6 +6,8 @@ import ICONS from "../constants/icons.js";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Utils from "./utils.js";
+import CommonUtils from "../utils/commonUtils.js";
+import { INFO_BACKGROUND_CLASS } from "../constants/constants.js";
 
 const AboutPage = () => {
     const { i18n, t } = useTranslation();
@@ -14,7 +16,7 @@ const AboutPage = () => {
     const [discordMessage, setDiscordMessage] = useState(null);
     const [networkMessage, setNetworkMessage] = useState(null);
 
-    useEffect(() => Utils.setBackgroundClass(document), []);
+    useEffect(() => CommonUtils.setBackgroundClass(document, INFO_BACKGROUND_CLASS), []);
 
     useEffect(() => {
         axios
