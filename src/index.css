@@ -33,7 +33,3 @@ body::before {
     @apply absolute inset-0 bg-[url('../public/resources/icons/jfo-background.jpg')] bg-cover bg-center opacity-75;
     z-index: -1;
 }
-
-.info-background::before {
-    @apply bg-[url('../public/resources/icons/vertical-background.jpg')] md:bg-[url('../public/resources/icons/jfo-background.jpg')] !important;
-}

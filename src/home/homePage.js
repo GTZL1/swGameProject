@@ -5,10 +5,14 @@ import { useTranslation } from "react-i18next";
 import GameModeBox from './gameModeBox.js';
 import { useFont } from '../context/FontContext.js';
 import '../game/common.css';
+import CommonUtils from '../utils/commonUtils.js';
+import { HOME_BACKGROUND_CLASS } from '../constants/constants.js';
 
 const HomePage = () => {
     const {t} = useTranslation();
     const {contentFont} = useFont();
+
+    useEffect(() => CommonUtils.setBackgroundClass(document, HOME_BACKGROUND_CLASS), []);
     
     return (<>
         <TitleBar nameP={t('titles.main_title')} />

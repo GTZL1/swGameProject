@@ -17,3 +17,13 @@
 .info-page {
     @apply question-div max-w-[80%] p-3 text-justify text-[13px] mb-12
 }
+
+/*Backgrounds per pages*/
+
+.info-background::before {
+    @apply bg-[url('../../public/resources/icons/vertical-background.jpg')] md:bg-[url('../../public/resources/icons/jfo-background.jpg')] !important;
+}
+
+.home-background::before {
+    @apply bg-[url('../../public/resources/icons/big-green-planet.jpg')] !important;
+}

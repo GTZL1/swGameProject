@@ -11,6 +11,7 @@ export const NO_ANSWER_CHAR = ' ';
 
 export const SEPARATOR_IN_FILES = '|||';
 
+export const HOME_BACKGROUND_CLASS = "home-background";
 export const INFO_BACKGROUND_CLASS = "info-background";
 
 export const HOW_TO_IMAGE_QUESTIONS = ['question_img1.png', 'question_img2.png'];
