@@ -11,13 +11,6 @@ class Utils {
             </div>
         </div>);
     }
-
-    static setBackgroundClass(document) {
-        document.body.classList.add("info-background");
-        return () => {
-            document.body.classList.remove("info-background");
-        };
-    }
 }
 
 export default Utils;
