@@ -21,7 +21,7 @@ const HomePage = () => {
                 <GameModeBox endpoints = {[ENDPOINTS.DAILY_PAGE]}
                     title = {t('titles.daily_title')}
                     text={t('titles.daily_intro')}
-                    buttonTexts={[t('titles.daily_button')]} />
+                    buttonTexts={[t('titles.daily_button')]} isXl = {true} />
                 <GameModeBox endpoints = {[ENDPOINTS.QUESTION_PAGE, ENDPOINTS.IDENTITY_PAGE]}
                     title = {t('titles.freeplay_title')}
                     text={t('titles.freeplay_intro')}
