@@ -3,7 +3,7 @@ import TitleBar from '../../utils/title/title.js';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import ENDPOINTS from '../../constants/endpoints.js';
-import { NUMBER_DAILY_QUESTIONS, NUMBER_DAILY_CHARACTERS, }
+import { NUMBER_DAILY_QUESTIONS, NUMBER_DAILY_CHARACTERS, RIGHT_ANSWER_CHAR, WRONG_ANSWER_CHAR }
     from '../../constants/constants.js';
 import IdentityForm from '../identity/identityForm.js';
 import QuestionForm from '../question/questionForm.js';
@@ -37,12 +37,9 @@ const DailyPage = () => {
             questionScore={questionScore}
             setCurrentId={setCurrentId}
             setQuestionScore={setQuestionScore}
-            setCharacterScore={setCharacterScore }/>);
-
-    useEffect(() => {
-        setAllCorrect(null);
-        setIsNoob(false);
-    }, [currentId]);
+            setCharacterScore={setCharacterScore}
+            setAllCorrect={setAllCorrect}
+            setIsNoob={setIsNoob}/>);
     
     useEffect(() => {
         if (effectRan.current) {
@@ -138,14 +135,16 @@ const DailyPage = () => {
                 <QuestionForm questionDocId={questionDocIds[currentId]}
                     isCorrect={allCorrect}
                     setIsCorrect={setAllCorrect}
-                    answerProps={dailyNextBox} />
+                    answerProps={dailyNextBox}  
+                />
             )}
             {(currentId >= NUMBER_DAILY_QUESTIONS && currentId < (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) && (
                 <IdentityForm characterDocId={charDocIds[currentId-NUMBER_DAILY_QUESTIONS]}
                     allCorrect={allCorrect}
                     setAllCorrect={setAllCorrect}
                     setIsNoob={setIsNoob}
-                    answerProps={dailyNextBox} />
+                    answerProps={dailyNextBox}
+                />
             )}
             {(currentId >= (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS)) && (<>
                 <ScoreBox questionScore={questionScore} characterScore={characterScore} />

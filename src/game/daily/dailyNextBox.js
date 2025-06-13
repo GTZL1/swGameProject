@@ -4,7 +4,7 @@ import Utils from './utils.js';
 import { NUMBER_DAILY_QUESTIONS, NUMBER_DAILY_CHARACTERS, RIGHT_ANSWER_CHAR, WRONG_ANSWER_CHAR } from '../../constants/constants.js';
 
 const DailyNextBox = ({currentId, allCorrect, isNoob, characterScore, questionScore,
-        setCurrentId, setQuestionScore, setCharacterScore}) => {
+        setCurrentId, setQuestionScore, setCharacterScore, setAllCorrect, setIsNoob}) => {
     const { t } = useTranslation();
     const effectRan = useRef(false);
     
@@ -13,6 +13,7 @@ const DailyNextBox = ({currentId, allCorrect, isNoob, characterScore, questionSc
     const chars = Utils.onlyScore(score,range).split('');
 
     useEffect(() => {
+        //prevent double execution in strict mode
         if (effectRan.current) {
             return;
         }
@@ -42,6 +43,8 @@ const DailyNextBox = ({currentId, allCorrect, isNoob, characterScore, questionSc
         <button className='mt-2'
             onClick={() => {
                 setCurrentId(currentId + 1);
+                setAllCorrect(null);
+                setIsNoob(false);
             }}>
             {(currentId === (NUMBER_DAILY_QUESTIONS + NUMBER_DAILY_CHARACTERS -1))
                 ? t('daily.see_score') : t('daily.next')}

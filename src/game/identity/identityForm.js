@@ -215,7 +215,6 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
         if(character.deathPlanet !== undefined) {
             setDeathPlanet(character.deathPlanet);
         }
-        
         setSelectedCategory(character.category);
         setSelectedAllegiances(Utils.translateAllegiances(character.allegiances, i18n, t));
         setAllegiancesAreCorrect(true);
