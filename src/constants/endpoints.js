@@ -8,6 +8,7 @@ const ENDPOINTS = {
     'SUPPORT': '/support',
     'ABOUT_TEXT_PATH': '/resources/texts/about/',
     'HOW_TO_TEXT_PATH': '/resources/texts/how-to/',
+    'SUPPORT_TEXT_PATH': '/resources/texts/support/',
     'BACKEND_URL': 'https://delicate-chickens-6ab648b3a3.strapiapp.com',
     'IMAGE_BACKEND_URL': 'https://asimplestarwarsgame.net/images/',
     'ME_IMAGE': 'heart.png',

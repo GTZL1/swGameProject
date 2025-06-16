@@ -90,6 +90,12 @@
         "discord": "Si tu as toujours une question, tu peux la poser sur Discord.",
         "real_fan": "Et si c'est trop facile pour toi, et bien... il y a un bouton pour celles et ceux qui sont vraiment fans :)."
     },
+     "support": {
+        "title" : "Tu aimes mon projet et veux le soutenir ?",
+        "intro" : "En voilà une bonne nouvelle ! Tu peux le faire de deux manières.",
+        "share" : "support-share-fr.txt",
+        "kofi" : "support-kofi-fr.txt"
+    },
     "loading" : {
         "title" : "Chargement",
         "precision" : "Cela peut prendre jusqu'à une minute."

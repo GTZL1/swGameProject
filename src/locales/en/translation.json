@@ -76,6 +76,12 @@
         "discord": "If you still have a question, you can ask it on Discord.",
         "real_fan": "And if it's too easy for you, well... there's a button for those who are real fans :)."
     },
+    "support": {
+        "title" : "You like my project and want to support it ?",
+        "intro" : "That's some great news ! You have two ways to do this.",
+        "share" : "support-share-en.txt",
+        "kofi" : "support-kofi-en.txt"
+    },
     "loading" : {
         "title" : "Loading",
         "precision" : "It can take up to one minute."
