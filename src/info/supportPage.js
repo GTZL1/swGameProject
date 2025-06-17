@@ -29,8 +29,7 @@ const SupportPage = () => {
     return (<>
         <TitleBar nameP={t('titles.support_title')} />
         <section className={`${contentFont} page flex-col items-center`}>
-            <article className={`info-page max-w-[70%] mx-10
-                items-center`}>
+            <article className={`info-page max-w-[70%] mx-10 items-center`}>
                 <p className='text-cyan-600 font-bold text-sm'>{t('support.title')}</p>
                 <br/><p>{t('support.intro')}</p>
                 <Utils.IconsParagraph text={shareMessage} icons={[ICONS.BLUE_DISCORD]}

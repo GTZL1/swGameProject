@@ -1,6 +1,7 @@
 Pour chaque personnage, remplis tous les champs actifs.|||
 Choisis une catégorie.|||
 Rentre chaque nom ou année requis.|||
+L'espèce est toujours au masculin.|||
 Pour l'année, attention à l'ère.|||
 Sélectionne toutes les affiliations du personnage.|||
 Attention à l'orthographe !|||
