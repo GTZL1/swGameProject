@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import Utils from './utils.js';
-import { NUMBER_DAILY_QUESTIONS, NUMBER_DAILY_CHARACTERS, RIGHT_ANSWER_CHAR, WRONG_ANSWER_CHAR } from '../../constants/constants.js';
+import { NUMBER_DAILY_QUESTIONS, NUMBER_DAILY_CHARACTERS, RIGHT_ANSWER_CHAR, WRONG_ANSWER_CHAR, NO_ANSWER_CHAR } from '../../constants/constants.js';
+import i18n from '../../i18n.js';
 
 const DailyNextBox = ({currentId, allCorrect, isNoob, characterScore, questionScore,
         setCurrentId, setQuestionScore, setCharacterScore, setAllCorrect, setIsNoob}) => {
@@ -22,6 +23,10 @@ const DailyNextBox = ({currentId, allCorrect, isNoob, characterScore, questionSc
         chars[score.length] = allCorrect ? RIGHT_ANSWER_CHAR : WRONG_ANSWER_CHAR;
         updateScore(currentId, allCorrect, isNoob);
     }, []);
+
+    useEffect(() => {
+        score.pop();
+    }, [i18n.language]);
 
     function updateScore(currentId, isCorrect, isNoob) {
         document.cookie = `currentId=${currentId}; path=/; max-age=${Utils.cookieLife()}; samesite=lax`;

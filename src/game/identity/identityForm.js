@@ -53,8 +53,21 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
     useEffect(() => {
         if (!characterDocId) return;
 
-        setAllCorrect(null);
         fetchCharacter();
+        setFirstName(null);
+        setLastName(null);
+        setSpecie(null);
+        setBirthDate(null);
+        setBirthPlanet(null);
+        setDeathDate(null);
+        setDeathPlanet(null);
+        setBirthEra(null);
+        setDeathEra(null);
+        setSelectedCategory(null);
+        setSelectedAllegiances([]);
+        setAllegiancesAreCorrect(false);
+        setAllCorrect(null);
+        setIsNoob(false);
     }, [characterDocId]);
 
     useEffect(() => {
@@ -80,23 +93,6 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
             fetchCharacter();
         }
     }, [i18n.language]);
-
-    useEffect(() => {
-        setFirstName(null);
-        setLastName(null);
-        setSpecie(null);
-        setBirthDate(null);
-        setBirthPlanet(null);
-        setDeathDate(null);
-        setDeathPlanet(null);
-        setBirthEra(null);
-        setDeathEra(null);
-        setSelectedCategory(null);
-        setSelectedAllegiances([]);
-        setAllegiancesAreCorrect(false);
-        setAllCorrect(null);
-        setIsNoob(false);
-    }, [character]);
 
     function fetchCharacter() {
         setLoading(true);
@@ -296,7 +292,7 @@ const IdentityForm = ({characterDocId, allCorrect, isNoob, setAllCorrect, setIsN
         {loading ? <LoadingScreen flagFiles = {FLAG_FILES} /> : <>
             <Image />
             <div className='flex flex-col items-center'>
-                <form onSubmit={checkAnswers} className='w-[55vw] min-w-96 mx-3 mb-4 px-5 py-3 question-div flex flex-col justify-center items-center'>
+                <form onSubmit={checkAnswers} key={characterDocId} className='w-[55vw] min-w-96 mx-3 mb-4 px-5 py-3 question-div flex flex-col justify-center items-center'>
                     <Category />
                     <div className='items-start w-full'>
                         <Names reqLast={character?.lastName !== null} />

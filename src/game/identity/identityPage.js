@@ -11,7 +11,8 @@ const IdentityPage = () => {
     return (<>
       <TitleBar nameP={t('titles.identity_title')}/>
       <section className={`${contentFont} page game-button`}>
-        <IdentityBox /></section>
+        <IdentityBox />
+      </section>
     </>);
 }
 
