@@ -8,6 +8,7 @@ const ICONS = {
     'BLUE_DISCORD' : 'discord_blue.png',
     'DISCORD' : 'discord.png',
     'COFFEE' : 'coffee.png',
+    'KOFI_LARGE' : 'kofi-large.png',
     'MENU' : 'menu.png'
 }
 

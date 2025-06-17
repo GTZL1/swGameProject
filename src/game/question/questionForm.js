@@ -94,7 +94,7 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => 
         </>);
     }
 
-    return(<div className="flex flex-col max-w-[50vw] items-center">
+    return(<div className="flex flex-col sm:max-w-[50vw] max-w-[65vw] items-center">
          {loading ? <LoadingScreen flagFiles = {FLAG_FILES} /> : <>
             {(question !== null) &&
                 <img src={(`${ENDPOINTS.IMAGE_BACKEND_URL}${question.getImageUrl()}`)} 
