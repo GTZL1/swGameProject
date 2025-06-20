@@ -1,5 +1,5 @@
 Just answer the displayed question.|||
 With only the requested word(s), without any determiner or plural|||
-The words "the", "a", "it's" are removed by the system, but it's better getting used not to write them.|||
+The words like "the", "a", "it's" are removed by the system, but it's better getting used not to write them.|||
 Click on Check with an empty answer to give up if you don't know.|||
 Watch out for spelling !
