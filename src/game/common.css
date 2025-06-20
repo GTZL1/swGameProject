@@ -21,7 +21,7 @@
 /*Backgrounds per pages*/
 
 .info-background::before {
-    @apply bg-[url('../../public/resources/icons/vertical-background.jpg')] md:bg-[url('../../public/resources/icons/jfo-background.jpg')] !important;
+    @apply bg-[url('../../public/resources/icons/vertical-background.jpg')] !important; /*md:bg-[url('../../public/resources/icons/jfo-background.jpg')] !important;*/
 }
 
 .home-background::before {
