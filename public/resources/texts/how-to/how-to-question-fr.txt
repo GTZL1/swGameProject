@@ -1,5 +1,5 @@
 Réponds simplement à la question posée.|||
 Avec uniquement le ou les mots nécessaires, sans déterminant ou pluriel.|||
-N'écris aucun autre mot comme "le", "la", "c'est", "un", "une", etc.|||
+Les mots comme "le", "la", "c'est", "un", "une" sont supprimés par le système mais il vaut mieux s'habituer de n'en mettre aucun.|||
 Clique sur Vérifier avec une réponse vide pour abandonner si tu ne sais pas.|||
 Attention à l'orthographe !

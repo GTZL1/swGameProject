@@ -15,7 +15,7 @@ const LanguageSwitch = ( {style} ) => {
     const otherLanguage = ALL_LANGUAGES.filter((lang) => lang != i18n.language);
     return (<button className= {`${style}`} key={isClicked} onClick={() => handleLanguageChange(otherLanguage)}>
             <img className="max-h-full" src={'/resources/icons/' + ICONS[otherLanguage]} alt="Other language icon"/>
-            </button>
+        </button>
     );
 };
 

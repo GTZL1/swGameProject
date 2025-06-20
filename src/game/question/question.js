@@ -1,3 +1,5 @@
+import { WORDS_TO_REMOVE } from "../../constants/constants.js";
+
 class Question {
     #documentId;
     #questionTitle; 
@@ -34,7 +36,8 @@ class Question {
     }
 
     checkAnswer(userInput) {
-        return userInput.toLowerCase() === this.#answer.toLowerCase();
+        return userInput.toLowerCase().split(' ').filter(word => !WORDS_TO_REMOVE.includes(word)).join(' ').trimEnd()
+            === this.#answer.toLowerCase();
     }
 }
 

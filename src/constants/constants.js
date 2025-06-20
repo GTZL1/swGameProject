@@ -19,3 +19,6 @@ export const HOW_TO_IMAGE_IDENTITY = ['identity_img1.png', 'identity_img2.png', 
 export const HOW_TO_IMAGE_DAILY = ['daily_img1.png', 'daily_img2.png', 'daily_img3.png'];
 export const FLAG_FILES = ['empire.png', 'rebels.png', 'chiss_ascendancy.svg',
     'jedi.svg', 'nihil.svg', 'republic.png', 'starbird.png'];
+
+export const WORDS_TO_REMOVE = ['a', 'an', 'some', 'the', 'on', 'sur', 'le', 'la', 'un', 'une', 'les', 'des', "it's", "c'est",
+    "c'était", 'it', 'was', 'for', 'pour'];

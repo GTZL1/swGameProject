@@ -50,7 +50,7 @@ const QuestionForm = ({questionDocId, isCorrect, setIsCorrect, answerProps}) => 
 
     function checkAnswer(event) {
         event.preventDefault();
-        const userAnswer = event.currentTarget.elements.answerInput.value.trimEnd();
+        const userAnswer = event.currentTarget.elements.answerInput.value;
         setIsCorrect(question.checkAnswer(userAnswer));
         setUserInput(question.getAnswer());
     }
