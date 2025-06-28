@@ -35,7 +35,7 @@ const SupportPage = () => {
                 <Utils.IconsParagraph text={shareMessage} icons={[ICONS.BLUE_DISCORD]}
                     links={[ENDPOINTS.DISCORD_LINK]} linebreak={true} />
                 <Utils.IconsParagraph text={kofiMessage} icons={[ICONS.KOFI_LARGE]}
-                    links={['/']} linebreak={true} />
+                    links={[ENDPOINTS.KOFI_LINK]} linebreak={true} />
             </article>
         </section>
     </>);
