@@ -14,7 +14,7 @@ const ENDPOINTS = {
     'ME_IMAGE': 'heart.png',
     'YT_LINK': 'https://www.youtube.com/@EagleBricks-sw6',
     'INSTA_LINK': 'https://www.instagram.com/dd.eaglebricks',
-    'DISCORD_LINK': '',
+    'DISCORD_LINK': 'https://discord.gg/yfP4fxEFxg',
     'KOFI_LINK': 'https://ko-fi.com/swsimplegame'
 };
 
