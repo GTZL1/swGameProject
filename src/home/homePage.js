@@ -8,7 +8,6 @@ import '../game/common.css';
 import CommonUtils from '../utils/commonUtils.js';
 import { HOME_BACKGROUND_CLASS } from '../constants/constants.js';
 
-//Home page
 const HomePage = () => {
     const {t} = useTranslation();
     const {contentFont} = useFont();
